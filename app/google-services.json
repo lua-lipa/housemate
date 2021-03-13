@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "780164046104",
+    "firebase_url": "https://housemate-fce3b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "housemate-fce3b",
+    "storage_bucket": "housemate-fce3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780164046104:android:7a2f849d12aa9c4590926d",
+        "android_client_info": {
+          "package_name": "com.example.housemate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780164046104-4ei5krd5vellofupnogeboep42c18tst.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpojC86l4VLvw551Ryc5MP2b74ACJhu1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780164046104-4ei5krd5vellofupnogeboep42c18tst.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
