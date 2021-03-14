@@ -192,7 +192,7 @@
         android:layout_marginRight="7dp"
         android:layout_marginBottom="22dp"
         android:fontFamily="sans-serif-black"
-        android:text="@string/sign_up1"
+        android:text="@string/sign_up"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
