@@ -128,8 +128,8 @@
         android:layout_marginLeft="11dp"
         android:text="@string/full_name"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/enterEmailPlaceholder2"
-        app:layout_constraintStart_toStartOf="@+id/enterEmailPlaceholder2"
+        app:layout_constraintBottom_toTopOf="@+id/enterFullName"
+        app:layout_constraintStart_toStartOf="@+id/enterFullName"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
@@ -143,11 +143,11 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/enterEmailPlaceholder"
         app:layout_constraintStart_toStartOf="@+id/enterEmailPlaceholder"
-        app:layout_constraintTop_toBottomOf="@+id/enterEmailPlaceholder2" />
+        app:layout_constraintTop_toBottomOf="@+id/enterFullName" />
 
     <EditText
         android:autofillHints="email"
-        android:id="@+id/enterEmailPlaceholder2"
+        android:id="@+id/enterFullName"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="23dp"

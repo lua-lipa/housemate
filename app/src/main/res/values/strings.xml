@@ -16,4 +16,6 @@
     <string name="dot">•</string>
     <string name="home">Home</string>
     <string name="logo">Logo</string>
+    <string name="logout">logout</string>
+    <string name="you_have_logged_in">You have logged in!</string>
 </resources>
