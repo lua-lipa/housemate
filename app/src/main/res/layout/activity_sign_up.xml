@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/orange"
+    tools:context=".LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:backgroundTint="@color/white"
+            android:background="@drawable/ic_baseline_arrow_back_ios_24"
+            android:layout_width="24dp"
+            android:layout_height="24dp">
+
+        </ImageButton>
+    </RelativeLayout>
+
+
+    <!--Housemate Logo-->
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="38dp"
+        app:srcCompat="@mipmap/housemat_logo_white"
+        android:contentDescription="@string/logo">
+    </ImageView>
+
+    <!--Page Title-->
+    <RelativeLayout
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/signUpText"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            android:fontFamily="@font/cocogoose"
+            android:textSize="36sp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <TextView
+            android:id="@+id/dot"
+            android:text="@string/dot"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:layout_toRightOf="@+id/signUpText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/signUpText">
+        </TextView>
+
+    </RelativeLayout>
+
+    <!--Name-->
+    <TextView
+        android:id="@+id/nameTitle"
+        android:text="@string/full_name"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <EditText
+        android:id="@+id/editNameSignUp"
+        android:hint="@string/enter_your_full_name"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_edittext_orange"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </EditText>
+
+    <!--Email-->
+    <TextView
+        android:id="@+id/emailTitle"
+        android:text="@string/email"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <EditText
+        android:id="@+id/editEmailSignUp"
+        android:hint="@string/enter_your_email"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_edittext_orange"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </EditText>
+
+    <!--Password-->
+    <TextView
+        android:id="@+id/passwordTitle"
+        android:text="@string/password"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <EditText
+        android:id="@+id/editPasswordSignUp"
+        android:hint="@string/enter_your_password"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_edittext_orange"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </EditText>
+
+
+
+    <!--Sign Up Button-->
+    <Button
+        android:id="@+id/signUpButton"
+        android:text="@string/sign_up"
+        android:textColor="@color/orange"
+        android:textAllCaps="false"
+        android:fontFamily="@font/roboto_bold"
+        android:background="@drawable/orange_button"
+        app:backgroundTint="@color/white"
+        android:layout_marginBottom="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+
+
+
+
+
+
+
+</LinearLayout>
