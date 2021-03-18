@@ -36,6 +36,5 @@ public class customToast {
 
         toast.setGravity(Gravity.BOTTOM,32,32);
         toast.show();
-
     }
 }
