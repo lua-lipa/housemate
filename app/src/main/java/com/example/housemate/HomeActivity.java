@@ -19,6 +19,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
     }
+
 //        btnLogout = findViewById(R.id.logoutButton);
 //        userTextView = findViewById(R.id.loggedInText);
 //
