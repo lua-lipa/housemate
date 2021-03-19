@@ -27,7 +27,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/loginText"
+            android:id="@+id/loginTitleTextView"
             android:text="@string/login"
             android:textColor="@color/black"
             android:fontFamily="@font/cocogoose"
@@ -39,21 +39,21 @@
         </TextView>
 
         <TextView
-            android:id="@+id/dot"
+            android:id="@+id/loginDot"
             android:text="@string/dot"
             android:textColor="@color/orange"
             android:textSize="48sp"
-            android:layout_toRightOf="@+id/loginText"
+            android:layout_toRightOf="@+id/loginTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/loginText">
+            android:layout_toEndOf="@+id/loginTitleTextView">
         </TextView>
 
     </RelativeLayout>
 
     <!--Email-->
     <TextView
-        android:id="@+id/emailTitle"
+        android:id="@+id/loginEmailTitle"
         android:text="@string/email"
         android:textSize="12sp"
         android:paddingStart="5dp"
@@ -63,7 +63,7 @@
     </TextView>
 
     <AutoCompleteTextView
-        android:id="@+id/editEmailLogin"
+        android:id="@+id/loginEmailInput"
         android:hint="@string/enter_your_email"
         android:background="@drawable/rounded_edittext"
         android:inputType="textEmailAddress"
@@ -78,7 +78,7 @@
     <!--Password-->
     <!--Title-->
     <TextView
-        android:id="@+id/passwordTitle"
+        android:id="@+id/loginPasswordTitle"
         android:text="@string/password"
         android:textSize="12sp"
         android:paddingStart="5dp"
@@ -89,7 +89,7 @@
 
     <!--Input Field-->
     <AutoCompleteTextView
-        android:id="@+id/editPasswordLogin"
+        android:id="@+id/loginPasswordInput"
         android:hint="@string/enter_your_password"
         android:background="@drawable/rounded_edittext"
         android:inputType="textPassword"
@@ -122,7 +122,7 @@
 
         <!--Text-->
         <TextView
-            android:id="@+id/noAccount"
+            android:id="@+id/loginNoAccountText"
             android:text="@string/don_t_have_an_account"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
 
         <!--Sign Up Button-->
         <Button
-            android:id="@+id/signUpButton"
+            android:id="@+id/loginSignUpButton"
             android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textColor="@color/orange"
@@ -142,8 +142,8 @@
             android:paddingEnd="0dp"
             android:paddingLeft="5dp"
             android:paddingRight="0dp"
-            android:layout_toEndOf="@+id/noAccount"
-            android:layout_toRightOf="@+id/noAccount"
+            android:layout_toEndOf="@+id/loginNoAccountText"
+            android:layout_toRightOf="@+id/loginNoAccountText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </Button>

@@ -14,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:id="@+id/signUpBackButton"
             android:backgroundTint="@color/white"
             android:background="@drawable/ic_baseline_arrow_back_ios_24"
             android:layout_width="24dp"
@@ -25,7 +26,7 @@
 
     <!--Housemate Logo-->
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/signUpAppLogo"
         android:layout_gravity="center"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/signUpText"
+            android:id="@+id/signUpTitle"
             android:text="@string/sign_up"
             android:textColor="@color/white"
             android:fontFamily="@font/cocogoose"
@@ -54,21 +55,21 @@
         </TextView>
 
         <TextView
-            android:id="@+id/dot"
+            android:id="@+id/signUpDot"
             android:text="@string/dot"
             android:textColor="@color/white"
             android:textSize="48sp"
-            android:layout_toRightOf="@+id/signUpText"
+            android:layout_toRightOf="@+id/signUpTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/signUpText">
+            android:layout_toEndOf="@+id/signUpTitle">
         </TextView>
 
     </RelativeLayout>
 
     <!--Name-->
     <TextView
-        android:id="@+id/nameTitle"
+        android:id="@+id/signUpNameTitle"
         android:text="@string/full_name"
         android:textColor="@color/white"
         android:textSize="12sp"
@@ -79,35 +80,8 @@
     </TextView>
 
     <EditText
-        android:id="@+id/editNameSignUp"
+        android:id="@+id/signUpNameInput"
         android:hint="@string/enter_your_full_name"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        android:background="@drawable/rounded_edittext_orange"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_marginBottom="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-    </EditText>
-
-    <!--Email-->
-    <TextView
-        android:id="@+id/emailTitle"
-        android:text="@string/email"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </TextView>
-
-    <EditText
-        android:id="@+id/editEmailSignUp"
-        android:hint="@string/enter_your_email"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
         android:background="@drawable/rounded_edittext_orange"
@@ -120,9 +94,36 @@
         android:layout_height="50dp">
     </EditText>
 
+    <!--Email-->
+    <TextView
+        android:id="@+id/signUpEmailTitle"
+        android:text="@string/email"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <EditText
+        android:id="@+id/signUpEmailInput"
+        android:hint="@string/enter_your_email"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_edittext_orange"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </EditText>
+
     <!--Password-->
     <TextView
-        android:id="@+id/passwordTitle"
+        android:id="@+id/signUpPasswordTitle"
         android:text="@string/password"
         android:textColor="@color/white"
         android:textSize="12sp"
@@ -133,7 +134,7 @@
     </TextView>
 
     <EditText
-        android:id="@+id/editPasswordSignUp"
+        android:id="@+id/signUpPasswordInput"
         android:hint="@string/enter_your_password"
         android:textColorHint="@color/white"
         android:textColor="@color/white"

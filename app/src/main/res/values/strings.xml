@@ -18,4 +18,13 @@
     <string name="logo">Logo</string>
     <string name="logout">logout</string>
     <string name="you_have_logged_in">You have logged in!</string>
+    <string name="family">Family</string>
+    <string name="create_or_join">Create or join a family</string>
+    <string name="family_name">Family Name</string>
+    <string name="enter_a_name_for_your_family">Enter a name for your family</string>
+    <string name="invite_code">Invite Code</string>
+    <string name="enter_your_invite_code">Enter your invite code</string>
+    <string name="continue_text">Continue</string>
+    <string name="family_icon">Family Icon</string>
+    <string name="create_icon">Create Icon</string>
 </resources>
