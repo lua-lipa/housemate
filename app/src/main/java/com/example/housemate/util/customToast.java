@@ -28,11 +28,7 @@ public class customToast {
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_LONG);
 
-        if(error){
-            toastText.setTextColor(Color.parseColor("F4F4F4"));
-        }else{
-            toastText.setTextColor(Color.parseColor("G5G5G5"));
-        }
+
 
         toast.setGravity(Gravity.BOTTOM,32,32);
         toast.show();

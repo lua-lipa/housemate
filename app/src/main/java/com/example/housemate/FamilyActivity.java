@@ -1,6 +1,7 @@
 package com.example.housemate;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,10 +27,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.Transaction;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -128,21 +133,29 @@ public class FamilyActivity extends AppCompatActivity {
                     //make sure input is not empty
                     //add family to database
                     //Create a user map so we can create a user in the user collection
-                    currentUser = mAuth.getCurrentUser();
-                    String currentUserId = currentUser.getUid();
+                    String userId = mAuth.getCurrentUser().getUid();
+                    DocumentReference userRef = db.collection("users").document(userId);
 
                     String familyName = inputEditText.getText().toString().trim();
                     String familyId = db.collection("families").document().getId();
+                    DocumentReference familyRef = db.collection("families").document(familyId);
+
                     Map<String, Object> familyObj = new HashMap();
                     familyObj.put("familyName", familyName);
                     familyObj.put("familyId", familyId);
-                    familyObj.put("members", Arrays.asList(currentUserId));
+                    familyObj.put("members", Arrays.asList(userId));
 
-                    //save to our firestore database
-                    db.collection("families").add(familyObj)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    Map<String, Object> userObj = new HashMap();
+                    userObj.put("family", familyId);
+
+                    WriteBatch batch = db.batch();
+                    batch.set(familyRef, familyObj);
+                    batch.set(userRef, userObj, SetOptions.merge());
+
+                    batch.commit()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
+                                public void onSuccess(Void aVoid) {
                                     //go to success activity
                                     Intent successActivity = new Intent(FamilyActivity.this, SuccessActivity.class);
                                     startActivity(successActivity);
@@ -151,18 +164,83 @@ public class FamilyActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    //error message
+                                    Toast.makeText(FamilyActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                                 }
                             });
+
 
                 } else if (currentOption == "joinFamily") {
                     //make sure input is not empty
                     //add user to family
                     String inviteCode = inputEditText.getText().toString().trim();
+                    DocumentReference familyRef = db.collection("families").document(inviteCode);
+
+
+                    //Gets the family Id based on the invite code
+                    //Checks if it exists
+                    //If it does then add the user Id to the fam
+                    db.runTransaction(new Transaction.Function<Void>() {
+                        @Nullable
+                        @Override
+                        public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                            DocumentSnapshot snapshot = transaction.get(familyRef);
+                            if (snapshot.exists()) {
+                                String userId = mAuth.getUid();
+                                String familyId = snapshot.getString("familyId");
+
+                                DocumentReference userRef = db.collection("users").document();
+
+                                Map<String, Object> userObj = new HashMap();
+                                userObj.put("family", familyId);
+
+                                transaction.update(familyRef, "members", FieldValue.arrayUnion(userId));
+                                transaction.set(userRef, userObj, SetOptions.merge());
+                            } else {
+                                Toast.makeText(FamilyActivity.this, "Invalid Invite Code", Toast.LENGTH_LONG).show();
+                            }
+
+                            return null;
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(FamilyActivity.this, "great success", Toast.LENGTH_LONG).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(FamilyActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
+                    /*
                     CollectionReference familiesRef = db.collection("families");
-                    Query query = familiesRef.whereEqualTo("familyId", inviteCode);
+                    db.collection("families").whereEqualTo("familyId", inviteCode)
+                            .limit(1)
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if (!queryDocumentSnapshots.isEmpty()) {
+                                        for (QueryDocumentSnapshot family : queryDocumentSnapshots) {
+                                            //add user to family
+                                            //add family to user
+                                        }
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                    */
 
 
+                         /*
+                    //get the family with the invite code you entered
                     db.collection("families").whereEqualTo("familyId", inviteCode)
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -205,6 +283,7 @@ public class FamilyActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+                    */
 
 
 

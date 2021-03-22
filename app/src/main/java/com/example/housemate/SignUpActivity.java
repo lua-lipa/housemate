@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -55,47 +56,44 @@ public class SignUpActivity extends AppCompatActivity {
                 String fullName = nameInput.getText().toString().trim();
                 String email = emailInput.getText().toString().trim();
                 String password = passwordInput.getText().toString().trim();
-                Log.d(TAG, "email: " + email + " password: " + password + " name: " + fullName);
+
                 mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        .addOnSuccessListener(authResult -> {
+                            //Get userId and set reference
+                            currentUser = mAuth.getCurrentUser();
+                            String uid = currentUser.getUid();
+                            DocumentReference ref = db.collection("users").document(uid);
+
+                            //Populate the document
+                            Map<String, Object> userObj = new HashMap();
+                            userObj.put("userId", uid);
+                            userObj.put("name", fullName);
+
+                            //Save document to firestore
+                            ref.set(userObj)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            //Go to family activity
+                                            Intent familyActivityIntent = new Intent(SignUpActivity.this, FamilyActivity.class);
+                                            startActivity(familyActivityIntent);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(SignUpActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d(TAG, "1");
-                                if (task.isSuccessful()) {
-                                    //Create user object
-                                    currentUser = mAuth.getCurrentUser();
-                                    String currentUserId = currentUser.getUid();
-
-                                    //Create a user map so we can create a user in the user collection
-                                    Map<String, Object> userObj = new HashMap();
-                                    userObj.put("userId", currentUserId);
-                                    userObj.put("username", fullName);
-                                    userObj.put("random", "test");
-
-                                    //save to our firestore database
-                                    db.collection("users").add(userObj)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    //go to join or create family
-                                                    Intent familyActivityIntent = new Intent(SignUpActivity.this, FamilyActivity.class);
-                                                    startActivity(familyActivityIntent);
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    //user not added
-                                                }
-                                            });
-
-
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                }
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(SignUpActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                             }
                         });
+
+
             }
         });
     }
