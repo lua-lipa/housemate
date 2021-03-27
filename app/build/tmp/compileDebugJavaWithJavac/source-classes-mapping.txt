@@ -1,0 +1,36 @@
+com/example/housemate/SignUpActivity.java
+ com.example.housemate.SignUpActivity
+ com.example.housemate.SignUpActivity$1
+ com.example.housemate.SignUpActivity$1$1
+ com.example.housemate.SignUpActivity$1$2
+ com.example.housemate.SignUpActivity$1$3
+com/example/housemate/BuildConfig.java
+ com.example.housemate.BuildConfig
+com/example/housemate/FamilyActivity.java
+ com.example.housemate.FamilyActivity
+ com.example.housemate.FamilyActivity$1
+ com.example.housemate.FamilyActivity$2
+ com.example.housemate.FamilyActivity$3
+ com.example.housemate.FamilyActivity$3$1
+ com.example.housemate.FamilyActivity$3$2
+ com.example.housemate.FamilyActivity$3$3
+ com.example.housemate.FamilyActivity$3$4
+ com.example.housemate.FamilyActivity$3$5
+com/example/housemate/SuccessActivity.java
+ com.example.housemate.SuccessActivity
+com/example/housemate/util/customToast.java
+ com.example.housemate.util.customToast
+com/example/housemate/ChoresActivity.java
+ com.example.housemate.ChoresActivity
+ com.example.housemate.ChoresActivity$1
+ com.example.housemate.ChoresActivity$2
+com/example/housemate/HomeActivity.java
+ com.example.housemate.HomeActivity
+com/example/housemate/LoginActivity.java
+ com.example.housemate.LoginActivity
+ com.example.housemate.LoginActivity$1
+ com.example.housemate.LoginActivity$2
+ com.example.housemate.LoginActivity$2$1
+ com.example.housemate.LoginActivity$2$2
+ com.example.housemate.LoginActivity$2$2$1
+ com.example.housemate.LoginActivity$2$2$2
