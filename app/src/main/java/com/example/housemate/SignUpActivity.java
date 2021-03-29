@@ -31,6 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    //UI
     private Button signUpButton;
     private EditText nameInput;
     private EditText emailInput;
@@ -60,8 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnSuccessListener(authResult -> {
                             //Get userId and set reference
-                            currentUser = mAuth.getCurrentUser();
-                            String uid = currentUser.getUid();
+                            String uid = mAuth.getUid();
                             DocumentReference ref = db.collection("users").document(uid);
 
                             //Populate the document

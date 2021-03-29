@@ -7,10 +7,157 @@
     tools:context=".HomeActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/homeDot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="home yes"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="362dp" />
+        android:text="@string/dot"
+        android:textColor="@color/orange"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/homeTitleText"
+        app:layout_constraintTop_toTopOf="@+id/homeTitleText" />
+
+    <TextView
+        android:id="@+id/homeTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/cocogoose"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/home"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/homeChoresButton"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button_black"
+        android:contentDescription="@string/create_icon"
+        android:tint="#323232"
+        app:layout_constraintEnd_toStartOf="@+id/homeShoppingButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeTitleText"
+        app:srcCompat="@drawable/ic_baseline_checkroom_24">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/homeShoppingButton"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button_black"
+        android:contentDescription="@string/create_icon"
+        android:tint="#323232"
+        app:layout_constraintEnd_toStartOf="@+id/homeBillsButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/homeChoresButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeTitleText"
+        app:srcCompat="@drawable/ic_baseline_shopping_cart_24">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/homeBillsButton"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button_black"
+        android:contentDescription="@string/create_icon"
+        android:tint="#323232"
+        app:layout_constraintEnd_toStartOf="@+id/homeRemindersButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/homeShoppingButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeTitleText"
+        app:srcCompat="@drawable/ic_baseline_forward_to_inbox_24">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/homeRemindersButton"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/rounded_button_black"
+        android:contentDescription="@string/create_icon"
+        android:tint="#323232"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/homeBillsButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeTitleText"
+        app:srcCompat="@drawable/ic_baseline_notifications_24">
+
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="75dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Chores"
+        app:layout_constraintEnd_toEndOf="@+id/homeChoresButton"
+        app:layout_constraintStart_toStartOf="@+id/homeChoresButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeChoresButton" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="75dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Shopping"
+        app:layout_constraintEnd_toEndOf="@+id/homeShoppingButton"
+        app:layout_constraintStart_toStartOf="@+id/homeShoppingButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeShoppingButton" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="75dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Bills"
+        app:layout_constraintEnd_toEndOf="@+id/homeBillsButton"
+        app:layout_constraintStart_toStartOf="@+id/homeBillsButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeBillsButton" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="75dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Reminders"
+        app:layout_constraintEnd_toEndOf="@+id/homeRemindersButton"
+        app:layout_constraintStart_toStartOf="@+id/homeRemindersButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeRemindersButton" />
+
+    <FrameLayout
+        android:id="@+id/homeFrameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.534" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

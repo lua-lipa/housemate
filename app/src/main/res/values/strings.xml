@@ -27,6 +27,7 @@
     <string name="continue_text">Continue</string>
     <string name="family_icon">Family Icon</string>
     <string name="create_icon">Create Icon</string>
+
     <string name="chores">Chores</string>
     <string name="chore_name">Chore name</string>
     <string name="chore_date">Chore date</string>
