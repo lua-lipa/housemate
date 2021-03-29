@@ -163,23 +163,5 @@ public class BillsActivity extends AppCompatActivity implements DatePickerDialog
         dateText.setText(date);
     }
 
-    /**
-     public void add_bill(View view) { //parse the bills page
-     Intent intent = new Intent(this, DisplayMessageActivity.class);
-     EditText title_field = (EditText) findViewById(R.id.billTitleField);
-     EditText amount_field = (EditText) findViewById(R.id.BillAmountField);
-     EditText assignee_field = (EditText) findViewById(R.id.BillAssignField);
 
-     String title = title_field.getText().toString();
-     String amount = title_field.getText().toString();
-     String assignee = title_field.getText().toString();
-
-     intent.putExtra(EXTRA_MESSAGE, title);
-     intent.putExtra(EXTRA_MESSAGE, amount);
-     intent.putExtra(EXTRA_MESSAGE, assignee);
-
-     startActivity(intent);
-     }
-
-     **/
 }
