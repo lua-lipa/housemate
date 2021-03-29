@@ -1,13 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BillsFragment">
+    android:padding="20dp"
+    android:orientation="vertical"
+    tools:context=".BillsActivity">
 
-    <TextView
+
+
+
+
+
+    <!--Input Field-->
+    <AutoCompleteTextView
+        android:id="@+id/billsBillNameInput"
+        android:hint="@string/bill_title"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="25dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="bills" />
+        android:layout_height="50dp">
+    </AutoCompleteTextView>
 
-</FrameLayout>
+    <!--Input Field-->
+    <AutoCompleteTextView
+        android:id="@+id/billsBillAmountInput"
+        android:hint="@string/bill_amount"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </AutoCompleteTextView>
+
+    <!--Input Field-->
+    <AutoCompleteTextView
+        android:id="@+id/billsBillAssignInput"
+        android:hint="@string/bill_assign"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </AutoCompleteTextView>
+
+    <!--Input Field-->
+    <AutoCompleteTextView
+        android:id="@+id/billsBillDateInput"
+        android:hint="@string/bill_date"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="date"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    </AutoCompleteTextView>
+
+    <!--Login Button-->
+    <Button
+        android:id="@+id/billsAddBillButton"
+        android:text="@string/add_bill"
+        android:textAllCaps="false"
+        android:fontFamily="@font/roboto_bold"
+        android:background="@drawable/orange_button"
+        app:backgroundTint="@color/orange"
+        android:layout_marginBottom="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+
+
+
+
+</LinearLayout>
