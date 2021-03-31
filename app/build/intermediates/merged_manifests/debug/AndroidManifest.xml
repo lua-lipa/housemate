@@ -23,12 +23,12 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/Theme.Housemate" >
-        <activity android:name="com.example.housemate.LoginActivity" />
+        <activity android:name="com.example.housemate.ChoresActivity" />
         <activity android:name="com.example.housemate.SuccessActivity" />
         <activity android:name="com.example.housemate.HomeActivity" />
         <activity android:name="com.example.housemate.FamilyActivity" />
         <activity android:name="com.example.housemate.SignUpActivity" />
-        <activity android:name="com.example.housemate.ChoresActivity" >
+        <activity android:name="com.example.housemate.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

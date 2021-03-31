@@ -47,20 +47,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         ImageButton lastSelectedButton = selectedButton;
-        Class<? extends Fragment> fragment = null;
+        Fragment fragment = new ChoresFragment();
 
         int id = v.getId();
         if (id == R.id.homeChoresButton) {
-            fragment = ChoresFragment.class;
+            fragment = new ChoresFragment();
             selectedButton = choresButton;
         } else if (id == R.id.homeShoppingButton) {
-            fragment = ShoppingFragment.class;
+            fragment = new ShoppingFragment();
             selectedButton = shoppingButton;
         } else if (id == R.id.homeBillsButton) {
-            fragment = BillsFragment.class;
+            fragment = new BillsFragment();
             selectedButton = billsButton;
         } else if (id == R.id.homeRemindersButton) {
-            fragment = RemindersFragment.class;
+            fragment = new RemindersFragment();
             selectedButton = remindersButton;
         }
 

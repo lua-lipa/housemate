@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
-        android:text="New Bill"
+        android:text="@string/new_bill"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Add Bill"
+        android:text="@string/add_bill"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BillAssignField" />
@@ -69,7 +69,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="Bill Title"
+        android:text="@string/bill_title"
         app:layout_constraintBaseline_toBaselineOf="@+id/billTitleField"
         app:layout_constraintEnd_toStartOf="@+id/billTitleField"
         app:layout_constraintStart_toStartOf="parent" />

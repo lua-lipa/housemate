@@ -107,7 +107,7 @@
         android:layout_height="19dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Chores"
+        android:text="@string/chores"
         app:layout_constraintEnd_toEndOf="@+id/homeChoresButton"
         app:layout_constraintStart_toStartOf="@+id/homeChoresButton"
         app:layout_constraintTop_toBottomOf="@+id/homeChoresButton" />
@@ -118,7 +118,7 @@
         android:layout_height="19dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Shopping"
+        android:text="@string/shopping"
         app:layout_constraintEnd_toEndOf="@+id/homeShoppingButton"
         app:layout_constraintStart_toStartOf="@+id/homeShoppingButton"
         app:layout_constraintTop_toBottomOf="@+id/homeShoppingButton" />
@@ -129,7 +129,7 @@
         android:layout_height="19dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Bills"
+        android:text="@string/bills"
         app:layout_constraintEnd_toEndOf="@+id/homeBillsButton"
         app:layout_constraintStart_toStartOf="@+id/homeBillsButton"
         app:layout_constraintTop_toBottomOf="@+id/homeBillsButton" />
@@ -140,7 +140,7 @@
         android:layout_height="19dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Reminders"
+        android:text="@string/reminders"
         app:layout_constraintEnd_toEndOf="@+id/homeRemindersButton"
         app:layout_constraintStart_toStartOf="@+id/homeRemindersButton"
         app:layout_constraintTop_toBottomOf="@+id/homeRemindersButton" />
