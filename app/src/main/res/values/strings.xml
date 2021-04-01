@@ -39,4 +39,6 @@
     <string name="bill_title">Enter title</string>
     <string name="bills">Bills</string>
     <string name="bill_title_stirng">bill_title</string>
+    <string name="bill_date_string">bill_date</string>
+    <string name="bill_assignee_string">bill_assignee</string>
 </resources>
