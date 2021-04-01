@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.housemate.util.HousemateAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -71,8 +72,32 @@ public class LoginActivity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                String family = documentSnapshot.getString("family");
-                                                if (family != null) {
+                                                String familyId = documentSnapshot.getString("familyId");
+                                                String userId = documentSnapshot.getString("userId");
+                                                String userName = documentSnapshot.getString("name");
+
+
+                                                HousemateAPI housemateAPI = HousemateAPI.getInstance();
+                                                housemateAPI.setUserId(userId);
+                                                housemateAPI.setUserName(userName);
+                                                housemateAPI.setFamilyId(familyId);
+
+                                                if (familyId != null) {
+                                                    DocumentReference familyRef= db.collection("families").document(familyId);
+                                                    familyRef.get()
+                                                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                @Override
+                                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                    /* get the member map from firebase */
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+
+                                                                }
+                                                            });
+
                                                     Intent homeActivityIntent = new Intent(LoginActivity.this, HomeActivity.class);
                                                     startActivity(homeActivityIntent);
                                                 } else {
