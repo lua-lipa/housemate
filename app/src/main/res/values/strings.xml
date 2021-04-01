@@ -50,4 +50,8 @@
     <string name="shopping_text">shopping text</string>
     <string name="fab">fab</string>
     <string name="textview">TextView</string>
+    <string name="bill_date_string">bill_date</string>
+    <string name="bill_assignee_string">bill_assignee</string>
+    <string name="bill_title_string">bill_title</string>
+    <string name="_10">10$</string>
 </resources>
