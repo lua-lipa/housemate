@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.housemate.R;
+import com.example.housemate.util.HousemateAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AddBillFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
@@ -63,15 +65,16 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
 //        v.setContentView(R.layout.activity_addbill);
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
+        HousemateAPI api = HousemateAPI.getInstance();
 
         dateText = (EditText) v.findViewById(R.id.billsBillDateInput);
         titleEditText = (EditText) v.findViewById(R.id.billsBillNameInput);
         amountEditText = (EditText) v.findViewById(R.id.billsBillAmountInput);
         assigneeSpinner = (Spinner) v.findViewById(R.id.billsBillAssignInput);
 
-        String[] country = { "India", "USA", "China", "Japan", "Other"};
+        String[] family_members = api.getMemberNames();
 
-        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, country);
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, family_members);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         assigneeSpinner.setAdapter(aa);
