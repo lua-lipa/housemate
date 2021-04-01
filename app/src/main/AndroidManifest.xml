@@ -12,10 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Housemate">
-        <activity android:name=".SuccessActivity"></activity>
+        <activity android:name=".ChoresActivity"/>
+        <activity android:name=".SuccessActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".FamilyActivity" />
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".BillsActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
