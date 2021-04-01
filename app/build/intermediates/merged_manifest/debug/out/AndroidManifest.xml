@@ -27,6 +27,10 @@
         <activity android:name="com.example.housemate.HomeActivity" />
         <activity android:name="com.example.housemate.FamilyActivity" />
         <activity android:name="com.example.housemate.SignUpActivity" />
+<<<<<<< HEAD
+        <activity android:name="com.example.housemate.BillsActivity" />
+=======
+>>>>>>> 7e6be41e206da72411f65986269d2714d7bbae36
         <activity android:name="com.example.housemate.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1790,18 +1790,26 @@ drawable fab_bg_normal
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_arrow_down_24dp
+<<<<<<< HEAD
 drawable ic_baseline_add_30
+=======
+>>>>>>> 13726315c639b9f3c156a165818fbd194f17b224
 drawable ic_baseline_arrow_back_ios_24
 drawable ic_baseline_arrow_circle_up_24
 drawable ic_baseline_calendar_today_24
 drawable ic_baseline_checkroom_24
 drawable ic_baseline_family_restroom_24
 drawable ic_baseline_forward_to_inbox_24
+<<<<<<< HEAD
 drawable ic_baseline_next_week_24
 drawable ic_baseline_notifications_24
 drawable ic_baseline_shopping_cart_24
 drawable ic_baseline_today_24
 drawable ic_baseline_wb_sunny_24
+=======
+drawable ic_baseline_notifications_24
+drawable ic_baseline_shopping_cart_24
+>>>>>>> 13726315c639b9f3c156a165818fbd194f17b224
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
@@ -1944,15 +1952,22 @@ id barrier
 id baseline
 id beginOnFirstDraw
 id beginning
+<<<<<<< HEAD
+=======
+id billsAddBillButton
+>>>>>>> 13726315c639b9f3c156a165818fbd194f17b224
 id billsBillAmountInput
 id billsBillAssignInput
 id billsBillDateInput
 id billsBillNameInput
+<<<<<<< HEAD
 id bills_recycler_view
 id bills_row_amount
 id bills_row_assignee
 id bills_row_date
 id bills_row_title
+=======
+>>>>>>> 13726315c639b9f3c156a165818fbd194f17b224
 id blocking
 id bottom
 id bottomSheet
@@ -2217,7 +2232,10 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+<<<<<<< HEAD
 id recyclerView
+=======
+>>>>>>> 13726315c639b9f3c156a165818fbd194f17b224
 id recycler_view
 id reverseSawtooth
 id right
@@ -2430,6 +2448,8 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_addbill
+layout activity_bills
 layout activity_chores
 layout activity_family
 layout activity_home
@@ -2458,12 +2478,18 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout expand_button
 layout fragment_bills
+<<<<<<< HEAD
 layout fragment_bottom_sheet
 layout fragment_chores
 layout fragment_chores_2
 layout fragment_reminders
 layout fragment_shopping
 layout fragment_view_bills
+=======
+layout fragment_chores
+layout fragment_reminders
+layout fragment_shopping
+>>>>>>> 13726315c639b9f3c156a165818fbd194f17b224
 layout image_frame
 layout material_chip_input_combo
 layout material_clock_display
@@ -2722,8 +2748,11 @@ string mtrl_picker_toggle_to_calendar_input_mode
 string mtrl_picker_toggle_to_day_selection
 string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
+<<<<<<< HEAD
 string my_chores
 string next_week
+=======
+>>>>>>> 13726315c639b9f3c156a165818fbd194f17b224
 string not_set
 string password
 string password_toggle_content_description
@@ -2740,9 +2769,12 @@ string shopping_text
 string sign_up
 string status_bar_notification_info_overflow
 string summary_collapsed_preference_list
+<<<<<<< HEAD
 string textview
 string today
 string tomorrow
+=======
+>>>>>>> 13726315c639b9f3c156a165818fbd194f17b224
 string v7_preference_off
 string v7_preference_on
 string you_have_logged_in

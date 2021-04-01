@@ -50,6 +50,9 @@
     <string name="shopping_text">shopping text</string>
     <string name="fab">fab</string>
     <string name="textview">TextView</string>
+<<<<<<< HEAD
     <string name="my_chores">My Chores</string>
     <string name="house_chores">House Chores</string>
+=======
+>>>>>>> 13726315c639b9f3c156a165818fbd194f17b224
 </resources>
