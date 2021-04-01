@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.housemate.util.HousemateAPI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +39,7 @@ import com.google.firebase.firestore.WriteBatch;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FamilyActivity extends AppCompatActivity {
@@ -139,14 +141,25 @@ public class FamilyActivity extends AppCompatActivity {
                     String familyName = inputEditText.getText().toString().trim();
                     String familyId = db.collection("families").document().getId();
                     DocumentReference familyRef = db.collection("families").document(familyId);
+                    HousemateAPI housemateAPI = HousemateAPI.getInstance();
 
                     Map<String, Object> familyObj = new HashMap();
                     familyObj.put("familyName", familyName);
                     familyObj.put("familyId", familyId);
-                    familyObj.put("members", Arrays.asList(userId));
+
+                    /* mapping the member's user Id to key-value pairs of their other information */
+                    Map<String, Map<String, String>> memberObj = new HashMap<>();
+                    Map<String, String> memberInfo = new HashMap<>();
+                    memberInfo.put("name", housemateAPI.getUserName());
+                    memberInfo.put("admin", "yes");
+
+                    memberObj.put(userId, memberInfo);
+                    familyObj.put("members", memberObj);
+
+
 
                     Map<String, Object> userObj = new HashMap();
-                    userObj.put("family", familyId);
+                    userObj.put("familyId", familyId);
 
                     WriteBatch batch = db.batch();
                     batch.set(familyRef, familyObj);

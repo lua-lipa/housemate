@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".util.HousemateAPI"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +18,6 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".FamilyActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".BillsActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
