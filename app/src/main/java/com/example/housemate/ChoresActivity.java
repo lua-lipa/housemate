@@ -32,7 +32,7 @@ public class ChoresActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chores);
+        setContentView(R.layout.fragment_chores);
 
         addChoreButton = findViewById(R.id.choresAddChoreButton);
         choreNameInput = findViewById(R.id.choresChoreNameInput);

@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chores_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChoresFragment">
+    tools:context=".ChoresFragment"
+    android:padding="20dp"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/myChoresButton"
+        android:layout_width="170dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="130dp"
+        android:background="@drawable/orange_button"
+        android:fontFamily="@font/roboto_bold"
+        android:text="My Chores"
+        android:textAllCaps="false"
+        android:visibility="visible"
+        android:layout_gravity="left"
+        app:backgroundTint="#FF8A00"/>
+
+    <Button
+        android:id="@+id/houseChoresButton"
+        android:layout_width="170dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="130dp"
+        android:background="@drawable/orange_button"
+        android:fontFamily="@font/roboto_bold"
+        android:text="House Chores"
+        android:textAllCaps="false"
+        android:visibility="visible"
+        android:layout_gravity="right"
+        app:backgroundTint="#FF8A00"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/myChoresButton" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="chores" />
+        android:id="@+id/textViewTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="text"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

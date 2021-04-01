@@ -73,18 +73,14 @@
     <!--Login Button-->
     <Button
         android:id="@+id/billsAddBillButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="130dp"
+        android:background="@drawable/orange_button"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/add_bill"
         android:textAllCaps="false"
-        android:fontFamily="@font/roboto_bold"
-        android:background="@drawable/orange_button"
-        app:backgroundTint="@color/orange"
-        android:layout_marginBottom="130dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Button>
-
-
-
+        app:backgroundTint="@color/orange"></Button>
 
 
 </LinearLayout>
