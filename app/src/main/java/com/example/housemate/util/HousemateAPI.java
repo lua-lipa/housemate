@@ -12,7 +12,7 @@ public class HousemateAPI extends Application {
     private String familyName;
     private String familyId;
 
-    private Map<String, String> membersMap;
+    private List<Map<String, Object>> membersList;
 
     private static HousemateAPI instance;
 
@@ -58,12 +58,12 @@ public class HousemateAPI extends Application {
     }
 
 
-    public Map<String, String> getMembersMap() {
-        return membersMap;
+    public List<Map<String, Object>> getMembersList() {
+        return membersList;
     }
 
-    public void setMembersMap(Map<String, String> membersMap) {
-        this.membersMap = membersMap;
+    public void setMembersList(List<Map<String, Object>> membersList) {
+        this.membersList = membersList;
     }
 
 

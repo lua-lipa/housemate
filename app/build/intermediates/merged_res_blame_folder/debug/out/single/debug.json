@@ -1,7 +1,15 @@
 [
     {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_wb_sunny_24.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\drawable\\ic_baseline_wb_sunny_24.xml"
+    },
+    {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_calendar_today_24.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\drawable\\ic_baseline_calendar_today_24.xml"
     },
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_chores.xml.flat",
@@ -10,6 +18,10 @@
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\font_roboto_bold.xml.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\font\\roboto_bold.xml"
+    },
+    {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_add_30.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\drawable\\ic_baseline_add_30.xml"
     },
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_foreground.png.flat",
@@ -36,12 +48,12 @@
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_success.xml.flat",
-        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\activity_success.xml"
-    },
-    {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_bills.xml.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\fragment_bills.xml"
+    },
+    {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_success.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\activity_success.xml"
     },
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_launcher_foreground.xml.flat",
@@ -60,16 +72,16 @@
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\mipmap-xxhdpi\\housemate_logo_white.png"
     },
     {
-        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_bills.xml.flat",
-        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\activity_bills.xml"
-    },
-    {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_signup.xml.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\activity_signup.xml"
     },
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_foreground.png.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_next_week_24.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\drawable\\ic_baseline_next_week_24.xml"
     },
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_login.xml.flat",
@@ -120,6 +132,10 @@
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\drawable\\ic_launcher_background.xml"
     },
     {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_bottom_sheet.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\fragment_bottom_sheet.xml"
+    },
+    {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
     },
@@ -128,16 +144,20 @@
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_foreground.png"
     },
     {
-        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_addbill.xml.flat",
-        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\activity_addbill.xml"
-    },
-    {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_housemate_logo_white.png.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\mipmap-xhdpi\\housemate_logo_white.png"
     },
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\drawable_rounded_button_black.xml.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\drawable\\rounded_button_black.xml"
+    },
+    {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_view_bills.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\fragment_view_bills.xml"
+    },
+    {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_bills_row.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\bills_row.xml"
     },
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_notifications_24.xml.flat",
@@ -166,6 +186,10 @@
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_housemate_logo_white.png.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\mipmap-hdpi\\housemate_logo_white.png"
+    },
+    {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_today_24.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\drawable\\ic_baseline_today_24.xml"
     },
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_housemat_logo_white.png.flat",
@@ -214,6 +238,10 @@
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_sign_up.xml.flat",
         "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_arrow_circle_up_24.xml.flat",
+        "source": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\src\\main\\res\\drawable\\ic_baseline_arrow_circle_up_24.xml"
     },
     {
         "merged": "C:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\res\\merged\\debug\\font_roboto.xml.flat",

@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaMetadata;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.List;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -76,7 +81,6 @@ public class LoginActivity extends AppCompatActivity {
                                                 String userId = documentSnapshot.getString("userId");
                                                 String userName = documentSnapshot.getString("name");
 
-
                                                 HousemateAPI housemateAPI = HousemateAPI.getInstance();
                                                 housemateAPI.setUserId(userId);
                                                 housemateAPI.setUserName(userName);
@@ -89,6 +93,9 @@ public class LoginActivity extends AppCompatActivity {
                                                                 @Override
                                                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                                     /* get the member map from firebase */
+                                                                    List<Map<String, Object>> membersList = (List<Map<String, Object>>) documentSnapshot.get("members");
+                                                                    housemateAPI.setMembersList(membersList);
+                                                                    Log.d("KLOL", housemateAPI.getMembersList().toString());
                                                                 }
                                                             })
                                                             .addOnFailureListener(new OnFailureListener() {

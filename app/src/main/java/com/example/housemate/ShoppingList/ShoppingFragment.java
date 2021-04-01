@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.housemate.R;
-import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -69,7 +69,7 @@ public class ShoppingFragment extends Fragment {
                         //create sub collection in that family doc using the id
                         //after collection, add data
                         //save data with this button
-                        String familyId = documentSnapshot.getString("family");
+                        String familyId = documentSnapshot.getString("familyId");
                         DocumentReference familyRef = db.collection("families").document(familyId);
                         CollectionReference shoppingListRef = familyRef.collection("shoppingList");
                         //date

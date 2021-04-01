@@ -36,10 +36,13 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 public class FamilyActivity extends AppCompatActivity {
@@ -147,14 +150,23 @@ public class FamilyActivity extends AppCompatActivity {
                     familyObj.put("familyName", familyName);
                     familyObj.put("familyId", familyId);
 
-                    /* mapping the member's user Id to key-value pairs of their other information */
-                    Map<String, Map<String, String>> memberObj = new HashMap<>();
-                    Map<String, String> memberInfo = new HashMap<>();
-                    memberInfo.put("name", housemateAPI.getUserName());
-                    memberInfo.put("admin", "yes");
+                    ArrayList<Map<String, Object>> memberList = new ArrayList<>();
+                    Map<String, Object> memberObj = new HashMap<>();
+                    memberObj.put("userId", userId);
+                    memberObj.put("name", housemateAPI.getUserName());
+                    memberObj.put("admin", "yes");
+                    memberList.add(memberObj);
+                    familyObj.put("members", memberList);
 
-                    memberObj.put(userId, memberInfo);
-                    familyObj.put("members", memberObj);
+
+//                    /* mapping the member's user Id to key-value pairs of their other information */
+//                    Map<String, Map<String, String>> memberObj = new HashMap<>();
+//                    Map<String, String> memberInfo = new HashMap<>();
+//                    memberInfo.put("name", housemateAPI.getUserName());
+//                    memberInfo.put("admin", "yes");
+//
+//                    memberObj.put(userId, memberInfo);
+//                    familyObj.put("members", memberObj);
 
 
 

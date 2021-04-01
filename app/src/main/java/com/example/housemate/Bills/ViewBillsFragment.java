@@ -107,7 +107,7 @@ public class  ViewBillsFragment extends Fragment {
                         //create sub collection in that family doc using the id
                         //after collection, add data
                         //save data with this button
-                        String familyId = documentSnapshot.getString("family");
+                        String familyId = documentSnapshot.getString("familyId");
                         DocumentReference familyRef = db.collection("families").document(familyId);
                         CollectionReference billsRef = familyRef.collection("bills");
                         //date
