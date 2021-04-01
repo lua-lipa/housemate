@@ -95,7 +95,7 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
             }
         });
 
-        Button addBillButton = (Button) v.findViewById(R.id.billsAddBillButton);
+        Button addBillButton = (Button) v.findViewById(R.id.choresMyChoresButton);
         addBillButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -12,9 +12,10 @@ MERGED from [com.google.android.material:material:1.3.0] /Users/ranya/.gradle/ca
 MERGED from [androidx.preference:preference:1.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/5bd618beb17a874995812692a32d7f02/preference-1.1.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/fcf5af611bc33846b591cd77e4d0a38c/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/06bdd8e905652ff2ad1e1ea1ee0aa01a/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.getbase:floatingactionbutton:1.10.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/6cf937226f046b0e03e0232beef111ee/jetified-floatingactionbutton-1.10.1/AndroidManifest.xml:2:1-14:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b47bb01ecc6aa52d262badcce0bb4ed/constraintlayout-2.0.4/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/994d5787a0c5e3a9050593b6e3088631/appcompat-1.2.0/AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:2:1-26:12
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:2:1-26:12
 MERGED from [androidx.media:media:1.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/cbfb4e43f798a1cd04e53763d03adb1a/media-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b8767dc4d06925d0d3d12179fa4a1bb1/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/5aad1647ae4e889abdeaab4ab07a3603/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -83,8 +84,8 @@ MERGED from [com.google.firebase:firebase-auth:20.0.3] /Users/ranya/.gradle/cach
 MERGED from [com.google.firebase:firebase-auth:20.0.3] /Users/ranya/.gradle/caches/transforms-2/files-2.1/59708e4c89685822c69df7ac6667b1ed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:23:5-67
 MERGED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/64586309a9c174e8202610efe122327c/jetified-firebase-database-19.7.0/AndroidManifest.xml:26:5-67
 MERGED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/64586309a9c174e8202610efe122327c/jetified-firebase-database-19.7.0/AndroidManifest.xml:26:5-67
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:14:5-67
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:14:5-67
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:14:5-67
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:14:5-67
 	android:name
 		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:5:22-64
 application
@@ -95,10 +96,12 @@ MERGED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/
 MERGED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/64586309a9c174e8202610efe122327c/jetified-firebase-database-19.7.0/AndroidManifest.xml:28:5-36:19
 MERGED from [com.google.android.material:material:1.3.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/cd6f2caba378d66250797e09d6bb24e0/material-1.3.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.3.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/cd6f2caba378d66250797e09d6bb24e0/material-1.3.0/AndroidManifest.xml:22:5-20
+MERGED from [com.getbase:floatingactionbutton:1.10.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/6cf937226f046b0e03e0232beef111ee/jetified-floatingactionbutton-1.10.1/AndroidManifest.xml:12:5-20
+MERGED from [com.getbase:floatingactionbutton:1.10.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/6cf937226f046b0e03e0232beef111ee/jetified-floatingactionbutton-1.10.1/AndroidManifest.xml:12:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b47bb01ecc6aa52d262badcce0bb4ed/constraintlayout-2.0.4/AndroidManifest.xml:9:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b47bb01ecc6aa52d262badcce0bb4ed/constraintlayout-2.0.4/AndroidManifest.xml:9:5-20
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:16:5-24:19
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:16:5-24:19
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:16:5-24:19
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:16:5-24:19
 MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/6754113431c8f40305fea67c580b0d20/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-safetynet:17.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/6754113431c8f40305fea67c580b0d20/jetified-play-services-safetynet-17.0.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-base:17.1.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/a63935de15513710d98bf227aa324a8b/jetified-play-services-base-17.1.0/AndroidManifest.xml:22:5-27:19
@@ -118,43 +121,41 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/rany
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.3.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/f3d364c4591b4da0386e5d8846d9d728/core-1.3.1/AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:13:9-35
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:14:9-35
 	android:label
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:11:9-41
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:12:9-41
 	android:fullBackupContent
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:9:9-41
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:10:9-41
 	android:roundIcon
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:12:9-54
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:13:9-54
 	android:icon
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:10:9-43
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:11:9-43
 	android:allowBackup
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:8:9-35
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:9:9-35
 	android:theme
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:14:9-47
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:15:9-47
+	android:name
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:8:9-42
 activity#com.example.housemate.ChoresActivity
-ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:15:9-51
+ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:16:9-51
 	android:name
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:15:19-49
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:16:19-49
 activity#com.example.housemate.SuccessActivity
-ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:16:9-53
+ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:17:9-53
 	android:name
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:16:19-50
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:17:19-50
 activity#com.example.housemate.HomeActivity
-ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:17:9-50
+ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:18:9-50
 	android:name
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:17:19-47
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:18:19-47
 activity#com.example.housemate.FamilyActivity
-ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:18:9-52
-	android:name
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:18:19-49
-activity#com.example.housemate.SignUpActivity
 ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:19:9-52
 	android:name
 		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:19:19-49
-activity#com.example.housemate.BillsActivity
-ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:20:9-51
+activity#com.example.housemate.SignUpActivity
+ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:20:9-52
 	android:name
-		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:20:19-48
+		ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:20:19-49
 activity#com.example.housemate.LoginActivity
 ADDED from /Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/AndroidManifest.xml:21:9-27:20
 	android:name
@@ -195,12 +196,14 @@ MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/ranya/.gradle/caches/t
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/fcf5af611bc33846b591cd77e4d0a38c/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/06bdd8e905652ff2ad1e1ea1ee0aa01a/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/06bdd8e905652ff2ad1e1ea1ee0aa01a/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.getbase:floatingactionbutton:1.10.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/6cf937226f046b0e03e0232beef111ee/jetified-floatingactionbutton-1.10.1/AndroidManifest.xml:8:5-10:41
+MERGED from [com.getbase:floatingactionbutton:1.10.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/6cf937226f046b0e03e0232beef111ee/jetified-floatingactionbutton-1.10.1/AndroidManifest.xml:8:5-10:41
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b47bb01ecc6aa52d262badcce0bb4ed/constraintlayout-2.0.4/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b47bb01ecc6aa52d262badcce0bb4ed/constraintlayout-2.0.4/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/994d5787a0c5e3a9050593b6e3088631/appcompat-1.2.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat:1.2.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/994d5787a0c5e3a9050593b6e3088631/appcompat-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:7:5-9:41
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.media:media:1.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/cbfb4e43f798a1cd04e53763d03adb1a/media-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.media:media:1.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/cbfb4e43f798a1cd04e53763d03adb1a/media-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b8767dc4d06925d0d3d12179fa4a1bb1/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
@@ -305,8 +308,8 @@ uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from [com.google.firebase:firebase-auth:20.0.3] /Users/ranya/.gradle/caches/transforms-2/files-2.1/59708e4c89685822c69df7ac6667b1ed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:24:5-79
 MERGED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/64586309a9c174e8202610efe122327c/jetified-firebase-database-19.7.0/AndroidManifest.xml:25:5-79
 MERGED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/64586309a9c174e8202610efe122327c/jetified-firebase-database-19.7.0/AndroidManifest.xml:25:5-79
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:13:5-79
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:13:5-79
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:13:5-79
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:13:5-79
 MERGED from [io.grpc:grpc-android:1.28.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/10a3513949333938587db48c8411373d/jetified-grpc-android-1.28.0/AndroidManifest.xml:11:5-79
 MERGED from [io.grpc:grpc-android:1.28.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/10a3513949333938587db48c8411373d/jetified-grpc-android-1.28.0/AndroidManifest.xml:11:5-79
 	android:name
@@ -377,8 +380,8 @@ service#com.google.firebase.components.ComponentDiscoveryService
 ADDED from [com.google.firebase:firebase-auth:20.0.3] /Users/ranya/.gradle/caches/transforms-2/files-2.1/59708e4c89685822c69df7ac6667b1ed/jetified-firebase-auth-20.0.3/AndroidManifest.xml:74:9-80:19
 MERGED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/64586309a9c174e8202610efe122327c/jetified-firebase-database-19.7.0/AndroidManifest.xml:29:9-35:19
 MERGED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/64586309a9c174e8202610efe122327c/jetified-firebase-database-19.7.0/AndroidManifest.xml:29:9-35:19
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:17:9-23:19
-MERGED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:17:9-23:19
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:17:9-23:19
+MERGED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:17:9-23:19
 MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/9b2ec3a49389295e09fe37e42c5e30ad/jetified-firebase-common-19.5.0/AndroidManifest.xml:33:9-46:19
 MERGED from [com.google.firebase:firebase-common:19.5.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/9b2ec3a49389295e09fe37e42c5e30ad/jetified-firebase-common-19.5.0/AndroidManifest.xml:33:9-46:19
 	android:exported
@@ -402,11 +405,11 @@ ADDED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/c
 	android:name
 		ADDED from [com.google.firebase:firebase-database:19.7.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/64586309a9c174e8202610efe122327c/jetified-firebase-database-19.7.0/AndroidManifest.xml:33:17-109
 meta-data#com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar
-ADDED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:20:13-22:85
+ADDED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:20:13-22:85
 	android:value
-		ADDED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:22:17-82
+		ADDED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:22:17-82
 	android:name
-		ADDED from [com.google.firebase:firebase-firestore:22.1.1] /Users/ranya/.gradle/caches/transforms-2/files-2.1/1b5a9ebef469875d1d39c8e5b85769d9/jetified-firebase-firestore-22.1.1/AndroidManifest.xml:21:17-111
+		ADDED from [com.google.firebase:firebase-firestore:22.1.2] /Users/ranya/.gradle/caches/transforms-2/files-2.1/b0cb62c76e324db49ec32f2c8c13ccf4/jetified-firebase-firestore-22.1.2/AndroidManifest.xml:21:17-111
 activity#com.google.android.gms.common.api.GoogleApiActivity
 ADDED from [com.google.android.gms:play-services-base:17.1.0] /Users/ranya/.gradle/caches/transforms-2/files-2.1/a63935de15513710d98bf227aa324a8b/jetified-play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
 	android:exported

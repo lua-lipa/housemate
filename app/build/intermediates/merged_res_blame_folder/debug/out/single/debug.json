@@ -12,16 +12,16 @@
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_outline_create_24.xml"
     },
     {
-        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_activity_signup.xml.flat",
-        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/activity_signup.xml"
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_housemate_logo_white.png.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/mipmap-xxhdpi/housemate_logo_white.png"
     },
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/mipmap-mdpi_housemat_logo_white.png.flat",
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/mipmap-mdpi/housemat_logo_white.png"
     },
     {
-        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_housemate_logo_white.png.flat",
-        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/mipmap-xxhdpi/housemate_logo_white.png"
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_activity_signup.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/activity_signup.xml"
     },
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
@@ -48,16 +48,16 @@
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/mipmap-xhdpi/housemat_logo_white.png"
     },
     {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_bills_row.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/bills_row.xml"
+    },
+    {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_rounded_button_black.xml.flat",
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/rounded_button_black.xml"
-    },
-    {
-        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_activity_addbill.xml.flat",
-        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/activity_addbill.xml"
     },
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/font_roboto.xml.flat",
@@ -84,6 +84,10 @@
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/activity_home.xml"
     },
     {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_fragment_chores_2.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/fragment_chores_2.xml"
+    },
+    {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_activity_sign_up.xml.flat",
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/activity_sign_up.xml"
     },
@@ -98,6 +102,10 @@
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_ic_baseline_today_24.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_baseline_today_24.xml"
     },
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable-v24_ic_launcher_foreground.xml.flat",
@@ -132,6 +140,10 @@
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/font/cocogoose.ttf"
     },
     {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_ic_baseline_next_week_24.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_baseline_next_week_24.xml"
+    },
+    {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_ic_baseline_checkroom_24.xml.flat",
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_baseline_checkroom_24.xml"
     },
@@ -140,8 +152,20 @@
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_baseline_forward_to_inbox_24.xml"
     },
     {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_fragment_view_bills.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/fragment_view_bills.xml"
+    },
+    {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/mipmap-mdpi_housemate_logo_white.png.flat",
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/mipmap-mdpi/housemate_logo_white.png"
+    },
+    {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_fragment_bottom_sheet.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/fragment_bottom_sheet.xml"
+    },
+    {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_ic_baseline_calendar_today_24.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml"
     },
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_rounded_edittext_orange.xml.flat",
@@ -168,8 +192,8 @@
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/rounded_button_highlighted_3dp.xml"
     },
     {
-        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_activity_bills.xml.flat",
-        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/activity_bills.xml"
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_chores_row.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/chores_row.xml"
     },
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher_foreground.png.flat",
@@ -190,6 +214,14 @@
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/layout_activity_family.xml.flat",
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/layout/activity_family.xml"
+    },
+    {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_ic_baseline_arrow_circle_up_24.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_baseline_arrow_circle_up_24.xml"
+    },
+    {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_ic_baseline_wb_sunny_24.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_baseline_wb_sunny_24.xml"
     },
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher_round.png.flat",
@@ -214,6 +246,10 @@
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_ic_baseline_arrow_back_ios_24.xml.flat",
         "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml"
+    },
+    {
+        "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_ic_baseline_add_30.xml.flat",
+        "source": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/src/main/res/drawable/ic_baseline_add_30.xml"
     },
     {
         "merged": "/Users/ranya/AndroidStudioProjects/CS4084-mobile-app-dev/app/build/intermediates/res/merged/debug/drawable_rounded_button_highlighted.xml.flat",

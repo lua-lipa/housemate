@@ -416,6 +416,22 @@ attr fabCradleRoundedCornerRadius
 attr fabCradleVerticalOffset
 attr fabCustomSize
 attr fabSize
+attr fab_addButtonColorNormal
+attr fab_addButtonColorPressed
+attr fab_addButtonPlusIconColor
+attr fab_addButtonSize
+attr fab_addButtonStrokeVisible
+attr fab_colorDisabled
+attr fab_colorNormal
+attr fab_colorPressed
+attr fab_expandDirection
+attr fab_icon
+attr fab_labelStyle
+attr fab_labelsPosition
+attr fab_plusIconColor
+attr fab_size
+attr fab_stroke_visible
+attr fab_title
 attr fastScrollEnabled
 attr fastScrollHorizontalThumbDrawable
 attr fastScrollHorizontalTrackDrawable
@@ -1379,6 +1395,16 @@ dimen design_tab_text_size_2line
 dimen design_textinput_caption_translate_y
 dimen disabled_alpha_material_dark
 dimen disabled_alpha_material_light
+dimen fab_actions_spacing
+dimen fab_icon_size
+dimen fab_labels_margin
+dimen fab_plus_icon_size
+dimen fab_plus_icon_stroke
+dimen fab_shadow_offset
+dimen fab_shadow_radius
+dimen fab_size_mini
+dimen fab_size_normal
+dimen fab_stroke_width
 dimen fastscroll_default_thickness
 dimen fastscroll_margin
 dimen fastscroll_minimum_range
@@ -1759,15 +1785,23 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable fab_bg_mini
+drawable fab_bg_normal
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_arrow_down_24dp
+drawable ic_baseline_add_30
 drawable ic_baseline_arrow_back_ios_24
+drawable ic_baseline_arrow_circle_up_24
+drawable ic_baseline_calendar_today_24
 drawable ic_baseline_checkroom_24
 drawable ic_baseline_family_restroom_24
 drawable ic_baseline_forward_to_inbox_24
+drawable ic_baseline_next_week_24
 drawable ic_baseline_notifications_24
 drawable ic_baseline_shopping_cart_24
+drawable ic_baseline_today_24
+drawable ic_baseline_wb_sunny_24
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
@@ -1891,6 +1925,7 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id addItemFAB
 id adjust_height
 id adjust_width
 id alertTitle
@@ -1909,18 +1944,26 @@ id barrier
 id baseline
 id beginOnFirstDraw
 id beginning
-id billsAddBillButton
 id billsBillAmountInput
 id billsBillAssignInput
 id billsBillDateInput
 id billsBillNameInput
+id bills_recycler_view
+id bills_row_amount
+id bills_row_assignee
+id bills_row_date
+id bills_row_title
 id blocking
 id bottom
+id bottomSheet
 id bounce
 id buttonPanel
 id cache_measures
+id calendar_group
+id calendar_view
 id cancel_action
 id cancel_button
+id cardView
 id center
 id center_horizontal
 id center_vertical
@@ -1936,7 +1979,9 @@ id chip_group
 id choresAddChoreButton
 id choresChoreDateInput
 id choresChoreNameInput
-id chores_fragment
+id choresHouseChoresButton
+id choresMyChoresButton
+id choresTextView
 id chronometer
 id circle_center
 id clear_text
@@ -1976,6 +2021,7 @@ id disablePostScroll
 id disableScroll
 id disjoint
 id dot
+id down
 id dragDown
 id dragEnd
 id dragLeft
@@ -1998,9 +2044,12 @@ id enterEmailPlaceholder
 id enterFullName
 id enterPasswordPlaceholder
 id enterPasswordPlaceholder2
+id enter_item
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id fab_expand_menu_button
+id fab_label
 id fade
 id familyContinueButton
 id familyCreateButton
@@ -2041,7 +2090,6 @@ id homeRemindersButton
 id homeShoppingButton
 id homeTitleText
 id honorRequest
-id houseChoresButton
 id icon
 id icon_frame
 id icon_group
@@ -2135,10 +2183,11 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
-id myChoresButton
 id navigation_header_container
 id never
+id next_week_chip
 id noScroll
+id no_bill_text
 id none
 id normal
 id notification_background
@@ -2168,6 +2217,7 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id recyclerView
 id recycler_view
 id reverseSawtooth
 id right
@@ -2176,6 +2226,7 @@ id right_icon
 id right_side
 id rounded
 id row_index_key
+id save_item_button
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
@@ -2275,7 +2326,6 @@ id textView3
 id textView6
 id textView7
 id textView9
-id textViewTest
 id textViewToast
 id text_input_end_icon
 id text_input_error_icon
@@ -2290,7 +2340,10 @@ id time
 id title
 id titleDividerNoCustom
 id title_template
+id today_calendar_button
+id today_chip
 id toggle
+id tomorrow_chip
 id top
 id topPanel
 id touch_outside
@@ -2377,8 +2430,6 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_addbill
-layout activity_bills
 layout activity_chores
 layout activity_family
 layout activity_home
@@ -2386,6 +2437,8 @@ layout activity_login
 layout activity_sign_up
 layout activity_signup
 layout activity_success
+layout bills_row
+layout chores_row
 layout custom_dialog
 layout customtoast
 layout design_bottom_navigation_item
@@ -2405,9 +2458,12 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout expand_button
 layout fragment_bills
+layout fragment_bottom_sheet
 layout fragment_chores
+layout fragment_chores_2
 layout fragment_reminders
 layout fragment_shopping
+layout fragment_view_bills
 layout image_frame
 layout material_chip_input_combo
 layout material_clock_display
@@ -2545,6 +2601,7 @@ string bill_title
 string bills
 string bottom_sheet_behavior
 string bottomsheet_action_expand_halfway
+string calendar_image_description
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
@@ -2579,9 +2636,11 @@ string create_or_join
 string default_web_client_id
 string don_t_have_an_account
 string dot
+string due_date
 string email
 string email_1
 string enter_a_name_for_your_family
+string enter_item
 string enter_your_email
 string enter_your_full_name
 string enter_your_invite_code
@@ -2589,6 +2648,7 @@ string enter_your_password
 string error_icon_content_description
 string expand_button_title
 string exposed_dropdown_menu_content_description
+string fab
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string family
@@ -2601,8 +2661,10 @@ string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
+string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string home
+string house_chores
 string icon_content_description
 string invite_code
 string item_view_role_description
@@ -2660,6 +2722,8 @@ string mtrl_picker_toggle_to_calendar_input_mode
 string mtrl_picker_toggle_to_day_selection
 string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
+string my_chores
+string next_week
 string not_set
 string password
 string password_toggle_content_description
@@ -2670,10 +2734,15 @@ string path_password_strike_through
 string preference_copied
 string project_id
 string re_enter_password
+string save_item
 string search_menu_title
+string shopping_text
 string sign_up
 string status_bar_notification_info_overflow
 string summary_collapsed_preference_list
+string textview
+string today
+string tomorrow
 string v7_preference_off
 string v7_preference_on
 string you_have_logged_in
@@ -2903,6 +2972,7 @@ style Base_Widget_MaterialComponents_Snackbar
 style Base_Widget_MaterialComponents_TextInputEditText
 style Base_Widget_MaterialComponents_TextInputLayout
 style Base_Widget_MaterialComponents_TextView
+style CalenderViewCustom
 style CardView
 style CardView_Dark
 style CardView_Light
@@ -3435,6 +3505,7 @@ styleable ActionMenuItemView android_minWidth
 styleable ActionMenuView
 styleable ActionMode background backgroundSplit closeItemLayout height subtitleTextStyle titleTextStyle
 styleable ActivityChooserView expandActivityOverflowButtonDrawable initialActivityCount
+styleable AddFloatingActionButton fab_plusIconColor
 styleable AlertDialog android_layout buttonIconDimen buttonPanelSideLayout listItemLayout listLayout multiChoiceItemLayout showTitle singleChoiceItemLayout
 styleable AnimatedStateListDrawableCompat android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
 styleable AnimatedStateListDrawableItem android_id android_drawable
@@ -3477,8 +3548,9 @@ styleable DrawerArrowToggle arrowHeadLength arrowShaftLength barLength color dra
 styleable EditTextPreference useSimpleSummaryProvider
 styleable ExtendedFloatingActionButton collapsedSize elevation extendMotionSpec hideMotionSpec showMotionSpec shrinkMotionSpec
 styleable ExtendedFloatingActionButton_Behavior_Layout behavior_autoHide behavior_autoShrink
-styleable FloatingActionButton android_enabled backgroundTint backgroundTintMode borderWidth elevation ensureMinTouchTargetSize fabCustomSize fabSize hideMotionSpec hoveredFocusedTranslationZ maxImageSize pressedTranslationZ rippleColor shapeAppearance shapeAppearanceOverlay showMotionSpec useCompatPadding
+styleable FloatingActionButton android_enabled backgroundTint backgroundTintMode borderWidth elevation ensureMinTouchTargetSize fabCustomSize fabSize fab_colorDisabled fab_colorNormal fab_colorPressed fab_icon fab_size fab_stroke_visible fab_title hideMotionSpec hoveredFocusedTranslationZ maxImageSize pressedTranslationZ rippleColor shapeAppearance shapeAppearanceOverlay showMotionSpec useCompatPadding
 styleable FloatingActionButton_Behavior_Layout behavior_autoHide
+styleable FloatingActionsMenu fab_addButtonColorNormal fab_addButtonColorPressed fab_addButtonPlusIconColor fab_addButtonSize fab_addButtonStrokeVisible fab_expandDirection fab_labelStyle fab_labelsPosition
 styleable FlowLayout itemSpacing lineSpacing
 styleable FontFamily fontProviderAuthority fontProviderCerts fontProviderFetchStrategy fontProviderFetchTimeout fontProviderPackage fontProviderQuery
 styleable FontFamilyFont android_font android_fontWeight android_fontStyle android_ttcIndex android_fontVariationSettings font fontStyle fontVariationSettings fontWeight ttcIndex
