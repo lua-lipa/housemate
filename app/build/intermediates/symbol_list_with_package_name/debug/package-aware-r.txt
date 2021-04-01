@@ -1860,6 +1860,10 @@ id ALT
 id BOTTOM_END
 id BOTTOM_START
 id CTRL
+id ChoreChoreName
+id ChoresChoreAssignee
+id ChoresChoreDay
+id ChoresDoneButton
 id FUNCTION
 id META
 id NO_DEBUG
@@ -1964,6 +1968,7 @@ id calendar_group
 id calendar_view
 id cancel_action
 id cancel_button
+id cardView
 id center
 id center_horizontal
 id center_vertical
@@ -1979,6 +1984,9 @@ id chip_group
 id choresAddChoreButton
 id choresChoreDateInput
 id choresChoreNameInput
+id choresHouseChoresButton
+id choresMyChoresButton
+id choresTextView
 id chronometer
 id circle_center
 id clear_text
@@ -2435,6 +2443,7 @@ layout activity_sign_up
 layout activity_signup
 layout activity_success
 layout bills_row
+layout chores_row
 layout custom_dialog
 layout customtoast
 layout design_bottom_navigation_item
