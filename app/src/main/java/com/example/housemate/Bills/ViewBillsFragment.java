@@ -10,11 +10,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.housemate.Bills.Bill;
 import com.example.housemate.R;
 import com.example.housemate.adapter.BillRecyclerViewAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,15 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class  ViewBillsFragment extends Fragment {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    /* */
     private RecyclerView recyclerView;
     private BillRecyclerViewAdapter billRecyclerViewAdapter;
     private List<Bill> billsList;
-    private ViewModelProvider billsViewModel;
     private CollectionReference collectionReference = db.collection("familyId");
     private FirebaseUser user;
     private TextView noBillText; /* displaying when no bills have been created */
@@ -122,7 +116,6 @@ public class  ViewBillsFragment extends Fragment {
                                                 billsList.add(bill);
                                             }
                                             /* invoke recycler view*/
-
                                             billRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
                                             recyclerView.setAdapter(billRecyclerViewAdapter);
                                             billRecyclerViewAdapter.notifyDataSetChanged();
