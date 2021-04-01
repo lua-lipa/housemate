@@ -13,6 +13,8 @@ public class HousemateAPI extends Application {
     private String familyId;
 
     private List<Map<String, Object>> membersList;
+    private String[] memberNames;
+
 
     private static HousemateAPI instance;
 
@@ -65,6 +67,17 @@ public class HousemateAPI extends Application {
     public void setMembersList(List<Map<String, Object>> membersList) {
         this.membersList = membersList;
     }
+
+    public String[] getMemberNames() {
+        String[] memberNames = new String[membersList.size()];
+        for(int i = 0; i < membersList.size(); i++) {
+            Map<String, Object> memberMap = membersList.get(i);
+            String memberName = (String) memberMap.get("name");
+            memberNames[i] = memberName;
+        }
+        return memberNames;
+    }
+
 
 
 }

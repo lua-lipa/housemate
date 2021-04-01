@@ -41,7 +41,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
 
         Bill bill = Objects.requireNonNull(billsList).get(position);
         holder.title.setText(bill.getTitle());
-        holder.amount.setText(bill.getAmount());
+        holder.amount.setText(bill.getAmount() + "€");
         holder.assignee.setText(bill.getAssignee());
         holder.date.setText(bill.getDate());
     }
