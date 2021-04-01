@@ -11,9 +11,6 @@ com/example/housemate/ShoppingList/ShoppingFragment.java
  com.example.housemate.ShoppingList.ShoppingFragment$3$2
 com/example/housemate/BuildConfig.java
  com.example.housemate.BuildConfig
-com/example/housemate/adapter/BillRecyclerViewAdapter.java
- com.example.housemate.adapter.BillRecyclerViewAdapter
- com.example.housemate.adapter.BillRecyclerViewAdapter$ViewHolder
 com/example/housemate/FamilyActivity.java
  com.example.housemate.FamilyActivity
  com.example.housemate.FamilyActivity$1
@@ -26,10 +23,15 @@ com/example/housemate/FamilyActivity.java
  com.example.housemate.FamilyActivity$3$5
 com/example/housemate/SuccessActivity.java
  com.example.housemate.SuccessActivity
+com/example/housemate/adapter/BillRecyclerViewAdapter.java
+ com.example.housemate.adapter.BillRecyclerViewAdapter
+ com.example.housemate.adapter.BillRecyclerViewAdapter$ViewHolder
 com/example/housemate/ChoresActivity.java
  com.example.housemate.ChoresActivity
  com.example.housemate.ChoresActivity$1
  com.example.housemate.ChoresActivity$2
+com/example/housemate/Chores/Chore.java
+ com.example.housemate.Chores.Chore
 com/example/housemate/RemindersFragment.java
  com.example.housemate.RemindersFragment
 com/example/housemate/Bills/AddBillFragment.java
@@ -49,6 +51,10 @@ com/example/housemate/SignUpActivity.java
  com.example.housemate.SignUpActivity$1$3
 com/example/housemate/ChoresFragment.java
  com.example.housemate.ChoresFragment
+ com.example.housemate.ChoresFragment$1
+ com.example.housemate.ChoresFragment$2
+com/example/housemate/util/customToast.java
+ com.example.housemate.util.customToast
 com/example/housemate/Bills/ViewBillsFragment.java
  com.example.housemate.Bills.ViewBillsFragment
  com.example.housemate.Bills.ViewBillsFragment$1
@@ -57,8 +63,6 @@ com/example/housemate/Bills/ViewBillsFragment.java
  com.example.housemate.Bills.ViewBillsFragment$2$2
 com/example/housemate/HomeActivity.java
  com.example.housemate.HomeActivity
-com/example/housemate/util/customToast.java
- com.example.housemate.util.customToast
 com/example/housemate/LoginActivity.java
  com.example.housemate.LoginActivity
  com.example.housemate.LoginActivity$1
@@ -69,6 +73,10 @@ com/example/housemate/LoginActivity.java
  com.example.housemate.LoginActivity$2$2$2
  com.example.housemate.LoginActivity$2$2$2$1
  com.example.housemate.LoginActivity$2$2$2$2
+com/example/housemate/Chores/viewChoresFragment.java
+ com.example.housemate.Chores.viewChoresFragment
+ com.example.housemate.Chores.viewChoresFragment$1
+ com.example.housemate.Chores.viewChoresFragment$2
 com/example/housemate/ShoppingList/BottomSheetFragment.java
  com.example.housemate.ShoppingList.BottomSheetFragment
  com.example.housemate.ShoppingList.BottomSheetFragment$1
