@@ -38,4 +38,5 @@
     <string name="bill_assign">Assign to</string>
     <string name="bill_title">Enter title</string>
     <string name="bills">Bills</string>
+    <string name="bill_title_stirng">bill_title</string>
 </resources>
