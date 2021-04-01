@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 
 import com.example.housemate.Bills.AddBillFragment;
 import com.example.housemate.Bills.ViewBillsFragment;
+import com.example.housemate.ShoppingList.ShoppingFragment;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageButton choresButton;
@@ -52,7 +53,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             fragment = new ChoresFragment();
             selectedButton = choresButton;
         } else if (id == R.id.homeShoppingButton) {
-            fragment = new AddBillFragment();
+            fragment = new ShoppingFragment();
             selectedButton = shoppingButton;
         } else if (id == R.id.homeBillsButton) {
             fragment = new ViewBillsFragment();

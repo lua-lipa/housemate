@@ -15,11 +15,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         app:cardBackgroundColor="@color/orange"
-        app:cardCornerRadius="@dimen/Elevation"
-        app:cardElevation="@dimen/Elevation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <!--        app:cardCornerRadius="@dimen/Elevation"-->
+        <!--        app:cardElevation="@dimen/Elevation"-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="TextView"
+                android:text="@string/textview"
                 android:textColor="#FFFFFF" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="TextView" />
+                android:text="@string/textview" />
 
             <TextView
                 android:id="@+id/bills_row_assignee"
@@ -54,7 +54,7 @@
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="TextView" />
+                android:text="@string/textview" />
 
             <TextView
                 android:id="@+id/bills_row_date"
@@ -64,7 +64,7 @@
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="TextView" />
+                android:text="@string/textview" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
