@@ -41,7 +41,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
     public BottomSheetFragment() {}
 
     @Override
@@ -135,8 +134,5 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 calendarGroup.setVisibility(calendarGroup.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
             }
         });
-
     }
-
-
 }

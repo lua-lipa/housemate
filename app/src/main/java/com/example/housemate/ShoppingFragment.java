@@ -39,7 +39,6 @@ public class ShoppingFragment extends Fragment {
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
     public ShoppingFragment() {}
 
     @Override
@@ -116,5 +115,4 @@ public class ShoppingFragment extends Fragment {
         //view.findbyid to get all of the stuff from xml
         return view;
     }
-
 }

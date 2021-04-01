@@ -32,4 +32,13 @@
     <string name="chore_name">Chore name</string>
     <string name="chore_date">Chore date</string>
     <string name="add_chore">Add Chore</string>
+    <string name="add_item">add item</string>
+    <string name="fab">fab</string>
+    <string name="shopping_text">shopping text</string>
+    <string name="save_item">save item</string>
+    <string name="calendar_image_description">calendar image description</string>
+    <string name="tomorrow">tomorrow</string>
+    <string name="next_week">next week</string>
+    <string name="today">today</string>
+    <string name="due_date">due date</string>
 </resources>
