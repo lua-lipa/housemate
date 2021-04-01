@@ -123,7 +123,7 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                                    String familyId = documentSnapshot.getString("family");
+                                    String familyId = documentSnapshot.getString("familyId");
                                     DocumentReference familyRef = db.collection("families").document(familyId);
                                     String billsId = familyRef.collection("bills").document().getId();
                                     DocumentReference billsRef = familyRef.collection("bills").document(billsId);
