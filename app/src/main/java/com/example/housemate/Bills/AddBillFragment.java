@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
     EditText titleEditText;
     EditText amountEditText;
     Spinner assigneeSpinner;
-    
+
     public AddBillFragment() {
         // Required empty public constructor
     }
@@ -72,9 +73,13 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
         amountEditText = (EditText) v.findViewById(R.id.billsBillAmountInput);
         assigneeSpinner = (Spinner) v.findViewById(R.id.billsBillAssignInput);
 
+        /* getting family member names from the db, and adding it to spinner along with "all members" option */
         String[] family_members = api.getMemberNames();
+        String[] spinner_members = new String[family_members.length + 1];
+        for(int i = 0; i < family_members.length; i++)  spinner_members[i] = family_members[i];
+        spinner_members[spinner_members.length-1] = "All members";
 
-        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, family_members);
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, spinner_members);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         assigneeSpinner.setAdapter(aa);
@@ -160,11 +165,8 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
                                     Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show();
                                 }
                             });
-                    EditText titleEditText;
-                    EditText amountEditText;
-                    Spinner assigneeSpinner;
 
-                } else {
+                } else { /* fields are not filled, notify the user */
                     if (title.length() == 0) {
                         titleEditText.requestFocus();
                         titleEditText.setError("Enter Text");
@@ -198,6 +200,8 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 
         );
+        /* only allowing future dates to be selected */
+        dialog.getDatePicker().setMinDate(System.currentTimeMillis());
         dialog.show();
     }
 

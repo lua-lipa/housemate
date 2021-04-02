@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="20dp"
     android:orientation="vertical"
-    tools:context=".Bills.BillsActivity">
+    tools:context=".Bills.AddBillFragment">
 
 
 
@@ -67,7 +67,8 @@
         android:paddingRight="16dp"
         android:layout_marginBottom="25dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:focusable="false">
     </AutoCompleteTextView>
 
     <!--Login Button-->

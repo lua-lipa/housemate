@@ -43,7 +43,6 @@ public class  ViewBillsFragment extends Fragment {
     private ViewModelProvider billsViewModel;
     private CollectionReference collectionReference = db.collection("familyId");
     private FirebaseUser user;
-    private TextView noBillText; /* displaying when no bills have been created */
 
 
 
@@ -71,7 +70,6 @@ public class  ViewBillsFragment extends Fragment {
 
 
         billsList = new ArrayList<>();
-        noBillText = v.findViewById(R.id.no_bill_text);
 
 
         /* set up the recycler view */
@@ -79,13 +77,7 @@ public class  ViewBillsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
 
-//        billsViewModel = new ViewModelProvider.AndroidViewModelFactory(activity.getApplication()).create(BillsViewModel.class);
-//        billsViewModel.getAllBills().observe(this, bills -> {
-//            /* set up recycler view */
-//           recyclerViewAdapter = new RecyclerViewAdapter(billsList, activity);
-//           recyclerView.setAdapter(recyclerViewAdapter);
-//
-//        });
+
 
         return v;
 
@@ -116,7 +108,6 @@ public class  ViewBillsFragment extends Fragment {
                                     @Override
                                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                         if(!queryDocumentSnapshots.isEmpty()) {
-                                            noBillText.setText("not empty");
                                             for(QueryDocumentSnapshot bills: queryDocumentSnapshots) {
                                                 Bill bill = bills.toObject(Bill.class);
                                                 billsList.add(bill);
@@ -128,7 +119,6 @@ public class  ViewBillsFragment extends Fragment {
                                             billRecyclerViewAdapter.notifyDataSetChanged();
 
                                         } else {
-                                            noBillText.setText("empty"); /* display no data text view */
                                         }
                                     }
                                 })
@@ -146,38 +136,7 @@ public class  ViewBillsFragment extends Fragment {
                     }
                 });
 
-        /*
-        collectionReference.whereEqualTo("familyId", "KPrCIWOp1KpHDQLW5erT")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
 
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-
-                        if(!queryDocumentSnapshots.isEmpty()) {
-                            noBillText.setText("not empty");
-                            for(QueryDocumentSnapshot bills: queryDocumentSnapshots) {
-                                BillsModel bill = bills.toObject(BillsModel.class);
-                                billsList.add(bill);
-                            }
-
-                            recyclerViewAdapter = new RecyclerViewAdapter(billsList, getActivity());
-                            recyclerView.setAdapter(recyclerViewAdapter);
-                            recyclerViewAdapter.notifyDataSetChanged();
-
-                        } else {
-                            noBillText.setText("empty");
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                     @Override
-                     public void onFailure(@NonNull Exception e) {
-                        noBillText.setText("Can't get bills");
-                    }
-            });
-
-        */
 
     }
 }
