@@ -1,10 +1,10 @@
-#Thu Apr 01 18:18:11 IST 2021
+#Fri Apr 02 18:44:12 BST 2021
 path.2=classes2.dex
 path.1=classes.dex
 path.0=classes.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-base.2=/Users/ranya/StudioProjects/housemate/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
-base.1=/Users/ranya/StudioProjects/housemate/app/build/intermediates/dex/debug/mergeProjectDexDebug/classes.dex
-base.0=/Users/ranya/StudioProjects/housemate/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.2=C\:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.1=C\:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
+base.0=C\:\\Users\\Johnny\\AndroidStudioProjects\\CS4084-mobile-app-dev\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
