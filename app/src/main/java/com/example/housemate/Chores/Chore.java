@@ -5,6 +5,8 @@ public class Chore {
     private String day;
     private String assignee;
 
+    private Chore() {}
+
     private Chore(String name, String date, String assignee){
         this.name = name;
         this.day = day;
