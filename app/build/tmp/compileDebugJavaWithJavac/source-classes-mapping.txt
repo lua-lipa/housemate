@@ -26,11 +26,27 @@ com/example/housemate/FamilyActivity.java
  com.example.housemate.FamilyActivity$3$5
 com/example/housemate/SuccessActivity.java
  com.example.housemate.SuccessActivity
+<<<<<<< HEAD
+com/example/housemate/adapter/BillRecyclerViewAdapter.java
+ com.example.housemate.adapter.BillRecyclerViewAdapter
+ com.example.housemate.adapter.BillRecyclerViewAdapter$ViewHolder
+com/example/housemate/LoginActivity.java
+ com.example.housemate.LoginActivity
+ com.example.housemate.LoginActivity$1
+ com.example.housemate.LoginActivity$2
+ com.example.housemate.LoginActivity$2$1
+ com.example.housemate.LoginActivity$2$2
+ com.example.housemate.LoginActivity$2$2$1
+ com.example.housemate.LoginActivity$2$2$2
+ com.example.housemate.LoginActivity$2$2$2$1
+ com.example.housemate.LoginActivity$2$2$2$2
+=======
 com/example/housemate/adapter/ChoreRecyclerViewAdapter.java
  com.example.housemate.adapter.ChoreRecyclerViewAdapter
  com.example.housemate.adapter.ChoreRecyclerViewAdapter$ViewHolder
 com/example/housemate/FamilyFragment.java
  com.example.housemate.FamilyFragment
+>>>>>>> c272fc237b1a95de3ec55dcdcf61d0e2849e75c4
 com/example/housemate/ChoresActivity.java
  com.example.housemate.ChoresActivity
  com.example.housemate.ChoresActivity$1
@@ -58,10 +74,23 @@ com/example/housemate/SignUpActivity.java
  com.example.housemate.SignUpActivity$1$1
  com.example.housemate.SignUpActivity$1$2
  com.example.housemate.SignUpActivity$1$3
+<<<<<<< HEAD
+com/example/housemate/ShoppingList/BottomSheetFragment.java
+ com.example.housemate.ShoppingList.BottomSheetFragment
+ com.example.housemate.ShoppingList.BottomSheetFragment$1
+ com.example.housemate.ShoppingList.BottomSheetFragment$1$1
+ com.example.housemate.ShoppingList.BottomSheetFragment$1$2
+ com.example.housemate.ShoppingList.BottomSheetFragment$1$2$1
+ com.example.housemate.ShoppingList.BottomSheetFragment$1$2$2
+ com.example.housemate.ShoppingList.BottomSheetFragment$2
+com/example/housemate/util/customToast.java
+ com.example.housemate.util.customToast
+=======
 com/example/housemate/ChoresFragment.java
  com.example.housemate.ChoresFragment
  com.example.housemate.ChoresFragment$1
  com.example.housemate.ChoresFragment$2
+>>>>>>> c272fc237b1a95de3ec55dcdcf61d0e2849e75c4
 com/example/housemate/Bills/ViewBillsFragment.java
  com.example.housemate.Bills.ViewBillsFragment
  com.example.housemate.Bills.ViewBillsFragment$1
@@ -70,6 +99,17 @@ com/example/housemate/Bills/ViewBillsFragment.java
  com.example.housemate.Bills.ViewBillsFragment$2$2
 com/example/housemate/HomeActivity.java
  com.example.housemate.HomeActivity
+<<<<<<< HEAD
+com/example/housemate/Chores/ViewChoresFragment.java
+ com.example.housemate.Chores.ViewChoresFragment
+ com.example.housemate.Chores.ViewChoresFragment$1
+ com.example.housemate.Chores.ViewChoresFragment$2
+ com.example.housemate.Chores.ViewChoresFragment$2$1
+ com.example.housemate.Chores.ViewChoresFragment$2$2
+com/example/housemate/adapter/ChoreRecyclerViewAdapter.java
+ com.example.housemate.adapter.ChoreRecyclerViewAdapter
+ com.example.housemate.adapter.ChoreRecyclerViewAdapter$ViewHolder
+=======
 com/example/housemate/ShoppingList/BottomSheetFragment.java
  com.example.housemate.ShoppingList.BottomSheetFragment
  com.example.housemate.ShoppingList.BottomSheetFragment$1
@@ -97,3 +137,4 @@ com/example/housemate/LoginActivity.java
  com.example.housemate.LoginActivity$2$2$2
  com.example.housemate.LoginActivity$2$2$2$1
  com.example.housemate.LoginActivity$2$2$2$2
+>>>>>>> c272fc237b1a95de3ec55dcdcf61d0e2849e75c4

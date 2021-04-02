@@ -26,30 +26,33 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/ChoreChoreName"
-                android:layout_width="159dp"
-                android:layout_height="match_parent"
-                android:text="chore name" />
-
-            <TextView
-                android:id="@+id/ChoresChoreDay"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:text="chore day" />
-
-            <TextView
-                android:id="@+id/ChoresChoreAssignee"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:text="assigned to" />
-
             <CheckBox
                 android:id="@+id/ChoresDoneButton"
                 android:layout_width="5dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:buttonTint="@color/orange" />
+
+            <TextView
+                android:id="@+id/ChoreChoreName"
+                android:layout_width="159dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="chore name" />
+
+            <TextView
+                android:id="@+id/ChoresChoreDay"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="chore day" />
+
+            <TextView
+                android:id="@+id/ChoresChoreAssignee"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="assigned to" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

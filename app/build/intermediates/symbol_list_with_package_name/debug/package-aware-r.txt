@@ -1870,6 +1870,7 @@ id ChoreChoreName
 id ChoresChoreAssignee
 id ChoresChoreDay
 id ChoresDoneButton
+id ChoresRecyclerView
 id FUNCTION
 id META
 id NO_DEBUG
@@ -1993,7 +1994,6 @@ id choresChoreDateInput
 id choresChoreNameInput
 id choresHouseChoresButton
 id choresMyChoresButton
-id choresTextView
 id chronometer
 id circle_center
 id clear_text
@@ -2205,6 +2205,7 @@ id never
 id next_week_chip
 id noScroll
 id no_bill_text
+id no_chore_text
 id none
 id normal
 id notification_background
@@ -2234,7 +2235,6 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
-id recyclerView
 id recycler_view
 id reverseSawtooth
 id right

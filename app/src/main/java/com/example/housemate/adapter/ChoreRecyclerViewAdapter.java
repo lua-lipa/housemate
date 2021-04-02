@@ -21,7 +21,7 @@ public class ChoreRecyclerViewAdapter extends RecyclerView.Adapter<ChoreRecycler
     private List<Chore> choresList;
     private Context context;
 
-    public ChoreRecyclerViewAdapter(List<Chore> billsList, Context context) {
+    public ChoreRecyclerViewAdapter(List<Chore> choresList, Context context) {
         this.choresList = choresList;
         this.context = context;
     }
