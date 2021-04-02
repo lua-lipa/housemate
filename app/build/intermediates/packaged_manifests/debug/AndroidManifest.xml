@@ -23,6 +23,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/Theme.Housemate" >
+        <activity android:name="com.example.housemate.MainActivity" />
         <activity android:name="com.example.housemate.ChoresActivity" />
         <activity android:name="com.example.housemate.SuccessActivity" />
         <activity android:name="com.example.housemate.HomeActivity" />

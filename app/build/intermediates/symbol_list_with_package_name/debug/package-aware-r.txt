@@ -1785,6 +1785,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable dropshadow
 drawable fab_bg_mini
 drawable fab_bg_normal
 drawable googleg_disabled_color_18
@@ -1797,8 +1798,11 @@ drawable ic_baseline_calendar_today_24
 drawable ic_baseline_checkroom_24
 drawable ic_baseline_family_restroom_24
 drawable ic_baseline_forward_to_inbox_24
+drawable ic_baseline_home_24
 drawable ic_baseline_next_week_24
 drawable ic_baseline_notifications_24
+drawable ic_baseline_people_24
+drawable ic_baseline_settings_24
 drawable ic_baseline_shopping_cart_24
 drawable ic_baseline_today_24
 drawable ic_baseline_wb_sunny_24
@@ -1830,6 +1834,7 @@ drawable mtrl_ic_error
 drawable mtrl_popupmenu_background
 drawable mtrl_popupmenu_background_dark
 drawable mtrl_tabs_default_indicator
+drawable nav_item_selected_colour
 drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
@@ -1844,6 +1849,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable orange_button
+drawable orange_circle
 drawable preference_list_divider_material
 drawable rounded_button_black
 drawable rounded_button_highlighted
@@ -1957,6 +1963,7 @@ id billsBillNameInput
 id bills_recycler_view
 id bills_row_amount
 id bills_row_assignee
+id bills_row_checkbox
 id bills_row_date
 id bills_row_title
 id blocking
@@ -2188,6 +2195,11 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
+id navFamily
+id navHome
+id navSettings
+id navbarBottomNavigation
+id navbarFrameLayout
 id navigation_header_container
 id never
 id next_week_chip
@@ -2328,6 +2340,8 @@ id textView10
 id textView11
 id textView2
 id textView3
+id textView4
+id textView5
 id textView6
 id textView7
 id textView9
@@ -2439,6 +2453,7 @@ layout activity_chores
 layout activity_family
 layout activity_home
 layout activity_login
+layout activity_main
 layout activity_sign_up
 layout activity_signup
 layout activity_success
@@ -2465,7 +2480,10 @@ layout expand_button
 layout fragment_bills
 layout fragment_bottom_sheet
 layout fragment_chores
+layout fragment_family
+layout fragment_home
 layout fragment_reminders
+layout fragment_settings
 layout fragment_shopping
 layout fragment_view_bills
 layout image_frame
@@ -2561,12 +2579,14 @@ layout text_view_with_line_height_from_layout
 layout text_view_with_line_height_from_style
 layout text_view_with_theme_line_height
 layout text_view_without_line_height
+menu bottom_nav_menu
 mipmap housemat_logo_white
 mipmap housemate_logo_white
 mipmap ic_launcher
 mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
+string _10
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -2600,8 +2620,11 @@ string app_name
 string appbar_scrolling_view_behavior
 string bill_amount
 string bill_assign
+string bill_assignee_string
 string bill_date
+string bill_date_string
 string bill_title
+string bill_title_string
 string bills
 string bottom_sheet_behavior
 string bottomsheet_action_expand_halfway
