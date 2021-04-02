@@ -53,7 +53,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             fragment = new ChoresFragment();
             selectedButton = choresButton;
         } else if (id == R.id.homeShoppingButton) {
-            fragment = new AddBillFragment();
+            fragment = new ShoppingFragment();
             selectedButton = shoppingButton;
         } else if (id == R.id.homeBillsButton) {
             fragment = new ViewBillsFragment();
