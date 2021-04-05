@@ -1,15 +1,18 @@
 package com.example.housemate.Chores;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.housemate.Chores.Chore;
 import com.example.housemate.R;
 import com.example.housemate.adapter.ChoreRecyclerViewAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -44,6 +49,12 @@ public class ViewChoresFragment extends Fragment {
     private ViewModelProvider choresViewModel;
     private CollectionReference collectionReference = db.collection("familyId");
     private FirebaseUser user;
+    private Button selectedButton;
+    private Button myChoresButton;
+    private Button houseChoresButton;
+    FloatingActionButton addChore;
+
+    //private TextView textView;
     //private TextView noChoreText; /* displaying when no chores have been created */
 
 
@@ -65,6 +76,15 @@ public class ViewChoresFragment extends Fragment {
         /* Inflate the layout for this fragment */
         View v =  inflater.inflate(R.layout.fragment_chores, container, false);
 
+        addChore = v.findViewById(R.id.choresFloatingActionButton);
+        addChore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddChoreBottomFragment bottomSheet = new AddChoreBottomFragment();
+                bottomSheet.show(getChildFragmentManager(), "ExampleBottomSheet");
+            }
+        });
+
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
 
@@ -79,6 +99,28 @@ public class ViewChoresFragment extends Fragment {
         recyclerView = v.findViewById(R.id.ChoresRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
+
+        myChoresButton = v.findViewById(R.id.choresMyChoresButton);
+        houseChoresButton = v.findViewById(R.id.choresHouseChoresButton);
+        selectedButton = myChoresButton;
+        selectedButton.setBackgroundResource(R.drawable.chores_button_orange);
+        //textView = v.findViewById(R.id.choresTextView);
+
+        myChoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedButton = myChoresButton;
+                //textView.setText("my chores");
+            }
+        });
+
+        houseChoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedButton = houseChoresButton;
+                //textView.setText("house chores");
+            }
+        });
 
         return v;
 
@@ -136,4 +178,5 @@ public class ViewChoresFragment extends Fragment {
                 });
 
     }
+
 }

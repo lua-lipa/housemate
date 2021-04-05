@@ -54,4 +54,6 @@
     <string name="bill_assignee_string">bill_assignee</string>
     <string name="bill_title_string">bill_title</string>
     <string name="_10">10$</string>
+    <string name="enter_chore">enter a chore</string>
+    <string name="due_day">Due Day</string>
 </resources>
