@@ -26,6 +26,8 @@ com/example/housemate/SuccessActivity.java
 com/example/housemate/adapter/BillRecyclerViewAdapter.java
  com.example.housemate.adapter.BillRecyclerViewAdapter
  com.example.housemate.adapter.BillRecyclerViewAdapter$ViewHolder
+ com.example.housemate.adapter.BillRecyclerViewAdapter$ViewHolder$1
+ com.example.housemate.adapter.BillRecyclerViewAdapter$ViewHolder$1$1
 com/example/housemate/adapter/ChoreRecyclerViewAdapter.java
  com.example.housemate.adapter.ChoreRecyclerViewAdapter
  com.example.housemate.adapter.ChoreRecyclerViewAdapter$ViewHolder
@@ -39,16 +41,14 @@ com/example/housemate/SettingsFragment.java
  com.example.housemate.SettingsFragment
 com/example/housemate/HomeFragment.java
  com.example.housemate.HomeFragment
-com/example/housemate/LoginActivity.java
- com.example.housemate.LoginActivity
- com.example.housemate.LoginActivity$1
- com.example.housemate.LoginActivity$2
- com.example.housemate.LoginActivity$2$1
- com.example.housemate.LoginActivity$2$2
- com.example.housemate.LoginActivity$2$2$1
- com.example.housemate.LoginActivity$2$2$2
- com.example.housemate.LoginActivity$2$2$2$1
- com.example.housemate.LoginActivity$2$2$2$2
+com/example/housemate/Chores/AddChoreBottomFragment.java
+ com.example.housemate.Chores.AddChoreBottomFragment
+ com.example.housemate.Chores.AddChoreBottomFragment$1
+ com.example.housemate.Chores.AddChoreBottomFragment$1$1
+ com.example.housemate.Chores.AddChoreBottomFragment$1$2
+ com.example.housemate.Chores.AddChoreBottomFragment$1$2$1
+ com.example.housemate.Chores.AddChoreBottomFragment$1$2$2
+ com.example.housemate.Chores.AddChoreBottomFragment$2
 com/example/housemate/Chores/Chore.java
  com.example.housemate.Chores.Chore
 com/example/housemate/RemindersFragment.java
@@ -68,27 +68,6 @@ com/example/housemate/SignUpActivity.java
  com.example.housemate.SignUpActivity$1$1
  com.example.housemate.SignUpActivity$1$2
  com.example.housemate.SignUpActivity$1$3
-com/example/housemate/ShoppingList/BottomSheetFragment.java
- com.example.housemate.ShoppingList.BottomSheetFragment
- com.example.housemate.ShoppingList.BottomSheetFragment$1
- com.example.housemate.ShoppingList.BottomSheetFragment$1$1
- com.example.housemate.ShoppingList.BottomSheetFragment$1$2
- com.example.housemate.ShoppingList.BottomSheetFragment$1$2$1
- com.example.housemate.ShoppingList.BottomSheetFragment$1$2$2
- com.example.housemate.ShoppingList.BottomSheetFragment$2
-com/example/housemate/util/customToast.java
- com.example.housemate.util.customToast
-com/example/housemate/MainActivity.java
- com.example.housemate.MainActivity
- com.example.housemate.MainActivity$1
-com/example/housemate/Bills/ViewBillsFragment.java
- com.example.housemate.Bills.ViewBillsFragment
- com.example.housemate.Bills.ViewBillsFragment$1
- com.example.housemate.Bills.ViewBillsFragment$2
- com.example.housemate.Bills.ViewBillsFragment$2$1
- com.example.housemate.Bills.ViewBillsFragment$2$2
-com/example/housemate/HomeActivity.java
- com.example.housemate.HomeActivity
 com/example/housemate/Chores/ViewChoresFragment.java
  com.example.housemate.Chores.ViewChoresFragment
  com.example.housemate.Chores.ViewChoresFragment$1
@@ -98,11 +77,35 @@ com/example/housemate/Chores/ViewChoresFragment.java
  com.example.housemate.Chores.ViewChoresFragment$5
  com.example.housemate.Chores.ViewChoresFragment$5$1
  com.example.housemate.Chores.ViewChoresFragment$5$2
-com/example/housemate/Chores/AddChoreBottomFragment.java
- com.example.housemate.Chores.AddChoreBottomFragment
- com.example.housemate.Chores.AddChoreBottomFragment$1
- com.example.housemate.Chores.AddChoreBottomFragment$1$1
- com.example.housemate.Chores.AddChoreBottomFragment$1$2
- com.example.housemate.Chores.AddChoreBottomFragment$1$2$1
- com.example.housemate.Chores.AddChoreBottomFragment$1$2$2
- com.example.housemate.Chores.AddChoreBottomFragment$2
+com/example/housemate/util/customToast.java
+ com.example.housemate.util.customToast
+com/example/housemate/MainActivity.java
+ com.example.housemate.MainActivity
+ com.example.housemate.MainActivity$1
+com/example/housemate/Bills/ViewBillsFragment.java
+ com.example.housemate.Bills.ViewBillsFragment
+ com.example.housemate.Bills.ViewBillsFragment$1
+ com.example.housemate.Bills.ViewBillsFragment$2
+ com.example.housemate.Bills.ViewBillsFragment$3
+ com.example.housemate.Bills.ViewBillsFragment$3$1
+ com.example.housemate.Bills.ViewBillsFragment$3$2
+com/example/housemate/HomeActivity.java
+ com.example.housemate.HomeActivity
+com/example/housemate/LoginActivity.java
+ com.example.housemate.LoginActivity
+ com.example.housemate.LoginActivity$1
+ com.example.housemate.LoginActivity$2
+ com.example.housemate.LoginActivity$2$1
+ com.example.housemate.LoginActivity$2$2
+ com.example.housemate.LoginActivity$2$2$1
+ com.example.housemate.LoginActivity$2$2$2
+ com.example.housemate.LoginActivity$2$2$2$1
+ com.example.housemate.LoginActivity$2$2$2$2
+com/example/housemate/ShoppingList/BottomSheetFragment.java
+ com.example.housemate.ShoppingList.BottomSheetFragment
+ com.example.housemate.ShoppingList.BottomSheetFragment$1
+ com.example.housemate.ShoppingList.BottomSheetFragment$1$1
+ com.example.housemate.ShoppingList.BottomSheetFragment$1$2
+ com.example.housemate.ShoppingList.BottomSheetFragment$1$2$1
+ com.example.housemate.ShoppingList.BottomSheetFragment$1$2$2
+ com.example.housemate.ShoppingList.BottomSheetFragment$2

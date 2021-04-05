@@ -82,7 +82,7 @@ public class AddChoreBottomFragment extends BottomSheetDialogFragment {
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    String familyId = documentSnapshot.getString("family");
+                                    String familyId = documentSnapshot.getString("familyId");
                                     DocumentReference familyRef = db.collection("families").document(familyId);
                                     String choresId = familyRef.collection("chores").document().getId();
                                     DocumentReference choresRef = familyRef.collection("chores").document(choresId);
