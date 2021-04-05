@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.housemate.Bills.Bill;
 import com.example.housemate.R;
+import com.example.housemate.ShoppingList.BottomSheetFragment;
 import com.example.housemate.adapter.BillRecyclerViewAdapter;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class  ViewBillsFragment extends Fragment {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -40,10 +41,7 @@ public class  ViewBillsFragment extends Fragment {
     private RecyclerView recyclerView;
     private BillRecyclerViewAdapter billRecyclerViewAdapter;
     private List<Bill> billsList;
-    private ViewModelProvider billsViewModel;
-    private CollectionReference collectionReference = db.collection("familyId");
-    private FirebaseUser user;
-
+    private FloatingActionButton addBillButton;
 
 
     public ViewBillsFragment() {
@@ -66,8 +64,14 @@ public class  ViewBillsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
 
-        user = mAuth.getCurrentUser();
-
+        addBillButton = v.findViewById(R.id.billsAddBillFAB);
+        addBillButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddBillFragment addBillFragment = new AddBillFragment();
+                addBillFragment.show(getChildFragmentManager(), "AddBillBottomSheet");
+            }
+        });
 
         billsList = new ArrayList<>();
 
@@ -118,8 +122,7 @@ public class  ViewBillsFragment extends Fragment {
                                             recyclerView.setAdapter(billRecyclerViewAdapter);
                                             billRecyclerViewAdapter.notifyDataSetChanged();
 
-                                        } else {
-                                        }
+                                        } else { }
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
