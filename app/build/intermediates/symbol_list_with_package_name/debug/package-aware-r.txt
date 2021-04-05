@@ -1958,6 +1958,7 @@ id baseline
 id beginOnFirstDraw
 id beginning
 id billsAddBillButton
+id billsAddBillFAB
 id billsBillAmountInput
 id billsBillAssignInput
 id billsBillDateInput
@@ -1965,8 +1966,10 @@ id billsBillNameInput
 id bills_recycler_view
 id bills_row_amount
 id bills_row_assignee
+id bills_row_card_view
 id bills_row_checkbox
 id bills_row_date
+id bills_row_remove_bill
 id bills_row_title
 id blocking
 id bottom
@@ -2787,6 +2790,7 @@ string today
 string tomorrow
 string v7_preference_off
 string v7_preference_on
+string x
 string you_have_logged_in
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
