@@ -1866,10 +1866,9 @@ id ALT
 id BOTTOM_END
 id BOTTOM_START
 id CTRL
-id ChoreChoreName
 id ChoresChoreAssignee
+id ChoresChoreCheckbox
 id ChoresChoreDay
-id ChoresDoneButton
 id ChoresRecyclerView
 id FUNCTION
 id META
@@ -2079,6 +2078,7 @@ id fitToContents
 id fixed
 id flip
 id floating
+id floatingActionButton
 id forever
 id fragment_container_view_tag
 id ghost_view
@@ -2204,8 +2204,6 @@ id navigation_header_container
 id never
 id next_week_chip
 id noScroll
-id no_bill_text
-id no_chore_text
 id none
 id normal
 id notification_background
