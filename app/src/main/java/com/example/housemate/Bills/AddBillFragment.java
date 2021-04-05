@@ -24,6 +24,7 @@ import com.example.housemate.R;
 import com.example.housemate.util.HousemateAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,11 +36,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddBillFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+public class AddBillFragment extends BottomSheetDialogFragment implements DatePickerDialog.OnDateSetListener {
 
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private EditText dateText;

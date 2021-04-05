@@ -7,6 +7,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/bills_row_card_view"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
@@ -57,18 +58,18 @@
                     android:textColor="#000000" />
 
                 <TextView
-                    android:id="@+id/bills_row_assignee"
+                    android:id="@+id/bills_row_date"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="@string/bill_assignee_string" />
+                    android:text="@string/bill_date_string" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/bills_row_date"
+                android:id="@+id/bills_row_assignee"
                 android:layout_width="61dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -76,13 +77,26 @@
                 android:gravity="center_horizontal|fill_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="@string/bill_date_string" />
+                android:text="@string/bill_assignee_string" />
 
             <CheckBox
                 android:id="@+id/bills_row_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1" />
+
+
+            <TextView
+                android:id="@+id/bills_row_remove_bill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="@string/x"
+                android:textColor="#FF9800"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
