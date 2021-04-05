@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:background="#F5F4F4">
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bills_recycler_view"
         android:layout_width="match_parent"
@@ -20,6 +22,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/billsAddBillFAB"
+        android:layout_width="33dp"
+        android:layout_height="43dp"
+        android:layout_gravity="end|bottom"
+        android:contentDescription="@string/fab"
+        app:fab_colorNormal="@color/orange"
+        app:fab_icon="@drawable/ic_baseline_add_30"
+        app:fab_title="add item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 
