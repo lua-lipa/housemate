@@ -16,6 +16,14 @@
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml"
     },
     {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/layout_fragment_add_chore.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/fragment_add_chore.xml"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_chores_button_white.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/chores_button_white.xml"
+    },
+    {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_baseline_home_24.xml.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/ic_baseline_home_24.xml"
     },
@@ -138,6 +146,10 @@
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_orange_circle.xml.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/orange_circle.xml"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_chores_button_orange.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/chores_button_orange.xml"
     },
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/mipmap-mdpi_housemat_logo_white.png.flat",

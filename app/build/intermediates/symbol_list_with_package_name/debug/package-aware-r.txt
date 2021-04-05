@@ -1759,6 +1759,8 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable chores_button_orange
+drawable chores_button_white
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -1866,6 +1868,7 @@ id ALT
 id BOTTOM_END
 id BOTTOM_START
 id CTRL
+id ChoresAddChoreFragment
 id ChoresChoreAssignee
 id ChoresChoreCheckbox
 id ChoresChoreDay
@@ -1989,10 +1992,22 @@ id chip2
 id chip3
 id chip_group
 id choresAddChoreButton
+id choresCalendarButton
 id choresChoreDateInput
 id choresChoreNameInput
+id choresDaysGroup
+id choresDueDayTextView
+id choresFloatingActionButton
+id choresFriday
 id choresHouseChoresButton
+id choresMonday
 id choresMyChoresButton
+id choresSaturday
+id choresSaveChoreButton
+id choresSunday
+id choresThursday
+id choresTuesday
+id choresWednesday
 id chronometer
 id circle_center
 id clear_text
@@ -2055,6 +2070,8 @@ id enterEmailPlaceholder
 id enterFullName
 id enterPasswordPlaceholder
 id enterPasswordPlaceholder2
+id enter_assignee
+id enter_chore
 id enter_item
 id exitUntilCollapsed
 id expand_activities_button
@@ -2078,7 +2095,6 @@ id fitToContents
 id fixed
 id flip
 id floating
-id floatingActionButton
 id forever
 id fragment_container_view_tag
 id ghost_view
@@ -2475,6 +2491,7 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout expand_button
+layout fragment_add_chore
 layout fragment_bills
 layout fragment_bottom_sheet
 layout fragment_chores
@@ -2662,9 +2679,11 @@ string default_web_client_id
 string don_t_have_an_account
 string dot
 string due_date
+string due_day
 string email
 string email_1
 string enter_a_name_for_your_family
+string enter_chore
 string enter_item
 string enter_your_email
 string enter_your_full_name
