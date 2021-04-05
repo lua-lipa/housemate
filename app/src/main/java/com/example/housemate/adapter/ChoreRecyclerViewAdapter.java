@@ -57,7 +57,7 @@ public class ChoreRecyclerViewAdapter extends RecyclerView.Adapter<ChoreRecycler
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.ChoreChoreName);
+            name = itemView.findViewById(R.id.ChoresChoreCheckbox);
             day = itemView.findViewById(R.id.ChoresChoreDay);
             assignee = itemView.findViewById(R.id.ChoresChoreAssignee);
 

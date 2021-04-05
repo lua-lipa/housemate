@@ -44,7 +44,7 @@ public class ViewChoresFragment extends Fragment {
     private ViewModelProvider choresViewModel;
     private CollectionReference collectionReference = db.collection("familyId");
     private FirebaseUser user;
-    private TextView noChoreText; /* displaying when no chores have been created */
+    //private TextView noChoreText; /* displaying when no chores have been created */
 
 
 
@@ -72,7 +72,7 @@ public class ViewChoresFragment extends Fragment {
 
 
         choresList = new ArrayList<>();
-        noChoreText = v.findViewById(R.id.no_chore_text);
+        //noChoreText = v.findViewById(R.id.no_chore_text);
 
 
         /* set up the recycler view */
@@ -96,23 +96,18 @@ public class ViewChoresFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        //get family id
-                        //create sub collection in that family doc using the id
-                        //after collection, add data
-                        //save data with this button
                         String familyId = documentSnapshot.getString("familyId");
                         DocumentReference familyRef = db.collection("families").document(familyId);
                         CollectionReference choresRef = familyRef.collection("chores");
-                        //date
                         choresRef.get()
                                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                     @Override
                                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                         if(!queryDocumentSnapshots.isEmpty()) {
-                                            noChoreText.setText("not empty");
+                                            //noChoreText.setText("not empty");
                                             for(QueryDocumentSnapshot chores: queryDocumentSnapshots) {
                                                 Chore chore = chores.toObject(Chore.class);
-                                                Log.d("Chore", chore.getName());
+                                                //Log.d("Chore", chore.getName());
                                                 choresList.add(chore);
                                             }
                                             /* invoke recycler view*/
@@ -122,7 +117,7 @@ public class ViewChoresFragment extends Fragment {
                                             choreRecyclerViewAdapter.notifyDataSetChanged();
 
                                         } else {
-                                            noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
+                                            //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
                                         }
                                     }
                                 })
