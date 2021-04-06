@@ -29,32 +29,48 @@
     </AutoCompleteTextView>
 
     <!--Input Field-->
-    <AutoCompleteTextView
-        android:id="@+id/billsBillAmountInput"
-        android:hint="@string/bill_amount"
-        android:background="@drawable/rounded_edittext"
-        android:inputType="text"
-        android:maxLines="1"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_marginBottom="25dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-    </AutoCompleteTextView>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <AutoCompleteTextView
+            android:id="@+id/billsBillAmountInput"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="@string/bill_amount"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"></AutoCompleteTextView>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="€"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <!--Input Field-->
     <Spinner
+        android:id="@+id/billsBillAssignInput"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/billsBillAssignInput"
-        android:hint="@string/bill_assign"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/rounded_edittext"
+        android:hint="@string/bill_assign"
         android:inputType="text"
         android:maxLines="1"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_marginBottom="25dp"
-        />
+        android:paddingRight="16dp" />
 
     <!--Input Field-->
     <AutoCompleteTextView
@@ -83,9 +99,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </Button>
-
-
-
 
 
 </LinearLayout>

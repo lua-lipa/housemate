@@ -55,4 +55,5 @@
     <string name="bill_title_string">bill_title</string>
     <string name="_10">10$</string>
     <string name="x">X</string>
+    <string name="del">← del</string>
 </resources>
