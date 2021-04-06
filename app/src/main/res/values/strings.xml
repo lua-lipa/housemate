@@ -57,4 +57,5 @@
     <string name="enter_chore">enter a chore</string>
     <string name="due_day">Due Day</string>
     <string name="x">X</string>
+    <string name="del">← del</string>
 </resources>

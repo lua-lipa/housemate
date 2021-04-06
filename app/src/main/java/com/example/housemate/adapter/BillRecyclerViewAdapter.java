@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.housemate.Bills.Bill;
@@ -90,6 +91,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
                             public void onClick(View v) {
                                 Log.d("bills recycler view", "remove button clicked");
                                 /* remove the bill from the screen & database */
+
                             }
                         });
                     } else {
