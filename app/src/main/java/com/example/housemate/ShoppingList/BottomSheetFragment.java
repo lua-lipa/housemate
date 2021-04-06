@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,7 +139,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
                                 }
                             });
-
                 } else {
                     if(item.length() == 0){
                         enterItem.requestFocus();
@@ -146,7 +146,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         Toast.makeText(getActivity(), "Enter Text", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
         });
 
