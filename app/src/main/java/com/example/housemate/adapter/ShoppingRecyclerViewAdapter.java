@@ -42,7 +42,7 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
         /* bind data to our items */
         /* position = where are we on our list? */
         ShoppingItem shoppingItem = Objects.requireNonNull(shoppingList).get(position);
-        holder.name.setText(shoppingItem.getName());
+        holder.name.setText(shoppingItem.getItem());
         holder.date.setText(shoppingItem.getDate());
     }
 

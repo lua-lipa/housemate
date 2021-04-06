@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 
 import com.example.housemate.Bills.AddBillFragment;
 import com.example.housemate.Bills.ViewBillsFragment;
+import com.example.housemate.ShoppingList.ShoppingFragment;
 import com.example.housemate.Chores.ViewChoresFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -55,8 +56,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 .add(R.id.homeFrameLayout, new ViewChoresFragment())
                 .commit();
 
-
-
         return view;
     }
 
@@ -69,7 +68,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             fragment = new ViewChoresFragment();
             selectedButton = choresButton;
         } else if (id == R.id.homeShoppingButton) {
-            fragment = new AddBillFragment();
+            fragment = new ShoppingFragment();
             selectedButton = shoppingButton;
         } else if (id == R.id.homeBillsButton) {
             fragment = new ViewBillsFragment();
