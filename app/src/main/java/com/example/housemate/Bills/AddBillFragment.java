@@ -24,6 +24,7 @@ import com.example.housemate.R;
 import com.example.housemate.util.HousemateAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,11 +36,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddBillFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+public class AddBillFragment extends BottomSheetDialogFragment implements DatePickerDialog.OnDateSetListener {
 
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private EditText dateText;
@@ -131,11 +130,19 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                                    String familyId = documentSnapshot.getString("familyId");
-                                    DocumentReference familyRef = db.collection("families").document(familyId);
-                                    String billsId = familyRef.collection("bills").document().getId();
-                                    DocumentReference billsRef = familyRef.collection("bills").document(billsId);
+                                    if (assignee.equals("All members")) {
+                                        HousemateAPI api = new HousemateAPI().getInstance(); /* need to make this global*/
 
+                                        String[] members = api.getMemberNames();
+                                        double divided_amount = Integer.parseInt(amount) / ((double) members.length) ;
+                                        for(int i = 0; i < members.length; i++) {
+                                            addBill(title, members[i], date, divided_amount + "", activity, documentSnapshot);
+                                        }
+                                    } else {
+                                        addBill(title, assignee, date, amount, activity, documentSnapshot);
+                                    }
+
+                                    /*
                                     Map<String, Object> billsObj = new HashMap();
                                     billsObj.put("billsId", billsId);
                                     billsObj.put("title", title);
@@ -156,6 +163,8 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
                                             Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show();
                                         }
                                     });
+
+                                     */
 
                                 }
                             })
@@ -210,5 +219,34 @@ public class AddBillFragment extends Fragment implements DatePickerDialog.OnDate
         month += 1;
         String date = dayOfMonth + "/" + month + "/" + year;
         dateText.setText(date);
+    }
+
+    private void addBill(String title, String assignee, String date, String amount, Activity activity, DocumentSnapshot documentSnapshot) {
+
+        String familyId = documentSnapshot.getString("familyId");
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        String billsId = familyRef.collection("bills").document().getId();
+        DocumentReference billsRef = familyRef.collection("bills").document(billsId);
+
+        Map<String, Object> billsObj = new HashMap();
+        billsObj.put("billsId", billsId);
+        billsObj.put("title", title);
+        billsObj.put("amount", amount);
+        billsObj.put("assignee", assignee);
+        billsObj.put("date", date);
+
+
+        billsRef.set(billsObj)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(activity, "add bill success", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

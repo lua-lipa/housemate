@@ -11,12 +11,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.housemate.Bills.Bill;
 import com.example.housemate.R;
+import com.example.housemate.ShoppingList.BottomSheetFragment;
 import com.example.housemate.adapter.BillRecyclerViewAdapter;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class  ViewBillsFragment extends Fragment {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -40,10 +42,7 @@ public class  ViewBillsFragment extends Fragment {
     private RecyclerView recyclerView;
     private BillRecyclerViewAdapter billRecyclerViewAdapter;
     private List<Bill> billsList;
-    private ViewModelProvider billsViewModel;
-    private CollectionReference collectionReference = db.collection("familyId");
-    private FirebaseUser user;
-
+    private FloatingActionButton addBillButton;
 
 
     public ViewBillsFragment() {
@@ -66,8 +65,14 @@ public class  ViewBillsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
 
-        user = mAuth.getCurrentUser();
-
+        addBillButton = v.findViewById(R.id.billsAddBillFAB);
+        addBillButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddBillFragment addBillFragment = new AddBillFragment();
+                addBillFragment.show(getChildFragmentManager(), "AddBillBottomSheet");
+            }
+        });
 
         billsList = new ArrayList<>();
 
@@ -76,12 +81,27 @@ public class  ViewBillsFragment extends Fragment {
         recyclerView = v.findViewById(R.id.bills_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
-
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
 
         return v;
 
     }
+
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            /* remove the card object from the view */
+            billsList.remove(viewHolder.getAdapterPosition());
+            billRecyclerViewAdapter.notifyDataSetChanged();
+
+        }
+    };
 
     @Override
     public void onStart() {
@@ -118,8 +138,7 @@ public class  ViewBillsFragment extends Fragment {
                                             recyclerView.setAdapter(billRecyclerViewAdapter);
                                             billRecyclerViewAdapter.notifyDataSetChanged();
 
-                                        } else {
-                                        }
+                                        } else { }
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {

@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                                                                 }
                                                             });
 
-                                                    Intent homeActivityIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                                                    Intent homeActivityIntent = new Intent(LoginActivity.this, MainActivity.class);
                                                     startActivity(homeActivityIntent);
                                                 } else {
                                                     Intent familyActivityIntent = new Intent(LoginActivity.this, FamilyActivity.class);

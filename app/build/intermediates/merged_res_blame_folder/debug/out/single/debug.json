@@ -4,12 +4,28 @@
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/ic_baseline_arrow_circle_up_24.xml"
     },
     {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_baseline_settings_24.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/ic_baseline_settings_24.xml"
+    },
+    {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/layout_old_activity_login.xml.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/old_activity_login.xml"
     },
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_baseline_shopping_cart_24.xml.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/layout_fragment_add_chore.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/fragment_add_chore.xml"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_chores_button_white.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/chores_button_white.xml"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_baseline_home_24.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/ic_baseline_home_24.xml"
     },
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
@@ -42,6 +58,10 @@
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher_round.png.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_baseline_people_24.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/ic_baseline_people_24.xml"
     },
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_baseline_today_24.xml.flat",
@@ -124,6 +144,14 @@
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/bills_row.xml"
     },
     {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_orange_circle.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/orange_circle.xml"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_chores_button_orange.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/chores_button_orange.xml"
+    },
+    {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/mipmap-mdpi_housemat_logo_white.png.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/mipmap-mdpi/housemat_logo_white.png"
     },
@@ -148,6 +176,10 @@
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/fragment_bottom_sheet.xml"
     },
     {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/menu_bottom_nav_menu.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/menu/bottom_nav_menu.xml"
+    },
+    {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/font_roboto.xml.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/font/roboto.xml"
     },
@@ -158,6 +190,10 @@
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_rounded_edittext_orange.xml.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/rounded_edittext_orange.xml"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_dropshadow.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/dropshadow.xml"
     },
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_baseline_family_restroom_24.xml.flat",
@@ -186,6 +222,10 @@
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/layout_activity_main.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/activity_main.xml"
     },
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_outline_create_24.xml.flat",
@@ -220,6 +260,10 @@
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png"
     },
     {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_nav_item_selected_colour.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/nav_item_selected_colour.xml"
+    },
+    {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/layout_activity_login.xml.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/activity_login.xml"
     },
@@ -240,6 +284,10 @@
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/mipmap-xxxhdpi/housemate_logo_white.png"
     },
     {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/layout_fragment_settings.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/fragment_settings.xml"
+    },
+    {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_baseline_notifications_24.xml.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/ic_baseline_notifications_24.xml"
     },
@@ -250,6 +298,14 @@
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/drawable_ic_launcher_background.xml.flat",
         "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/layout_fragment_home.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/fragment_home.xml"
+    },
+    {
+        "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/layout_fragment_family.xml.flat",
+        "source": "/Users/ranya/StudioProjects/housemate/app/src/main/res/layout/fragment_family.xml"
     },
     {
         "merged": "/Users/ranya/StudioProjects/housemate/app/build/intermediates/res/merged/debug/font_cocogoose.ttf.flat",
