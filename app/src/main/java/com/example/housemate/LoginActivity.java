@@ -94,8 +94,15 @@ public class LoginActivity extends AppCompatActivity {
                                                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                                     /* get the member map from firebase */
                                                                     List<Map<String, Object>> membersList = (List<Map<String, Object>>) documentSnapshot.get("members");
+                                                                    String familyOwnerId = documentSnapshot.getString("familyOwnerId");
+                                                                    String familyId = documentSnapshot.getString("familyId");
+                                                                    String familyName = documentSnapshot.getString("name");
+
+                                                                    housemateAPI.setFamilyId(familyId);
+                                                                    housemateAPI.setFamilyName(familyName);
                                                                     housemateAPI.setMembersList(membersList);
-                                                                    Log.d("KLOL", housemateAPI.getMembersList().toString());
+                                                                    housemateAPI.setFamilyOwnerId(familyOwnerId);
+                                                                    housemateAPI.setIsAdmin((Boolean) housemateAPI.getMemberFromUserId(userId).get("isAdmin"));
                                                                 }
                                                             })
                                                             .addOnFailureListener(new OnFailureListener() {
