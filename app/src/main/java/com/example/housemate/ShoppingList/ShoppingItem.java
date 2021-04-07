@@ -19,8 +19,4 @@ public class ShoppingItem {
     public void setDate(String date) {
         this.date = date;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 880c80c1234f42ec6df5dad32fede83c83f86163
