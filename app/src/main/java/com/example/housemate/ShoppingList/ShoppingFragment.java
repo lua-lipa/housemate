@@ -123,7 +123,6 @@ public class ShoppingFragment extends Fragment {
                                                 /*Problem here*/
                                                 ShoppingItem shoppingItem = shoppingItems.toObject(ShoppingItem.class);
                                                 shoppingList.add(shoppingItem);
-
                                             }
 
                                             /* invoke recycler view*/
