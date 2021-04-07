@@ -6,13 +6,51 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/familyMembersSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="169dp"
-        android:layout_marginLeft="169dp"
-        android:layout_marginTop="331dp"
-        android:text="family"
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingEnd="5dp"
+        android:text="@string/family_members_subtitle"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/familyMembersTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/familyMembersTitleText"></TextView>
+
+    <TextView
+        android:id="@+id/familyMembersDot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dot"
+        android:textColor="@color/orange"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/familyMembersTitleText"
+        app:layout_constraintTop_toTopOf="@+id/familyMembersTitleText" />
+
+    <TextView
+        android:id="@+id/familyMembersTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/cocogoose"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/family"
+        android:textColor="@color/black"
+        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/familyMembersRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/familyMembersSubtitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
