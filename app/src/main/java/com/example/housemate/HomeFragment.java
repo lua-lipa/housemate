@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 
 import com.example.housemate.Bills.AddBillFragment;
 import com.example.housemate.Bills.ViewBillsFragment;
+import com.example.housemate.Chores.ViewChoresFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
     private ImageButton choresButton;
@@ -51,7 +52,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         selectedButton = choresButton;
         selectedButton.setBackgroundResource(R.drawable.rounded_button_highlighted_3dp);
         fragmentManager.beginTransaction()
-                .add(R.id.homeFrameLayout, new ChoresFragment())
+                .add(R.id.homeFrameLayout, new ViewChoresFragment())
                 .commit();
 
 
@@ -62,10 +63,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         ImageButton lastSelectedButton = selectedButton;
-        Fragment fragment = new ChoresFragment();
+        Fragment fragment = new ViewChoresFragment();
         int id = v.getId();
         if (id == R.id.homeChoresButton) {
-            fragment = new ChoresFragment();
+            fragment = new ViewChoresFragment();
             selectedButton = choresButton;
         } else if (id == R.id.homeShoppingButton) {
             fragment = new AddBillFragment();

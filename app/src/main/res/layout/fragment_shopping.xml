@@ -13,10 +13,10 @@
 
     <!--Our shopping list will be displayed here-->
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="229dp"
-        android:layout_marginTop="13dp"
-        />
+        android:id="@+id/shopping_recycler_view"
+        android:layout_width="392dp"
+        android:layout_height="718dp"
+        android:layout_marginTop="13dp" />
 
     <!--FAB selected to display the bottom sheet fragment-->
     <com.getbase.floatingactionbutton.FloatingActionButton
@@ -33,7 +33,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/ChoresRecyclerView"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
