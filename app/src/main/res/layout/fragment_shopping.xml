@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ShoppingList.ShoppingFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/shopping_text" />
-
-    <!--Our shopping list will be displayed here-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="229dp"
-        android:layout_marginTop="13dp"
-        />
+        <!--Our shopping list will be displayed here-->
 
     <!--FAB selected to display the bottom sheet fragment-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shopping_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/addItemFAB"
         android:layout_width="33dp"
         android:layout_height="43dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_gravity="end|bottom"
+        android:contentDescription="@string/fab"
         app:fab_colorNormal="@color/orange"
         app:fab_icon="@drawable/ic_baseline_add_30"
-        android:layout_gravity="end|bottom"
         app:fab_title="add item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/deleteItemFAB"
+        android:layout_width="33dp"
+        android:layout_height="43dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginStart="400dp"
+        android:layout_marginLeft="400dp"
+        android:layout_marginEnd="248dp"
+        android:layout_marginRight="248dp"
         android:contentDescription="@string/fab"
-        />
+        app:fab_colorNormal="@color/orange"
+        app:fab_icon="@drawable/ic_baseline_delete_24"
+        app:fab_title="add item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addItemFAB"
+        app:layout_constraintHorizontal_bias="0.917"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ChoresRecyclerView"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

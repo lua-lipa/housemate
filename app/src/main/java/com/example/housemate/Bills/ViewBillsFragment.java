@@ -1,3 +1,4 @@
+
 package com.example.housemate.Bills;
 
 import android.app.Activity;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +20,7 @@ import com.example.housemate.Bills.Bill;
 import com.example.housemate.R;
 import com.example.housemate.ShoppingList.BottomSheetFragment;
 import com.example.housemate.adapter.BillRecyclerViewAdapter;
+import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,9 +34,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class  ViewBillsFragment extends Fragment {
+
+public class  ViewBillsFragment extends Fragment  {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -42,7 +48,7 @@ public class  ViewBillsFragment extends Fragment {
     private BillRecyclerViewAdapter billRecyclerViewAdapter;
     private List<Bill> billsList;
     private FloatingActionButton addBillButton;
-
+    private FloatingActionButton billsMoreInfoButton;
 
     public ViewBillsFragment() {
         // Required empty public constructor
@@ -64,6 +70,15 @@ public class  ViewBillsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
 
+        billsMoreInfoButton = v.findViewById(R.id.billsMoreInfoFAB);
+        billsMoreInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BillsMoreInfoFragment moreInfoFragment = new BillsMoreInfoFragment();
+                moreInfoFragment.show(getChildFragmentManager(), "billsMoreInfoBottomSheet");
+            }
+        });
+
         addBillButton = v.findViewById(R.id.billsAddBillFAB);
         addBillButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,12 +95,46 @@ public class  ViewBillsFragment extends Fragment {
         recyclerView = v.findViewById(R.id.bills_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
 
 
         return v;
 
     }
+
+
+
+
+
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            /* remove the card object from the view */
+
+            Bill billSwiped = billsList.get(viewHolder.getAdapterPosition());
+
+            /* update the status of this bill being paid inside firestore */
+
+
+            HousemateAPI api = HousemateAPI.getInstance();
+
+            DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
+            DocumentReference billRef = familyRef.collection("bills").document(billSwiped.getBillsId());
+            billRef.update("isPaid", true);
+
+            billsList.remove(viewHolder.getAdapterPosition());
+            billRecyclerViewAdapter.notifyDataSetChanged();
+        }
+
+
+
+    };
 
     @Override
     public void onStart() {
@@ -107,14 +156,17 @@ public class  ViewBillsFragment extends Fragment {
                         DocumentReference familyRef = db.collection("families").document(familyId);
                         CollectionReference billsRef = familyRef.collection("bills");
                         //date
+                        HousemateAPI api = HousemateAPI.getInstance();
                         billsRef.get()
                                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                     @Override
                                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                         if(!queryDocumentSnapshots.isEmpty()) {
                                             for(QueryDocumentSnapshot bills: queryDocumentSnapshots) {
+                                                /* making only the bills belonging to current user are being viewed */
                                                 Bill bill = bills.toObject(Bill.class);
-                                                billsList.add(bill);
+                                                String billUserId = bill.getUserId();
+                                                if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == false) billsList.add(bill);
                                             }
                                             /* invoke recycler view*/
 

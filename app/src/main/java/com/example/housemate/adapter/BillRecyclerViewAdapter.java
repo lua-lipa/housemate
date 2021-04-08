@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.housemate.Bills.Bill;
@@ -48,9 +49,10 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         Bill bill = Objects.requireNonNull(billsList).get(position);
         holder.title.setText(bill.getTitle());
         holder.amount.setText(bill.getAmount() + "€");
-        holder.assignee.setText(bill.getAssignee());
+//        holder.assignee.setText(bill.getAssignee());
         holder.date.setText(bill.getDate());
     }
+
 
     @Override
     public int getItemCount() { /* let the recycler know how much data it will be receiving */
@@ -58,47 +60,50 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+
         public CardView billCard;
         public TextView title;
         public TextView amount;
         public TextView date;
-        public TextView assignee;
-        public TextView removeBillButton;
-        public CheckBox billCheckBox;
+//        public TextView assignee;
+//        public TextView removeBillButton;
+//        public CheckBox billCheckBox;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.bills_row_title);
             amount = itemView.findViewById(R.id.bills_row_amount);
             date = itemView.findViewById(R.id.bills_row_date);
-            assignee = itemView.findViewById(R.id.bills_row_assignee);
-            billCheckBox = itemView.findViewById(R.id.bills_row_checkbox);
-            removeBillButton = itemView.findViewById(R.id.bills_row_remove_bill);
+//            assignee = itemView.findViewById(R.id.bills_row_assignee);
+//            billCheckBox = itemView.findViewById(R.id.bills_row_checkbox);
+//            removeBillButton = itemView.findViewById(R.id.bills_row_remove_bill);
             billCard = itemView.findViewById(R.id.bills_row_card_view);
 
-            removeBillButton.setVisibility(View.INVISIBLE);
-            removeBillButton.setClickable(false);
+//            removeBillButton.setVisibility(View.INVISIBLE);
+//            removeBillButton.setClickable(false);
 
-            billCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
-                        removeBillButton.setVisibility(View.VISIBLE);
-                        billCard.setBackgroundColor(Color.TRANSPARENT);
-                        removeBillButton.setClickable(true);
-                        removeBillButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Log.d("bills recycler view", "remove button clicked");
-                                /* remove the bill from the screen & database */
-                            }
-                        });
-                    } else {
-                        removeBillButton.setVisibility(View.INVISIBLE);
-                        billCard.setBackgroundColor(Color.WHITE);
-                    }
-                }
-
-            });
+//            billCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    if(isChecked) {
+//                        removeBillButton.setVisibility(View.VISIBLE);
+//                        billCard.setBackgroundColor(Color.TRANSPARENT);
+//                        removeBillButton.setClickable(true);
+//                        removeBillButton.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                Log.d("bills recycler view", "remove button clicked");
+//                                /* remove the bill from the screen & database */
+//
+//                            }
+//                        });
+//                    } else {
+//                        removeBillButton.setVisibility(View.INVISIBLE);
+//                        billCard.setBackgroundColor(Color.WHITE);
+//                    }
+//                }
+//
+//            });
 
 
 
