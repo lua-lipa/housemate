@@ -46,8 +46,6 @@ public class ChoresActivity extends AppCompatActivity {
             String choreName = choreNameInput.getText().toString().trim();
             String choreDate = choreDateInput.getText().toString().trim();
 
-
-
             String choresId = db.collection("chores").document().getId();
             DocumentReference choresRef = db.collection("chores").document(choresId);
 
@@ -70,7 +68,6 @@ public class ChoresActivity extends AppCompatActivity {
                             Toast.makeText(ChoresActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                         }
                     });
-
         });
     }
 }
