@@ -35,6 +35,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/billsMoreInfoFAB"
+        android:layout_width="33dp"
+        android:layout_height="43dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="70dp"
+        android:contentDescription="@string/fab"
+        app:fab_colorNormal="@color/orange"
+        app:fab_icon="@drawable/ic_baseline_info_24"
+        app:fab_title="more info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

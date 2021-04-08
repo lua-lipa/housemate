@@ -38,7 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class  ViewBillsFragment extends Fragment {
+
+public class  ViewBillsFragment extends Fragment  {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -47,7 +48,7 @@ public class  ViewBillsFragment extends Fragment {
     private BillRecyclerViewAdapter billRecyclerViewAdapter;
     private List<Bill> billsList;
     private FloatingActionButton addBillButton;
-
+    private FloatingActionButton billsMoreInfoButton;
 
     public ViewBillsFragment() {
         // Required empty public constructor
@@ -69,6 +70,15 @@ public class  ViewBillsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
 
+        billsMoreInfoButton = v.findViewById(R.id.billsMoreInfoFAB);
+        billsMoreInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BillsMoreInfoFragment moreInfoFragment = new BillsMoreInfoFragment();
+                moreInfoFragment.show(getChildFragmentManager(), "billsMoreInfoBottomSheet");
+            }
+        });
+
         addBillButton = v.findViewById(R.id.billsAddBillFAB);
         addBillButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,9 +98,14 @@ public class  ViewBillsFragment extends Fragment {
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
 
+
         return v;
 
     }
+
+
+
+
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
@@ -106,10 +121,19 @@ public class  ViewBillsFragment extends Fragment {
 
             /* update the status of this bill being paid inside firestore */
 
+
+            HousemateAPI api = HousemateAPI.getInstance();
+
+            DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
+            DocumentReference billRef = familyRef.collection("bills").document(billSwiped.getBillsId());
+            billRef.update("isPaid", true);
+
             billsList.remove(viewHolder.getAdapterPosition());
             billRecyclerViewAdapter.notifyDataSetChanged();
-
         }
+
+
+
     };
 
     @Override

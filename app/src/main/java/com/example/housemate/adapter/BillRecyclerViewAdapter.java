@@ -53,12 +53,15 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         holder.date.setText(bill.getDate());
     }
 
+
     @Override
     public int getItemCount() { /* let the recycler know how much data it will be receiving */
         return Objects.requireNonNull(billsList).size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+
         public CardView billCard;
         public TextView title;
         public TextView amount;
