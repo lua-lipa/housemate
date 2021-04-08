@@ -63,4 +63,7 @@
     <string name="x">X</string>
     <string name="del">← del</string>
     <string name="calendar">Calendar</string>
+    <string name="got_it">Got It</string>
+    <string name="bills_instructions">You are able to view the bills that have been assigned to you by an admin in your family. To pay a bill, simply swipe left. To add a bill, refer to the + button at the bottom of the page.</string>
+    <string name="instructions">Instructions</string>
 </resources>

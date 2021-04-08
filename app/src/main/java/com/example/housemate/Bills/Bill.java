@@ -8,15 +8,17 @@ public class Bill {
     private String assignee;
     private String userId;
     private boolean isPaid;
+    private String billsId;
 
     private Bill() {}
 
-    private Bill(String title, String amount, String date, String assignee, String userId) {
+    private Bill(String title, String amount, String date, String assignee, String userId, String billsId) {
         this.title = title;
         this.amount = amount;
         this.date = date;
         this.assignee = assignee;
         this.userId = userId;
+        this.billsId = billsId;
     }
     public String getTitle() {
         return title;
@@ -57,5 +59,9 @@ public class Bill {
     public boolean getIsPaid() { return isPaid; }
 
     public void setIsPaid() { isPaid = true; }
+
+    public String getBillsId() { return billsId;  }
+
+    public void setBillsId(String billsId) { this.billsId = billsId;  }
 }
 
