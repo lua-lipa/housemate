@@ -53,8 +53,6 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-
     }
     
     @Override

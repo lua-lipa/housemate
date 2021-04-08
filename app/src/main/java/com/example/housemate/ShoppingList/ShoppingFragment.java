@@ -1,24 +1,31 @@
 package com.example.housemate.ShoppingList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.example.housemate.Bills.Bill;
+import com.example.housemate.FamilyActivity;
 import com.example.housemate.R;
 import com.example.housemate.adapter.BillRecyclerViewAdapter;
 import com.example.housemate.adapter.ShoppingRecyclerViewAdapter;
+import com.example.housemate.util.HousemateAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -30,22 +37,34 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
+import com.google.firebase.firestore.WriteBatch;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class ShoppingFragment extends Fragment {
 
     FloatingActionButton fab;
+    FloatingActionButton fabDelete;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private HousemateAPI housemateAPI = HousemateAPI.getInstance();
 
     private RecyclerView recyclerView;
     private List<ShoppingItem> shoppingList;
+    private CheckBox checkbox;
     private ViewModelProvider shoppingViewModel;
     private CollectionReference collectionReference = db.collection("familyId");
 
@@ -84,6 +103,41 @@ public class ShoppingFragment extends Fragment {
             }
         });
 
+        fabDelete = view.findViewById(R.id.deleteItemFAB);
+        fabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<ShoppingItem> newShoppingList = housemateAPI.getCheckedShoppingList();
+                List<ShoppingItem> itemsToDelete = housemateAPI.getShoppingListItemsToDelete();
+                shoppingRecyclerViewAdapter = new ShoppingRecyclerViewAdapter(newShoppingList, getActivity());
+                recyclerView.setAdapter(shoppingRecyclerViewAdapter);
+                shoppingRecyclerViewAdapter.notifyDataSetChanged();
+
+                DocumentReference familyRef = db.collection("families").document(housemateAPI.getFamilyId());
+                CollectionReference shoppingListRef = familyRef.collection("shoppingList");
+
+                WriteBatch batch = db.batch();
+
+                for(int i = 0; i < itemsToDelete.size(); i++) {
+                    DocumentReference shoppingItemRef = shoppingListRef.document(itemsToDelete.get(i).getShoppingListId());
+                    batch.delete(shoppingItemRef);
+                }
+
+                batch.commit()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getContext(), "Deleted Successfully", Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+            }
+        });
         return view;
     }
 
@@ -110,21 +164,12 @@ public class ShoppingFragment extends Fragment {
                                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                     @Override
                                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                                        if (!queryDocumentSnapshots.isEmpty()) {
-//                                            String itemName;
-//                                            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-//                                                itemName = (String) document.get("item");
-//                                                Log.d("Item Name", itemName);
-//                                            }
-//                                        }
-
                                         if (!queryDocumentSnapshots.isEmpty()) {
                                             for (QueryDocumentSnapshot shoppingItems : queryDocumentSnapshots) {
-                                                /*Problem here*/
                                                 ShoppingItem shoppingItem = shoppingItems.toObject(ShoppingItem.class);
                                                 shoppingList.add(shoppingItem);
                                             }
-
+                                            sortItems();
                                             /* invoke recycler view*/
                                             shoppingRecyclerViewAdapter = new ShoppingRecyclerViewAdapter(shoppingList, getActivity());
                                             recyclerView.setAdapter(shoppingRecyclerViewAdapter);
@@ -132,6 +177,7 @@ public class ShoppingFragment extends Fragment {
                                         }
                                     }
                                 })
+
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
@@ -146,5 +192,15 @@ public class ShoppingFragment extends Fragment {
                         Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+
+    public void sortItems(){
+        //SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        Collections.sort(shoppingList, new Comparator<ShoppingItem>() {
+            @Override
+            public int compare(ShoppingItem o1, ShoppingItem o2) {
+                    return o1.getItem().compareTo(o2.getItem());
+            }
+        });
     }
 }
