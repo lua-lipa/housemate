@@ -2,6 +2,7 @@ package com.example.housemate.util;
 
 import android.app.Application;
 
+import com.example.housemate.ShoppingList.ShoppingItem;
 import com.example.housemate.family.FamilyMember;
 
 import java.util.List;
@@ -18,8 +19,12 @@ public class HousemateAPI extends Application {
 
     private FamilyMember selectedMember;
 
+
     private List<Map<String, Object>> membersList;
     private String[] memberNames;
+
+    private List<ShoppingItem> checkedShoppingList;
+    private List<ShoppingItem> shoppingListItemsToDelete;
 
 
     private static HousemateAPI instance;
@@ -81,6 +86,7 @@ public class HousemateAPI extends Application {
         isAdmin = admin;
     }
 
+
     public List<Map<String, Object>> getMembersList() {
         return membersList;
     }
@@ -99,6 +105,22 @@ public class HousemateAPI extends Application {
 
     public void setSelectedMember(FamilyMember selectedMember) {
         this.selectedMember = selectedMember;
+    }
+
+    public List<ShoppingItem> getCheckedShoppingList() {
+        return checkedShoppingList;
+    }
+
+    public void setCheckedShoppingList(List<ShoppingItem> checkedShoppingList) {
+        this.checkedShoppingList = checkedShoppingList;
+    }
+
+    public List<ShoppingItem> getShoppingListItemsToDelete() {
+        return shoppingListItemsToDelete;
+    }
+
+    public void setShoppingListItemsToDelete(List<ShoppingItem> shoppingListItemsToDelete) {
+        this.shoppingListItemsToDelete = shoppingListItemsToDelete;
     }
 
     public String[] getMemberNames() {

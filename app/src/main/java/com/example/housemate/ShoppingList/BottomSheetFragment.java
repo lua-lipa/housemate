@@ -1,5 +1,6 @@
 package com.example.housemate.ShoppingList;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -35,9 +37,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
@@ -45,8 +51,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     ImageButton calendarButton;
     ImageButton saveItemButton;
     CalendarView calendarView;
+    String date;
     Group calendarGroup;
-    String date = Calendar.getInstance().getTime().toString();
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -73,10 +79,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         enterItem = (EditText) view.findViewById(R.id.enter_item);
         saveItemButton = view.findViewById(R.id.save_item_button);
 
-        Chip today = view.findViewById(R.id.today_chip);
-        Chip tomorrow = view.findViewById(R.id.tomorrow_chip);
-        Chip nextWeek = view.findViewById(R.id.next_week_chip);
-
         mAuth = FirebaseAuth.getInstance();
 
         return view;
@@ -92,10 +94,12 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 String item = enterItem.getText().toString();
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                date = df.format(c);
 
                 if (!TextUtils.isEmpty(item)) {
-                    // ShoppingItem myItem = new ShoppingItem(item, Calendar.getInstance().getTime(), false);
-                    // add to db
+
                     String userId = mAuth.getUid();
                     DocumentReference userRef = db.collection("users").document(userId);
 
@@ -115,14 +119,15 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     Map<String, Object> shoppingListObj = new HashMap();
                                     shoppingListObj.put("shoppingListId", shoppingListId);
                                     shoppingListObj.put("item", item);
+                                    Log.d("item", item);
                                     shoppingListObj.put("date", date);
-                                    //date
+                                    Log.d("date", date);
 
                                     shoppingListRef.set(shoppingListObj)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(getActivity(), "Great success", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getActivity(), "Item Added!", Toast.LENGTH_LONG).show();
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
