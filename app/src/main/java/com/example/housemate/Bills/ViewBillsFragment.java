@@ -1,3 +1,4 @@
+
 package com.example.housemate.Bills;
 
 import android.app.Activity;
@@ -19,6 +20,7 @@ import com.example.housemate.Bills.Bill;
 import com.example.housemate.R;
 import com.example.housemate.ShoppingList.BottomSheetFragment;
 import com.example.housemate.adapter.BillRecyclerViewAdapter;
+import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,7 +34,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class  ViewBillsFragment extends Fragment {
     private FirebaseAuth mAuth;
@@ -97,6 +101,11 @@ public class  ViewBillsFragment extends Fragment {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             /* remove the card object from the view */
+
+            Bill billSwiped = billsList.get(viewHolder.getAdapterPosition());
+
+            /* update the status of this bill being paid inside firestore */
+
             billsList.remove(viewHolder.getAdapterPosition());
             billRecyclerViewAdapter.notifyDataSetChanged();
 
@@ -123,14 +132,17 @@ public class  ViewBillsFragment extends Fragment {
                         DocumentReference familyRef = db.collection("families").document(familyId);
                         CollectionReference billsRef = familyRef.collection("bills");
                         //date
+                        HousemateAPI api = HousemateAPI.getInstance();
                         billsRef.get()
                                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                     @Override
                                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                         if(!queryDocumentSnapshots.isEmpty()) {
                                             for(QueryDocumentSnapshot bills: queryDocumentSnapshots) {
+                                                /* making only the bills belonging to current user are being viewed */
                                                 Bill bill = bills.toObject(Bill.class);
-                                                billsList.add(bill);
+                                                String billUserId = bill.getUserId();
+                                                if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == false) billsList.add(bill);
                                             }
                                             /* invoke recycler view*/
 

@@ -149,14 +149,21 @@ public class FamilyActivity extends AppCompatActivity {
                     Map<String, Object> familyObj = new HashMap();
                     familyObj.put("familyName", familyName);
                     familyObj.put("familyId", familyId);
+                    familyObj.put("familyOwnerId", userId);
 
-                    ArrayList<Map<String, Object>> memberList = new ArrayList<>();
+                    ArrayList<Map<String, Object>> membersList = new ArrayList<>();
                     Map<String, Object> memberObj = new HashMap<>();
                     memberObj.put("userId", userId);
                     memberObj.put("name", housemateAPI.getUserName());
-                    memberObj.put("admin", "yes");
-                    memberList.add(memberObj);
-                    familyObj.put("members", memberList);
+                    memberObj.put("isAdmin", true);
+                    membersList.add(memberObj);
+                    familyObj.put("members", membersList);
+
+                    housemateAPI.setFamilyId(familyId);
+                    housemateAPI.setFamilyName(familyName);
+                    housemateAPI.setMembersList(membersList);
+                    housemateAPI.setFamilyOwnerId(userId);
+                    housemateAPI.setIsAdmin(true);
 
 
 //                    /* mapping the member's user Id to key-value pairs of their other information */
@@ -182,7 +189,7 @@ public class FamilyActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     //go to success activity
-                                    Intent successActivity = new Intent(FamilyActivity.this, SuccessActivity.class);
+                                    Intent successActivity = new Intent(FamilyActivity.this, MainActivity.class);
                                     startActivity(successActivity);
                                 }
                             })
@@ -212,13 +219,29 @@ public class FamilyActivity extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 String userId = mAuth.getUid();
                                 String familyId = snapshot.getString("familyId");
+                                String familyName = snapshot.getString("name");
+                                String familyOwnerId = snapshot.getString("familyOwnerId");
+                                List<Map<String, Object>> membersList = (List<Map<String, Object>>) snapshot.get("members");
 
-                                DocumentReference userRef = db.collection("users").document();
+                                DocumentReference userRef = db.collection("users").document(userId);
+                                HousemateAPI housemateAPI = HousemateAPI.getInstance();
 
                                 Map<String, Object> userObj = new HashMap();
-                                userObj.put("family", familyId);
+                                userObj.put("familyId", familyId);
 
-                                transaction.update(familyRef, "members", FieldValue.arrayUnion(userId));
+                                Map<String, Object> memberObj = new HashMap<>();
+                                memberObj.put("userId", userId);
+                                memberObj.put("name", housemateAPI.getUserName());
+                                memberObj.put("isAdmin", false);
+                                membersList.add(memberObj);
+
+                                housemateAPI.setFamilyId(familyId);
+                                housemateAPI.setFamilyName(familyName);
+                                housemateAPI.setMembersList(membersList);
+                                housemateAPI.setFamilyOwnerId(familyOwnerId);
+                                housemateAPI.setIsAdmin(false);
+
+                                transaction.update(familyRef, "members", membersList);
                                 transaction.set(userRef, userObj, SetOptions.merge());
                             } else {
                                 Toast.makeText(FamilyActivity.this, "Invalid Invite Code", Toast.LENGTH_LONG).show();
@@ -229,6 +252,8 @@ public class FamilyActivity extends AppCompatActivity {
                     }).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            Intent successActivity = new Intent(FamilyActivity.this, MainActivity.class);
+                            startActivity(successActivity);
                             Toast.makeText(FamilyActivity.this, "great success", Toast.LENGTH_LONG).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
