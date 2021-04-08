@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.housemate.Chores.Chore;
 import com.example.housemate.R;
 import com.example.housemate.adapter.ChoreRecyclerViewAdapter;
+import com.example.housemate.util.HousemateAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,7 +32,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -128,55 +132,36 @@ public class ViewChoresFragment extends Fragment {
 
     @Override
     public void onStart() {
-
         super.onStart();
-
         String userId = mAuth.getUid();
-        DocumentReference userRef = db.collection("users").document(userId);
-
-        userRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        String familyId = documentSnapshot.getString("familyId");
-                        DocumentReference familyRef = db.collection("families").document(familyId);
-                        CollectionReference choresRef = familyRef.collection("chores");
-                        choresRef.get()
-                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                        if(!queryDocumentSnapshots.isEmpty()) {
-                                            //noChoreText.setText("not empty");
-                                            for(QueryDocumentSnapshot chores: queryDocumentSnapshots) {
-                                                Chore chore = chores.toObject(Chore.class);
-                                                //Log.d("Chore", chore.getName());
-                                                choresList.add(chore);
-                                            }
-                                            /* invoke recycler view*/
-
-                                            choreRecyclerViewAdapter = new ChoreRecyclerViewAdapter(choresList, getActivity());
-                                            recyclerView.setAdapter(choreRecyclerViewAdapter);
-                                            choreRecyclerViewAdapter.notifyDataSetChanged();
-
-                                        } else {
-                                            //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
-                                        }
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                    }
-                                });
+        HousemateAPI api = HousemateAPI.getInstance();
+        String familyId = api.getFamilyId();
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        CollectionReference choresRef = familyRef.collection("chores");
+        choresRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("view chores", "Listen failed.", error);
+                    return;
+                }
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    //noChoreText.setText("not empty");
+                    choresList.clear();
+                    for (QueryDocumentSnapshot chores : queryDocumentSnapshots) {
+                        Chore chore = chores.toObject(Chore.class);
+                        //Log.d("Chore", chore.getName());
+                        choresList.add(chore);
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
-
+                    /* invoke recycler view*/
+                    choreRecyclerViewAdapter = new ChoreRecyclerViewAdapter(choresList, getActivity());
+                    recyclerView.setAdapter(choreRecyclerViewAdapter);
+                    choreRecyclerViewAdapter.notifyDataSetChanged();
+                } else {
+                    //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
+                }
+            }
+        });
     }
 
 }
