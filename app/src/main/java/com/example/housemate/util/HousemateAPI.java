@@ -3,6 +3,7 @@ package com.example.housemate.util;
 import android.app.Application;
 
 import com.example.housemate.ShoppingList.ShoppingItem;
+import com.example.housemate.family.FamilyMember;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,11 @@ public class HousemateAPI extends Application {
     private String userId;
     private String familyName;
     private String familyId;
+    private String familyOwnerId;
+    private Boolean isAdmin;
+
+    private FamilyMember selectedMember;
+
 
     private List<Map<String, Object>> membersList;
     private String[] memberNames;
@@ -64,6 +70,22 @@ public class HousemateAPI extends Application {
         this.familyId = familyId;
     }
 
+    public String getFamilyOwnerId() {
+        return familyOwnerId;
+    }
+
+    public void setFamilyOwnerId(String familyOwnerId) {
+        this.familyOwnerId = familyOwnerId;
+    }
+
+    public Boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
 
     public List<Map<String, Object>> getMembersList() {
         return membersList;
@@ -71,6 +93,18 @@ public class HousemateAPI extends Application {
 
     public void setMembersList(List<Map<String, Object>> membersList) {
         this.membersList = membersList;
+    }
+
+    public Boolean isOwner(String userId) {
+        return userId == familyOwnerId;
+    }
+
+    public FamilyMember getSelectedMember() {
+        return selectedMember;
+    }
+
+    public void setSelectedMember(FamilyMember selectedMember) {
+        this.selectedMember = selectedMember;
     }
 
     public List<ShoppingItem> getCheckedShoppingList() {
@@ -97,6 +131,17 @@ public class HousemateAPI extends Application {
             memberNames[i] = memberName;
         }
         return memberNames;
+    }
+
+    public Map<String, Object> getMemberFromUserId(String userId) {
+        for(int i = 0; i < membersList.size(); i++) {
+            Map<String, Object> memberMap = membersList.get(i);
+            String memberUserId = (String) memberMap.get("userId");
+            if (memberUserId.equals(userId)) {
+                return memberMap;
+            }
+        }
+        return null;
     }
 
 
