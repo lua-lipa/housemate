@@ -88,9 +88,11 @@ public class AddChoreBottomFragment extends BottomSheetDialogFragment {
                                     DocumentReference choresRef = familyRef.collection("chores").document(choresId);
 
                                     Map<String, Object> choresObj = new HashMap();
+                                    choresObj.put("choresId", choresId);
                                     choresObj.put("name", choreName);
                                     choresObj.put("assignee", assignee);
                                     choresObj.put("day", "Monday");
+                                    choresObj.put("isDone", false);
 
                                     choresRef.set(choresObj)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {

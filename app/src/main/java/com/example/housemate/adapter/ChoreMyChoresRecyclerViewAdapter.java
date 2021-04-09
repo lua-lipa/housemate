@@ -17,11 +17,11 @@ import java.util.Objects;
 
 
 /* what allows us to bind views to our rows & the actual data we will be getting from firebase */
-public class ChoreRecyclerViewAdapter extends RecyclerView.Adapter<ChoreRecyclerViewAdapter.ViewHolder> {
+public class ChoreMyChoresRecyclerViewAdapter extends RecyclerView.Adapter<ChoreMyChoresRecyclerViewAdapter.ViewHolder> {
     private List<Chore> choresList;
     private Context context;
 
-    public ChoreRecyclerViewAdapter(List<Chore> choresList, Context context) {
+    public ChoreMyChoresRecyclerViewAdapter(List<Chore> choresList, Context context) {
         this.choresList = choresList;
         this.context = context;
     }
@@ -30,7 +30,7 @@ public class ChoreRecyclerViewAdapter extends RecyclerView.Adapter<ChoreRecycler
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         /* creating a view for each data row */
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.chores_row, parent, false);
+                .inflate(R.layout.chores_mychores_row, parent, false);
         return new ViewHolder(view);
     }
 
@@ -42,7 +42,7 @@ public class ChoreRecyclerViewAdapter extends RecyclerView.Adapter<ChoreRecycler
         Chore chore = Objects.requireNonNull(choresList).get(position);
         holder.name.setText(chore.getName());
         holder.day.setText(chore.getDay());
-        holder.assignee.setText(chore.getAssignee());
+//        holder.assignee.setText(chore.getAssignee());
     }
 
     @Override
@@ -53,13 +53,13 @@ public class ChoreRecyclerViewAdapter extends RecyclerView.Adapter<ChoreRecycler
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView day;
-        public TextView assignee;
+//        public TextView assignee;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.ChoresChoreCheckbox);
             day = itemView.findViewById(R.id.ChoresChoreDay);
-            assignee = itemView.findViewById(R.id.ChoresChoreAssignee);
+//            assignee = itemView.findViewById(R.id.ChoresChoreAssignee);
 
 
         }
