@@ -17,8 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.housemate.R;
-import com.example.housemate.adapter.ChoreHouseChoresRecyclerViewAdapter;
-import com.example.housemate.adapter.ChoreMyChoresRecyclerViewAdapter;
+import com.example.housemate.adapter.ChoresRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,15 +40,11 @@ public class ViewChoresFragment extends Fragment {
 
     /* */
     private RecyclerView recyclerView;
-    private ChoreMyChoresRecyclerViewAdapter choreMyChoresRecyclerViewAdapter;
-    private ChoreHouseChoresRecyclerViewAdapter choreHouseChoresRecyclerViewAdapter;
+    private ChoresRecyclerViewAdapter choresRecyclerViewAdapter;
     private List<Chore> choresList;
     private ViewModelProvider choresViewModel;
     private CollectionReference collectionReference = db.collection("familyId");
     private FirebaseUser user;
-    private Button selectedButton;
-    private Button myChoresButton;
-    private Button houseChoresButton;
     FloatingActionButton addChore;
 
     //private TextView textView;
@@ -99,27 +94,6 @@ public class ViewChoresFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
-        myChoresButton = v.findViewById(R.id.choresMyChoresButton);
-        houseChoresButton = v.findViewById(R.id.choresHouseChoresButton);
-        selectedButton = myChoresButton;
-        selectedButton.setBackgroundResource(R.drawable.chores_button_orange);
-        //textView = v.findViewById(R.id.choresTextView);
-
-        myChoresButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedButton = myChoresButton;
-                //textView.setText("my chores");
-            }
-        });
-
-        houseChoresButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedButton = houseChoresButton;
-                //textView.setText("house chores");
-            }
-        });
 
         return v;
 
@@ -141,7 +115,7 @@ public class ViewChoresFragment extends Fragment {
             DocumentReference choresRef = familyRef.collection("chores").document(choreSwiped.getChoresId());
             choresRef.update("isDone", true);
             choresList.remove(viewHolder.getAdapterPosition());
-            choreMyChoresRecyclerViewAdapter.notifyDataSetChanged();
+            choresRecyclerViewAdapter.notifyDataSetChanged();
         }
 
     };
@@ -170,11 +144,11 @@ public class ViewChoresFragment extends Fragment {
                         //Log.d("Chore", chore.getName());
                         if(chore.getIsDone() == false) choresList.add(chore);
                     }
-                    Log.d("LOL", choresList.toString());
+//                    Log.d("LOL", choresList.toString());
                     /* invoke recycler view*/
-                    choreMyChoresRecyclerViewAdapter = new ChoreMyChoresRecyclerViewAdapter(choresList, getActivity());
-                    recyclerView.setAdapter(choreMyChoresRecyclerViewAdapter);
-                    choreMyChoresRecyclerViewAdapter.notifyDataSetChanged();
+                    choresRecyclerViewAdapter = new ChoresRecyclerViewAdapter(choresList, getActivity());
+                    recyclerView.setAdapter(choresRecyclerViewAdapter);
+                    choresRecyclerViewAdapter.notifyDataSetChanged();
                 } else {
                     //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
                 }
