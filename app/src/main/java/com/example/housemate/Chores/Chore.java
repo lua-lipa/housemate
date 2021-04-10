@@ -2,17 +2,28 @@ package com.example.housemate.Chores;
 
 public class Chore {
     private String name;
-    private String day;
+    private String date;
     private String assignee;
     private String choresId;
+    private String creator;
     private boolean isDone;
 
     private Chore() {}
 
-    private Chore(String name, String day, String assignee){
+    private Chore(String name, String date, String assignee, String choresId, String creator){
         this.name = name;
-        this.day = day;
+        this.date = date;
         this.assignee = assignee;
+        this.choresId = choresId;
+        this.creator = creator;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public boolean getIsDone() {
@@ -39,12 +50,12 @@ public class Chore {
         this.name = name;
     }
 
-    public String getDay() {
-        return day;
+    public String getDate() {
+        return date;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getAssignee() {
@@ -55,14 +66,14 @@ public class Chore {
         this.assignee = assignee;
     }
 
-    @Override
-    public String toString() {
-        return "Chore{" +
-                "name='" + name + '\'' +
-                ", day='" + day + '\'' +
-                ", assignee='" + assignee + '\'' +
-                ", choresId='" + choresId + '\'' +
-                ", isDone=" + isDone +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Chore{" +
+//                "name='" + name + '\'' +
+//                ", day='" + day + '\'' +
+//                ", assignee='" + assignee + '\'' +
+//                ", choresId='" + choresId + '\'' +
+//                ", isDone=" + isDone +
+//                '}';
+//    }
 }
