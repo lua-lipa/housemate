@@ -205,6 +205,7 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
         String billsId = familyRef.collection("bills").document().getId();
         DocumentReference billsRef = familyRef.collection("bills").document(billsId);
 
+
         /* getting the user id of the assignee*/
         HousemateAPI api = HousemateAPI.getInstance();
         List<Map<String, Object>> membersInfo = api.getMembersList();
@@ -225,6 +226,27 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(activity, "add bill success", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(activity, e.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        String billActivityId = familyRef.collection("billsActivity").document().getId();
+        DocumentReference billsActivityRef = familyRef.collection("billsActivity").document(billActivityId);
+
+        Map<String, Object> billsActivityObj = new HashMap<>();
+        billsActivityObj.put("billActivityId", billActivityId);
+        billsActivityObj.put("message", title) ;
+        billsActivityObj.put("date", "now");
+
+        billsActivityRef.set(billsActivityObj)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(activity, "add bill activity success", Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
