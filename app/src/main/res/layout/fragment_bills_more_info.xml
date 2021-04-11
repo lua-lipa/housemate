@@ -68,5 +68,4 @@
             android:gravity="center_horizontal" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

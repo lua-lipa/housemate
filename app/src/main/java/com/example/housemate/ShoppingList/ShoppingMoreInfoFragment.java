@@ -35,4 +35,5 @@ public class ShoppingMoreInfoFragment extends BottomSheetDialogFragment {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.BottomSheetDialogStyle);
     }
+
 }

@@ -26,7 +26,6 @@ public class BillsMoreInfoFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
-
         return v;
     }
 

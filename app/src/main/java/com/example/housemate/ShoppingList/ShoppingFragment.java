@@ -150,7 +150,6 @@ public class ShoppingFragment extends Fragment {
                 shoppingMoreInfoFragment.show(getChildFragmentManager(), "shoppingMoreInfoFragment");
             }
         });
-
         return view;
     }
 

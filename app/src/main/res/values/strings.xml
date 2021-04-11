@@ -71,4 +71,5 @@
     <string name="delete_items_info">To delete the items you have purchased from the list, simply select the trash button and it will remove all of the items you have purchased and place them in the activity section. If you add an item by mistake, simply swipe it away and it will be gone!</string>
     <string name="deleting_item_s">Deleting item(s)</string>
     <string name="adding_an_item">Adding an item</string>
+
 </resources>

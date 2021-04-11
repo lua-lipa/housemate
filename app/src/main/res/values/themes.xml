@@ -26,5 +26,4 @@
     <style name="bottomSheetBackground" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_dialog_bottom_sheet</item>
     </style>
-
 </resources>
