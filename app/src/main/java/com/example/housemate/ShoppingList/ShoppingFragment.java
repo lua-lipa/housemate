@@ -56,8 +56,10 @@ import java.util.Locale;
 
 public class ShoppingFragment extends Fragment {
 
-    FloatingActionButton fab;
-    FloatingActionButton fabDelete;
+    private FloatingActionButton fab;
+    private FloatingActionButton shoppingMoreInfoButton;
+    private FloatingActionButton fabDelete;
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -137,6 +139,15 @@ public class ShoppingFragment extends Fragment {
                             }
                         });
 
+            }
+        });
+
+        shoppingMoreInfoButton = view.findViewById(R.id.moreInfoFAB);
+        shoppingMoreInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShoppingMoreInfoFragment shoppingMoreInfoFragment = new ShoppingMoreInfoFragment();
+                shoppingMoreInfoFragment.show(getChildFragmentManager(), "shoppingMoreInfoFragment");
             }
         });
         return view;
