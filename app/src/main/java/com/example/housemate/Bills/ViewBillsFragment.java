@@ -7,30 +7,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.housemate.Bills.Bill;
 import com.example.housemate.R;
-import com.example.housemate.ShoppingList.BottomSheetFragment;
 import com.example.housemate.adapter.BillRecyclerViewAdapter;
+import com.example.housemate.adapter.BillsActivityRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -38,9 +31,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class ViewBillsFragment extends Fragment {
@@ -48,11 +39,16 @@ public class ViewBillsFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     /* */
-    private RecyclerView recyclerView;
-    private BillRecyclerViewAdapter billRecyclerViewAdapter;
+    private RecyclerView myBillsRecyclerView;
+    private BillRecyclerViewAdapter myBillsRecyclerViewAdapter;
+    private RecyclerView billsActivityRecyclerView;
+    private BillsActivityRecyclerViewAdapter billsActivityRecyclerViewAdapter;
     private List<Bill> billsList;
+    private List<BillActivity> billsActivityList;
     private FloatingActionButton addBillButton;
     private FloatingActionButton billsMoreInfoButton;
+    private Chip myBillsChip;
+    private Chip activityChip;
 
     public ViewBillsFragment() {
         // Required empty public constructor
@@ -93,13 +89,42 @@ public class ViewBillsFragment extends Fragment {
         });
 
         billsList = new ArrayList<>();
+        billsActivityList = new ArrayList<>();
+
+        /* set up my bills recycler view */
+        myBillsRecyclerView = v.findViewById(R.id.bills_recycler_view);
+        myBillsRecyclerView.setHasFixedSize(true);
+        myBillsRecyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(myBillsRecyclerView);
+
+        /* set up  bills  activity recycler view */
+        billsActivityRecyclerView = v.findViewById(R.id.bills_activity_recycler_view);
+        billsActivityRecyclerView.setHasFixedSize(true);
+        billsActivityRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        billsActivityRecyclerView.setVisibility(View.INVISIBLE);
+
+        myBillsChip = v.findViewById(R.id.bills_mybills_chip);
+        activityChip = v.findViewById(R.id.bills_activity_chip);
+
+        myBillsChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myBillsRecyclerView.setVisibility(View.VISIBLE);
+                billsActivityRecyclerView.setVisibility(View.INVISIBLE);
+                Log.d("bills", "mybills");
+            }
+        });
+
+        activityChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("bills", "act");
+                myBillsRecyclerView.setVisibility(View.INVISIBLE);
+                billsActivityRecyclerView.setVisibility(View.VISIBLE);
+            }
+        });
 
 
-        /* set up the recycler view */
-        recyclerView = v.findViewById(R.id.bills_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
 
         return v;
@@ -109,7 +134,7 @@ public class ViewBillsFragment extends Fragment {
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+        public boolean onMove(@NonNull RecyclerView myBillsRecyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
 
@@ -129,7 +154,7 @@ public class ViewBillsFragment extends Fragment {
             billRef.update("isPaid", true);
 
             billsList.remove(viewHolder.getAdapterPosition());
-            billRecyclerViewAdapter.notifyDataSetChanged();
+            myBillsRecyclerViewAdapter.notifyDataSetChanged();
         }
 
 
@@ -146,6 +171,36 @@ public class ViewBillsFragment extends Fragment {
 
         String familyId = api.getFamilyId();
         DocumentReference familyRef = db.collection("families").document(familyId);
+        CollectionReference billsActivityRef = familyRef.collection("billsActivity");
+        billsActivityRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("view bills activity", "Listen failed.", error);
+                    return;
+                }
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    billsActivityList.clear();
+                    for (QueryDocumentSnapshot billsActivity : queryDocumentSnapshots) {
+                        /* making only the bills belonging to current user are being viewed */
+
+                        BillActivity billActivity = billsActivity.toObject(BillActivity.class);
+                        String billActivityId = billActivity.getBillActivityId();
+                        billsActivityList.add(billActivity);
+                    }
+                    /* invoke recycler view*/
+
+                    billsActivityRecyclerViewAdapter = new BillsActivityRecyclerViewAdapter(billsActivityList, getActivity());
+                    billsActivityRecyclerView.setAdapter(billsActivityRecyclerViewAdapter);
+                    billsActivityRecyclerViewAdapter.notifyDataSetChanged();
+                } else {
+                    /* display "no bills" text view */
+                }
+            }
+        });
+
+
+
         CollectionReference billsRef = familyRef.collection("bills");
 
         billsRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -168,10 +223,9 @@ public class ViewBillsFragment extends Fragment {
                     }
                     /* invoke recycler view*/
 
-                    billRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
-                    recyclerView.setAdapter(billRecyclerViewAdapter);
-                    billRecyclerViewAdapter.notifyDataSetChanged();
-
+                    myBillsRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
+                    myBillsRecyclerView.setAdapter(myBillsRecyclerViewAdapter);
+                    myBillsRecyclerViewAdapter.notifyDataSetChanged();
                 } else {
                     /* display "no bills" text view */
                 }
