@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/instructions_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/instructions"
+            android:textColor="#FF9800"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/empty_1"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/add_item_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/adding_an_item"
+            android:textColor="#FF9800"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/info_text_view3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center_horizontal"
+            android:text="@string/adding_items" />
+
+        <TextView
+            android:id="@+id/empty_2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/delete_item_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/deleting_item_s"
+            android:textColor="#FF9800"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/info_text_view2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center_horizontal"
+            android:text="@string/delete_items_info" />
+
+        <Button
+            android:id="@+id/shopping_more_info_got_it_button"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/chores_button_orange"
+            android:gravity="center_horizontal"
+            android:text="@string/got_it_"
+            app:backgroundTint="#FF9800" />
+
+        <TextView
+            android:id="@+id/empty_3"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

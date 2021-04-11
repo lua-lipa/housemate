@@ -18,4 +18,13 @@
         <item name="colorAccent">@color/orange</item>
     </style>
 
+    <!-- Rounding Bottom Sheet Fragment -->
+    <style name="BottomSheetDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetBackground</item>
+    </style>
+
+    <style name="bottomSheetBackground" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_dialog_bottom_sheet</item>
+    </style>
+
 </resources>

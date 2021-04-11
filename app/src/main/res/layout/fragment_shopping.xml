@@ -32,6 +32,18 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/moreInfoFAB"
+        android:layout_width="33dp"
+        android:layout_height="43dp"
+        android:layout_gravity="end|bottom"
+        android:contentDescription="@string/fab"
+        app:fab_colorNormal="@color/orange"
+        app:fab_icon="@drawable/ic_baseline_info_24"
+        app:fab_title="add item"
+        app:layout_constraintBottom_toTopOf="@+id/addItemFAB"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/deleteItemFAB"
         android:layout_width="33dp"
         android:layout_height="43dp"
