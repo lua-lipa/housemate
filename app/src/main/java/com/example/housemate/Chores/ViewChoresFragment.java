@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.housemate.R;
+import com.example.housemate.ShoppingList.ShoppingItem;
 import com.example.housemate.adapter.ChoresRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -31,6 +32,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ViewChoresFragment extends Fragment {
@@ -144,6 +147,7 @@ public class ViewChoresFragment extends Fragment {
                         //Log.d("Chore", chore.getName());
                         if(chore.getIsDone() == false) choresList.add(chore);
                     }
+                    sortItems();
 //                    Log.d("LOL", choresList.toString());
                     /* invoke recycler view*/
                     choresRecyclerViewAdapter = new ChoresRecyclerViewAdapter(choresList, getActivity());
@@ -152,6 +156,16 @@ public class ViewChoresFragment extends Fragment {
                 } else {
                     //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
                 }
+            }
+        });
+    }
+
+    public void sortItems(){
+        //SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        Collections.sort(choresList, new Comparator<Chore>() {
+            @Override
+            public int compare(Chore c1, Chore c2) {
+                return c1.getDate().compareTo(c2.getDate());
             }
         });
     }
