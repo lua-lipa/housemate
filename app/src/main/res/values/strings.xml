@@ -66,4 +66,12 @@
     <string name="got_it">Got It</string>
     <string name="bills_instructions">You are able to view the bills that have been assigned to you by an admin in your family. To pay a bill, simply swipe left. To add a bill, refer to the + button at the bottom of the page.</string>
     <string name="instructions">Instructions</string>
+    <string name="got_it_">GOT IT!</string>
+    <string name="adding_items">To add an item to the shopping list, refer to the + button. You can also view the current date via a calendar under the item input section.</string>
+    <string name="delete_items_info">To delete the items you have purchased from the list, simply select the trash button and it will remove all of the items you have purchased and place them in the activity section. If you add an item by mistake, simply swipe it away and it will be gone!</string>
+    <string name="deleting_item_s">Deleting item(s)</string>
+    <string name="adding_an_item">Adding an item</string>
+    <string name="list">List</string>
+    <string name="activity">Activity</string>
+
 </resources>

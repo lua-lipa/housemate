@@ -1,6 +1,5 @@
 package com.example.housemate.ShoppingList;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -12,51 +11,43 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import com.example.housemate.Bills.Bill;
-import com.example.housemate.FamilyActivity;
 import com.example.housemate.R;
-import com.example.housemate.adapter.BillRecyclerViewAdapter;
 import com.example.housemate.adapter.ShoppingRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 public class ShoppingFragment extends Fragment {
 
-    FloatingActionButton fab;
-    FloatingActionButton fabDelete;
+    private FloatingActionButton fab;
+    private FloatingActionButton fabMoreInfo;
+    private FloatingActionButton fabDelete;
+    private Chip listChip;
+    private Chip activityChip;
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -64,9 +55,6 @@ public class ShoppingFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private List<ShoppingItem> shoppingList;
-    private CheckBox checkbox;
-    private ViewModelProvider shoppingViewModel;
-    private CollectionReference collectionReference = db.collection("familyId");
 
     private ShoppingRecyclerViewAdapter shoppingRecyclerViewAdapter;
 
@@ -138,60 +126,90 @@ public class ShoppingFragment extends Fragment {
 
             }
         });
+
+        fabMoreInfo = view.findViewById(R.id.moreInfoFAB);
+        fabMoreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShoppingMoreInfoFragment shoppingMoreInfoFragment = new ShoppingMoreInfoFragment();
+                shoppingMoreInfoFragment.show(getChildFragmentManager(), "shoppingMoreInfoFragment");
+            }
+        });
+
+        View activityRecycler;
+        View shoppingRecycler;
+        activityRecycler = view.findViewById(R.id.activity_recycler_view);
+        shoppingRecycler = view.findViewById(R.id.shopping_recycler_view);
+
+        listChip = view.findViewById(R.id.shopping_list_chip);
+        listChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //set acitivty list invisible
+                shoppingRecycler.setVisibility(View.VISIBLE);
+                fab.setVisibility(View.VISIBLE);
+                fabDelete.setVisibility(View.VISIBLE);
+                fabMoreInfo.setVisibility(View.VISIBLE);
+                showShoppingList();
+            }
+        });
+
+        activityChip = view.findViewById(R.id.shopping_activity_chip);
+        activityChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shoppingRecycler.setVisibility(View.GONE);
+                fab.setVisibility(View.GONE);
+                fabDelete.setVisibility(View.GONE);
+                fabMoreInfo.setVisibility(View.GONE);
+                showActivityList();
+            }
+        });
+
         return view;
     }
 
     public void onStart() {
-
         super.onStart();
 
-        String userId = mAuth.getUid();
-        DocumentReference userRef = db.collection("users").document(userId);
+    }
 
-        userRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        //get family id
-                        //create sub collection in that family doc using the id
-                        //after collection, add data
-                        //save data with this button
-                        String familyId = documentSnapshot.getString("familyId");
-                        DocumentReference familyRef = db.collection("families").document(familyId);
-                        CollectionReference shoppingListRef = familyRef.collection("shoppingList");
-                        //date
-                        shoppingListRef.get()
-                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                        if (!queryDocumentSnapshots.isEmpty()) {
-                                            for (QueryDocumentSnapshot shoppingItems : queryDocumentSnapshots) {
-                                                ShoppingItem shoppingItem = shoppingItems.toObject(ShoppingItem.class);
-                                                shoppingList.add(shoppingItem);
-                                            }
-                                            sortItems();
-                                            /* invoke recycler view*/
-                                            shoppingRecyclerViewAdapter = new ShoppingRecyclerViewAdapter(shoppingList, getActivity());
-                                            recyclerView.setAdapter(shoppingRecyclerViewAdapter);
-                                            shoppingRecyclerViewAdapter.notifyDataSetChanged();
-                                        }
-                                    }
-                                })
+    public void showShoppingList(){
+        //get family id
+        //create sub collection in that family doc using the id
+        //after collection, add data
+        //save data with this button
 
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
+        HousemateAPI api = HousemateAPI.getInstance();
+        String familyId = api.getFamilyId();
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        CollectionReference shoppingListRef = familyRef.collection("shoppingList");
 
-                                    }
-                                });
+        shoppingListRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("view shopping list", "Listen failed.", error);
+                    return;
+                }
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    shoppingList.clear();
+                    for (QueryDocumentSnapshot shoppingItems : queryDocumentSnapshots) {
+                        ShoppingItem shoppingItem = shoppingItems.toObject(ShoppingItem.class);
+                        shoppingList.add(shoppingItem);
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                    sortItems();
+                    /* invoke recycler view*/
+                    shoppingRecyclerViewAdapter = new ShoppingRecyclerViewAdapter(shoppingList, getActivity());
+                    recyclerView.setAdapter(shoppingRecyclerViewAdapter);
+                    shoppingRecyclerViewAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    public void showActivityList(){
+
     }
 
     public void sortItems(){

@@ -3,6 +3,7 @@ package com.example.housemate.Bills;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -29,7 +31,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -39,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class  ViewBillsFragment extends Fragment  {
+public class ViewBillsFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -60,12 +64,12 @@ public class  ViewBillsFragment extends Fragment  {
 
 
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         /* Inflate the layout for this fragment */
-        View v =  inflater.inflate(R.layout.fragment_view_bills, container, false);
+        View v = inflater.inflate(R.layout.fragment_view_bills, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
@@ -98,13 +102,9 @@ public class  ViewBillsFragment extends Fragment  {
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
 
-
         return v;
 
     }
-
-
-
 
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -133,65 +133,51 @@ public class  ViewBillsFragment extends Fragment  {
         }
 
 
-
     };
 
     @Override
     public void onStart() {
 
         super.onStart();
-
+        HousemateAPI api = HousemateAPI.getInstance();
         String userId = mAuth.getUid();
         DocumentReference userRef = db.collection("users").document(userId);
 
-        userRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        //get family id
-                        //create sub collection in that family doc using the id
-                        //after collection, add data
-                        //save data with this button
-                        String familyId = documentSnapshot.getString("familyId");
-                        DocumentReference familyRef = db.collection("families").document(familyId);
-                        CollectionReference billsRef = familyRef.collection("bills");
-                        //date
-                        HousemateAPI api = HousemateAPI.getInstance();
-                        billsRef.get()
-                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                        if(!queryDocumentSnapshots.isEmpty()) {
-                                            for(QueryDocumentSnapshot bills: queryDocumentSnapshots) {
-                                                /* making only the bills belonging to current user are being viewed */
-                                                Bill bill = bills.toObject(Bill.class);
-                                                String billUserId = bill.getUserId();
-                                                if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == false) billsList.add(bill);
-                                            }
-                                            /* invoke recycler view*/
 
-                                            billRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
-                                            recyclerView.setAdapter(billRecyclerViewAdapter);
-                                            billRecyclerViewAdapter.notifyDataSetChanged();
+        String familyId = api.getFamilyId();
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        CollectionReference billsRef = familyRef.collection("bills");
 
-                                        } else { }
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                    }
-                                });
+        billsRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("view bills", "Listen failed.", error);
+                    return;
+                }
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    billsList.clear();
+                    for (QueryDocumentSnapshot bills : queryDocumentSnapshots) {
+                        /* making only the bills belonging to current user are being viewed */
+
+                        Bill bill = bills.toObject(Bill.class);
+                        String billId = bill.getBillsId();
+                        String billUserId = bill.getUserId();
+                        if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == false)
+                            billsList.add(bill);
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                    /* invoke recycler view*/
 
+                    billRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
+                    recyclerView.setAdapter(billRecyclerViewAdapter);
+                    billRecyclerViewAdapter.notifyDataSetChanged();
 
-
+                } else {
+                    /* display "no bills" text view */
+                }
+            }
+        });
     }
+
+
 }

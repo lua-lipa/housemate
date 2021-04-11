@@ -119,9 +119,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     Map<String, Object> shoppingListObj = new HashMap();
                                     shoppingListObj.put("shoppingListId", shoppingListId);
                                     shoppingListObj.put("item", item);
-                                    Log.d("item", item);
                                     shoppingListObj.put("date", date);
-                                    Log.d("date", date);
 
                                     shoppingListRef.set(shoppingListObj)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
