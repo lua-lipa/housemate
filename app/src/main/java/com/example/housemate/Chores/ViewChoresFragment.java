@@ -21,6 +21,7 @@ import com.example.housemate.ShoppingList.ShoppingItem;
 import com.example.housemate.adapter.ChoresRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -49,7 +50,9 @@ public class ViewChoresFragment extends Fragment {
     private CollectionReference collectionReference = db.collection("familyId");
     private FirebaseUser user;
     FloatingActionButton addChore;
-
+    private Chip myChores;
+    private Chip houseChores;
+    private Chip completedChores;
     //private TextView textView;
     //private TextView noChoreText; /* displaying when no chores have been created */
 
@@ -95,14 +98,136 @@ public class ViewChoresFragment extends Fragment {
         recyclerView = v.findViewById(R.id.ChoresRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+        new ItemTouchHelper(itemTouchHelperCallbackLeft).attachToRecyclerView(recyclerView);
+        new ItemTouchHelper(itemTouchHelperCallbackRight).attachToRecyclerView(recyclerView);
 
+        myChores = v.findViewById(R.id.ChoresMyChoresChip);
+        houseChores = v.findViewById(R.id.ChoresHouseChoresChip);
+        completedChores = v.findViewById(R.id.ChoresCompletedChoresChip);
+
+        myChores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userId = mAuth.getUid();
+                HousemateAPI api = HousemateAPI.getInstance();
+                String familyId = api.getFamilyId();
+                String userName = api.getUserName();
+                DocumentReference familyRef = db.collection("families").document(familyId);
+                CollectionReference choresRef = familyRef.collection("chores");
+                choresRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w("view chores", "Listen failed.", error);
+                            return;
+                        }
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            //noChoreText.setText("not empty");
+                            choresList.clear();
+                            for (QueryDocumentSnapshot chores : queryDocumentSnapshots) {
+
+                                Chore chore = chores.toObject(Chore.class);
+                                //Log.d("Chore", chore.getName());
+                                if(chore.getIsDone() == false && chore.getAssignee().equals(userName)){
+                                    chore.setAssignee(" ");
+                                    choresList.add(chore);
+                                }
+                            }
+                            sortItems();
+//                    Log.d("LOL", choresList.toString());
+                            /* invoke recycler view*/
+                            choresRecyclerViewAdapter = new ChoresRecyclerViewAdapter(choresList, getActivity());
+                            recyclerView.setAdapter(choresRecyclerViewAdapter);
+                            choresRecyclerViewAdapter.notifyDataSetChanged();
+                        } else {
+                            //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
+                        }
+                    }
+                });
+            }
+        });
+
+        houseChores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userId = mAuth.getUid();
+                HousemateAPI api = HousemateAPI.getInstance();
+                String familyId = api.getFamilyId();
+                DocumentReference familyRef = db.collection("families").document(familyId);
+                CollectionReference choresRef = familyRef.collection("chores");
+                choresRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w("view chores", "Listen failed.", error);
+                            return;
+                        }
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            //noChoreText.setText("not empty");
+                            choresList.clear();
+                            for (QueryDocumentSnapshot chores : queryDocumentSnapshots) {
+
+                                Chore chore = chores.toObject(Chore.class);
+                                //Log.d("Chore", chore.getName());
+                                if(chore.getIsDone() == false) choresList.add(chore);
+                            }
+                            sortItems();
+//                    Log.d("LOL", choresList.toString());
+                            /* invoke recycler view*/
+                            choresRecyclerViewAdapter = new ChoresRecyclerViewAdapter(choresList, getActivity());
+                            recyclerView.setAdapter(choresRecyclerViewAdapter);
+                            choresRecyclerViewAdapter.notifyDataSetChanged();
+                        } else {
+                            //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
+                        }
+                    }
+                });
+            }
+        });
+
+        completedChores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userId = mAuth.getUid();
+                HousemateAPI api = HousemateAPI.getInstance();
+                String familyId = api.getFamilyId();
+                DocumentReference familyRef = db.collection("families").document(familyId);
+                CollectionReference choresRef = familyRef.collection("chores");
+                choresRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w("view chores", "Listen failed.", error);
+                            return;
+                        }
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            //noChoreText.setText("not empty");
+                            choresList.clear();
+                            for (QueryDocumentSnapshot chores : queryDocumentSnapshots) {
+
+                                Chore chore = chores.toObject(Chore.class);
+                                //Log.d("Chore", chore.getName());
+                                if(chore.getIsDone() == true) choresList.add(chore);
+                            }
+                            sortItems();
+//                    Log.d("LOL", choresList.toString());
+                            /* invoke recycler view*/
+                            choresRecyclerViewAdapter = new ChoresRecyclerViewAdapter(choresList, getActivity());
+                            recyclerView.setAdapter(choresRecyclerViewAdapter);
+                            choresRecyclerViewAdapter.notifyDataSetChanged();
+                        } else {
+                            //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
+                        }
+                    }
+                });
+            }
+        });
 
         return v;
 
     }
 
-    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallbackLeft = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -112,12 +237,37 @@ public class ViewChoresFragment extends Fragment {
             /* remove the card object from the view */
             Chore choreSwiped = choresList.get(viewHolder.getAdapterPosition());
             /* update the status of this bill being paid inside firestore */
-
             HousemateAPI api = HousemateAPI.getInstance();
+            String userId = mAuth.getUid();
             DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
             DocumentReference choresRef = familyRef.collection("chores").document(choreSwiped.getChoresId());
-            choresRef.update("isDone", true);
-            choresList.remove(viewHolder.getAdapterPosition());
+            if(choreSwiped.getAssignee().equals(userId)) {
+                choresRef.update("isDone", true);
+                choresList.remove(viewHolder.getAdapterPosition());
+            }
+            choresRecyclerViewAdapter.notifyDataSetChanged();
+        }
+
+    };
+
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallbackRight = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            /* remove the card object from the view */
+            Chore choreSwiped = choresList.get(viewHolder.getAdapterPosition());
+            /* update the status of this bill being paid inside firestore */
+            HousemateAPI api = HousemateAPI.getInstance();
+            String userId = mAuth.getUid();
+            DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
+            DocumentReference choresRef = familyRef.collection("chores").document(choreSwiped.getChoresId());
+            if(choreSwiped.getCreator().equals(userId)) {
+                choresRef.delete();
+                choresList.remove(viewHolder.getAdapterPosition());
+            }
             choresRecyclerViewAdapter.notifyDataSetChanged();
         }
 
@@ -129,6 +279,7 @@ public class ViewChoresFragment extends Fragment {
         String userId = mAuth.getUid();
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getFamilyId();
+        String userName = api.getUserName();
         DocumentReference familyRef = db.collection("families").document(familyId);
         CollectionReference choresRef = familyRef.collection("chores");
         choresRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -145,7 +296,11 @@ public class ViewChoresFragment extends Fragment {
 
                         Chore chore = chores.toObject(Chore.class);
                         //Log.d("Chore", chore.getName());
-                        if(chore.getIsDone() == false) choresList.add(chore);
+                        Log.d("Chore", chore.getAssignee());
+                        if(chore.getIsDone() == false && chore.getAssignee().equals(userName)){
+                            chore.setAssignee(" ");
+                            choresList.add(chore);
+                        }
                     }
                     sortItems();
 //                    Log.d("LOL", choresList.toString());
