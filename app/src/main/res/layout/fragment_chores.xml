@@ -5,44 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/choresMyChoresButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/chores_button_white"
-            app:backgroundTint="#FF8A00"
-            android:fontFamily="@font/roboto_bold"
-            android:text="My Chores"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toStartOf="@+id/choresHouseChoresButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/ChoresMyChoresChip"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Mine"
+        android:textColor="#FFFFFF"
+        app:chipBackgroundColor="#FF8A00"
+        app:layout_constraintEnd_toStartOf="@+id/ChoresHouseChoresChip"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        />
+<!--        app:chipStrokeColor="@color/black"-->
+<!--        app:chipStrokeWidth="2dp"-->
 
-        <Button
-            android:id="@+id/choresHouseChoresButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/chores_button_white"
-            app:backgroundTint="#FF8A00"
-            android:fontFamily="@font/roboto_bold"
-            android:text="House Chores"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/choresMyChoresButton"
-            app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/ChoresHouseChoresChip"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="House"
+        android:textColor="#FFFFFF"
+        app:chipBackgroundColor="#FF8A00"
+        app:layout_constraintEnd_toStartOf="@+id/ChoresCompletedChoresChip"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ChoresMyChoresChip"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"/>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/ChoresCompletedChoresChip"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Completed"
+        android:textColor="#FFFFFF"
+        app:chipBackgroundColor="#FF8A00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/ChoresHouseChoresChip"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ChoresRecyclerView"
@@ -58,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choresMyChoresButton"
+        app:layout_constraintTop_toBottomOf="@+id/ChoresHouseChoresChip"
         app:layout_constraintVertical_bias="1.0">
 
     </androidx.recyclerview.widget.RecyclerView>
