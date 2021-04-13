@@ -16,11 +16,12 @@ import java.util.List;
 import java.util.Objects;
 
 
-/* what allows us to bind views to our rows & the actual data we will be getting from firebase */
+//what allows us to bind views to our rows & the actual data we will be getting from firebase
 public class ChoresRecyclerViewAdapter extends RecyclerView.Adapter<ChoresRecyclerViewAdapter.ViewHolder> {
     private List<Chore> choresList;
     private Context context;
 
+    //constructor
     public ChoresRecyclerViewAdapter(List<Chore> choresList, Context context) {
         this.choresList = choresList;
         this.context = context;
@@ -28,7 +29,7 @@ public class ChoresRecyclerViewAdapter extends RecyclerView.Adapter<ChoresRecycl
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        /* creating a view for each data row */
+        //creating a view for each data row
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.chores_row, parent, false);
         return new ViewHolder(view);
@@ -36,9 +37,8 @@ public class ChoresRecyclerViewAdapter extends RecyclerView.Adapter<ChoresRecycl
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        /* bind data to our items */
-        /* position = where are we on our list? */
-
+        //bind data to our items
+        //position = where are we on our list?
         Chore chore = Objects.requireNonNull(choresList).get(position);
         holder.name.setText(chore.getName());
         holder.date.setText(chore.getDate());
@@ -48,8 +48,9 @@ public class ChoresRecyclerViewAdapter extends RecyclerView.Adapter<ChoresRecycl
     @Override
     public int getItemCount() { /* let the recycler know how much data it will be receiving */
         return Objects.requireNonNull(choresList).size();
-    }
+    } //how many chores
 
+    //the items that make up each row
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView date;
