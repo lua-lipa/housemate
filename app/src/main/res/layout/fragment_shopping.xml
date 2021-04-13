@@ -23,7 +23,6 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 
-    <!--FAB selected to display the bottom sheet fragment-->
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/addItemFAB"
         android:layout_width="33dp"

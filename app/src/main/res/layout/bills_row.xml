@@ -41,7 +41,7 @@
                 android:paddingRight="10dp"
                 android:text="@string/_10"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/bills_row_title"
