@@ -26,10 +26,12 @@ import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
+    //Firebase variables
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    //activity_login.xml variables
     private Button loginButton;
     private EditText emailInput;
     private EditText passwordInput;
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //referencing the variables in activity_login
         loginButton = findViewById(R.id.loginButton);
         emailInput = findViewById(R.id.loginEmailInput);
         passwordInput = findViewById(R.id.loginPasswordInput);
@@ -77,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                //getting references to the family and user id along with the username
                                                 String familyId = documentSnapshot.getString("familyId");
                                                 String userId = documentSnapshot.getString("userId");
                                                 String userName = documentSnapshot.getString("name");

@@ -49,7 +49,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         billsButton.setOnClickListener(this);
         remindersButton.setOnClickListener(this);
 
-
         selectedButton = choresButton;
         selectedButton.setBackgroundResource(R.drawable.rounded_button_highlighted_3dp);
         fragmentManager.beginTransaction()
@@ -64,16 +63,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ImageButton lastSelectedButton = selectedButton;
         Fragment fragment = new ViewChoresFragment();
         int id = v.getId();
+        //if we select the chores button, we create a new chores fragment
         if (id == R.id.homeChoresButton) {
             fragment = new ViewChoresFragment();
             selectedButton = choresButton;
-        } else if (id == R.id.homeShoppingButton) {
+        } else
+            //if we select the shopping button, we create a new shopping fragment
+            if (id == R.id.homeShoppingButton) {
             fragment = new ShoppingFragment();
             selectedButton = shoppingButton;
-        } else if (id == R.id.homeBillsButton) {
+        } else
+            //if we select the bills button, we create a new bills fragment
+            if (id == R.id.homeBillsButton) {
             fragment = new ViewBillsFragment();
             selectedButton = billsButton;
-        } else if (id == R.id.homeRemindersButton) {
+        } else
+            //if we select the reminders button, we create a new reminders fragment
+            if (id == R.id.homeRemindersButton) {
             fragment = new RemindersFragment();
             selectedButton = remindersButton;
         }
@@ -81,6 +87,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             lastSelectedButton.setBackgroundResource(R.drawable.rounded_button_black);
             selectedButton.setBackgroundResource(R.drawable.rounded_button_highlighted_3dp);
         }
+        
         if (fragment != null) {
             fragmentManager.beginTransaction()
                     .replace(R.id.homeFrameLayout, fragment, null)
