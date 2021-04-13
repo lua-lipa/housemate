@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,8 @@ import com.example.housemate.adapter.BillRecyclerViewAdapter;
 import com.example.housemate.adapter.BillsActivityRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -30,8 +33,16 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ViewBillsFragment extends Fragment {
@@ -155,6 +166,30 @@ public class ViewBillsFragment extends Fragment {
 
             billsList.remove(viewHolder.getAdapterPosition());
             myBillsRecyclerViewAdapter.notifyDataSetChanged();
+
+            /* adding the bill paid activity into the bill activity database */
+            String billActivityId = familyRef.collection("billsActivity").document().getId();
+            DocumentReference billsActivityRef = familyRef.collection("billsActivity").document(billActivityId);
+            Map<String, Object> billsActivityObj = new HashMap<>();
+            String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
+            Date currentTime = Calendar.getInstance().getTime();
+            String message = assignerUserName + " paid the " + billSwiped.getTitle() + " bill.";
+            billsActivityObj.put("billActivityId", billActivityId);
+            billsActivityObj.put("message", message) ;
+            billsActivityObj.put("date", currentTime.toString());
+
+            billsActivityRef.set(billsActivityObj)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "bill activity success", Toast.LENGTH_LONG).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
 
@@ -214,7 +249,6 @@ public class ViewBillsFragment extends Fragment {
                     billsList.clear();
                     for (QueryDocumentSnapshot bills : queryDocumentSnapshots) {
                         /* making only the bills belonging to current user are being viewed */
-
                         Bill bill = bills.toObject(Bill.class);
                         String billId = bill.getBillsId();
                         String billUserId = bill.getUserId();
@@ -222,7 +256,7 @@ public class ViewBillsFragment extends Fragment {
                             billsList.add(bill);
                     }
                     /* invoke recycler view*/
-
+                    billsList = sortByDate(billsList);
                     myBillsRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
                     myBillsRecyclerView.setAdapter(myBillsRecyclerViewAdapter);
                     myBillsRecyclerViewAdapter.notifyDataSetChanged();
@@ -231,6 +265,28 @@ public class ViewBillsFragment extends Fragment {
                 }
             }
         });
+    }
+
+    /* sort the bills list so it displays the earliest due date -> latest due date */
+    private List<Bill> sortByDate(List<Bill> billsList) {
+        SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
+        Collections.sort(billsList, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                Bill bill1 = (Bill) o1;
+                Bill bill2 = (Bill) o2;
+                Date date1 = null, date2 = null;
+                try {
+                     date1=formatter1.parse(bill1.getDate());
+                     date2=formatter1.parse(bill2.getDate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                return date1.compareTo(date2);
+            }
+        });
+
+        return billsList;
     }
 
 

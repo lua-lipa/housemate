@@ -31,10 +31,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class AddBillFragment extends BottomSheetDialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -234,13 +237,28 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
             }
         });
 
+        /* adding the activity to the bills activity database */
+
+
         String billActivityId = familyRef.collection("billsActivity").document().getId();
         DocumentReference billsActivityRef = familyRef.collection("billsActivity").document(billActivityId);
 
         Map<String, Object> billsActivityObj = new HashMap<>();
+        String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
+        String assigneeUserName = assignee.substring(0, assignee.indexOf(" "));
+        String message = assignerUserName + " assigned a bill to " + assigneeUserName;
+
+        SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+
+        Date d = new Date();
+        String cur_time = formatter.format(d);
+
+
+        Date currentTime = Calendar.getInstance().getTime();
         billsActivityObj.put("billActivityId", billActivityId);
-        billsActivityObj.put("message", title) ;
-        billsActivityObj.put("date", "now");
+        billsActivityObj.put("message", message) ;
+        billsActivityObj.put("date", cur_time);
 
         billsActivityRef.set(billsActivityObj)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
