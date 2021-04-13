@@ -10,10 +10,12 @@ public class ShoppingItem {
     private String date;
     //shopping list id in reference in the database so we can delete it and manipulate it
     private String shoppingListId;
+
     //isBought check in order to see if the item has been purchased or not
     private boolean isBought;
 
     //getters and setters for all
+
 
     public String getItem() {
         return item;
@@ -39,6 +41,7 @@ public class ShoppingItem {
         this.shoppingListId = shoppingListId;
     }
 
+
     public boolean getIsBought() {
         return isBought;
     }
@@ -48,13 +51,12 @@ public class ShoppingItem {
     }
 
     //toString method to help with testing
+
     @Override
     public String toString() {
         return "ShoppingItem{" +
                 "item='" + item + '\'' +
                 ", date='" + date + '\'' +
-                ", shoppingListId='" + shoppingListId + '\'' +
-                ", isBought=" + isBought +
                 '}';
     }
 }

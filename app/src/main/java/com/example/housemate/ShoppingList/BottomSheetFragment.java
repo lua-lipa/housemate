@@ -131,7 +131,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     shoppingListObj.put("shoppingListId", shoppingListId);
                                     shoppingListObj.put("item", item);
                                     shoppingListObj.put("date", date);
-                                    shoppingListObj.put("isBought", false);
 
                                     //setting the shopping list reference ot the shopping list object hashmap to populate the array with the new item
                                     shoppingListRef.set(shoppingListObj)
@@ -157,7 +156,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
                                 }
                             });
-
                 } else {
                     //a check to ensure that we are typing something into the text field before we press the save button
                     if(item.length() == 0){
