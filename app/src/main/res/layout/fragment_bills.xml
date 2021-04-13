@@ -32,7 +32,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <AutoCompleteTextView
@@ -41,6 +41,7 @@
             android:layout_height="50dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/rounded_edittext"
             android:focusable="false"
             android:hint="@string/bill_date"
@@ -55,8 +56,9 @@
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/rounded_edittext"
-            android:hint="Amount"
+            android:hint="@string/bill_amount"
             android:inputType="number"
             android:maxLines="1"
             android:paddingLeft="16dp"

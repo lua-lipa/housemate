@@ -43,8 +43,7 @@
             android:layout_marginEnd="25dp"
             android:layout_marginRight="25dp"
             android:gravity="center_horizontal"
-            android:text="You are able to view the bills that have been assigned to you by an admin in your family. To pay a bill, simply swipe left. To add a bill, refer to the + button at the bottom of the page. Admins are able to mark other family member's assigned bills inside the 'house bills' section.. You can delete paid bills from the 'paid bills' section. " />
-
+            android:text="@string/bills_instructions" />
 
         <Button
             android:id="@+id/bills_more_info_got_it_button"
