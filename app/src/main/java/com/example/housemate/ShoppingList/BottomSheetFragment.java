@@ -120,11 +120,13 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     shoppingListObj.put("shoppingListId", shoppingListId);
                                     shoppingListObj.put("item", item);
                                     shoppingListObj.put("date", date);
+                                    shoppingListObj.put("isBought", false);
 
                                     shoppingListRef.set(shoppingListObj)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
+                                                    enterItem.setText("");
                                                     Toast.makeText(getActivity(), "Item Added!", Toast.LENGTH_LONG).show();
                                                 }
                                             })
@@ -142,6 +144,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
                                 }
                             });
+
                 } else {
                     if(item.length() == 0){
                         enterItem.requestFocus();

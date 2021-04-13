@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.example.housemate.Chores.Chore;
 import com.example.housemate.R;
 import com.example.housemate.adapter.ShoppingRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
@@ -58,6 +60,8 @@ public class ShoppingFragment extends Fragment {
 
     private ShoppingRecyclerViewAdapter shoppingRecyclerViewAdapter;
 
+    List<ShoppingItem> activityList = new ArrayList<>();
+
     public ShoppingFragment() {
     }
 
@@ -69,7 +73,7 @@ public class ShoppingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_shopping, container, false);
 
         Activity activity = getActivity();
@@ -82,6 +86,8 @@ public class ShoppingFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
 
+        new ItemTouchHelper(itemTouchHelperCallbackLeft).attachToRecyclerView(recyclerView);
+        /*Add item FAB*/
         fab = view.findViewById(R.id.addItemFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,12 +97,14 @@ public class ShoppingFragment extends Fragment {
             }
         });
 
+        /*Delete item FAB*/
         fabDelete = view.findViewById(R.id.deleteItemFAB);
         fabDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 List<ShoppingItem> newShoppingList = housemateAPI.getCheckedShoppingList();
                 List<ShoppingItem> itemsToDelete = housemateAPI.getShoppingListItemsToDelete();
+
                 shoppingRecyclerViewAdapter = new ShoppingRecyclerViewAdapter(newShoppingList, getActivity());
                 recyclerView.setAdapter(shoppingRecyclerViewAdapter);
                 shoppingRecyclerViewAdapter.notifyDataSetChanged();
@@ -106,9 +114,9 @@ public class ShoppingFragment extends Fragment {
 
                 WriteBatch batch = db.batch();
 
-                for(int i = 0; i < itemsToDelete.size(); i++) {
+                for (int i = 0; i < itemsToDelete.size(); i++) {
                     DocumentReference shoppingItemRef = shoppingListRef.document(itemsToDelete.get(i).getShoppingListId());
-                    batch.delete(shoppingItemRef);
+                    batch.update(shoppingItemRef, "isBought", true);
                 }
 
                 batch.commit()
@@ -118,15 +126,15 @@ public class ShoppingFragment extends Fragment {
                                 Toast.makeText(getContext(), "Deleted Successfully", Toast.LENGTH_LONG).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
+        /*More Info FAB*/
         fabMoreInfo = view.findViewById(R.id.moreInfoFAB);
         fabMoreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,54 +144,111 @@ public class ShoppingFragment extends Fragment {
             }
         });
 
-        View activityRecycler;
-        View shoppingRecycler;
-        activityRecycler = view.findViewById(R.id.activity_recycler_view);
-        shoppingRecycler = view.findViewById(R.id.shopping_recycler_view);
-
+        /*Shopping List*/
         listChip = view.findViewById(R.id.shopping_list_chip);
         listChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //set acitivty list invisible
-                shoppingRecycler.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.VISIBLE);
                 fabDelete.setVisibility(View.VISIBLE);
                 fabMoreInfo.setVisibility(View.VISIBLE);
-                showShoppingList();
+                onStart();
             }
         });
 
+        /*Activity List*/
         activityChip = view.findViewById(R.id.shopping_activity_chip);
         activityChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shoppingRecycler.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
                 fabDelete.setVisibility(View.GONE);
                 fabMoreInfo.setVisibility(View.GONE);
-                showActivityList();
+                HousemateAPI api = HousemateAPI.getInstance();
+                String familyId = api.getFamilyId();
+                DocumentReference familyRef = db.collection("families").document(familyId);
+                CollectionReference shoppingListRef = familyRef.collection("shoppingList");
+
+                shoppingListRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w("view shopping list", "Listen failed.", error);
+                            return;
+                        }
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            activityList.clear();
+                            for (QueryDocumentSnapshot shoppingItems : queryDocumentSnapshots) {
+                                ShoppingItem shoppingItem = shoppingItems.toObject(ShoppingItem.class);
+                                if(shoppingItem.getIsBought()){
+                                    activityList.add(shoppingItem);
+                                }
+                            }
+                            sortItems();
+                            /* invoke recycler view*/
+                            shoppingRecyclerViewAdapter = new ShoppingRecyclerViewAdapter(activityList, getActivity());
+                            recyclerView.setAdapter(shoppingRecyclerViewAdapter);
+                            shoppingRecyclerViewAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
             }
         });
 
         return view;
     }
 
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallbackLeft = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            /* remove the card object from the view */
+            ShoppingItem itemSwiped = activityList.get(viewHolder.getAdapterPosition());
+            /* update the status of this bill being paid inside firestore */
+            HousemateAPI api = HousemateAPI.getInstance();
+            DocumentReference familyRef = db.collection("families").document(housemateAPI.getFamilyId());
+            CollectionReference shoppingListRef = familyRef.collection("shoppingList");
+
+            WriteBatch batch = db.batch();
+
+            if(itemSwiped.getIsBought()) {
+                activityList.remove(viewHolder.getAdapterPosition());
+
+                for (int i = 0; i < activityList.size(); i++) {
+                    DocumentReference shoppingItemRef = shoppingListRef.document(activityList.get(i).getShoppingListId());
+                    batch.delete(shoppingItemRef);
+                }
+            }
+
+            batch.commit()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getContext(), "Deleted Successfully", Toast.LENGTH_LONG).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            shoppingRecyclerViewAdapter.notifyDataSetChanged();
+        }
+
+    };
+
     public void onStart() {
         super.onStart();
-
-    }
-
-    public void showShoppingList(){
-        //get family id
-        //create sub collection in that family doc using the id
-        //after collection, add data
-        //save data with this button
-
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getFamilyId();
         DocumentReference familyRef = db.collection("families").document(familyId);
         CollectionReference shoppingListRef = familyRef.collection("shoppingList");
+
 
         shoppingListRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -196,7 +261,9 @@ public class ShoppingFragment extends Fragment {
                     shoppingList.clear();
                     for (QueryDocumentSnapshot shoppingItems : queryDocumentSnapshots) {
                         ShoppingItem shoppingItem = shoppingItems.toObject(ShoppingItem.class);
-                        shoppingList.add(shoppingItem);
+                        if(!shoppingItem.getIsBought()) {
+                            shoppingList.add(shoppingItem);
+                        }
                     }
                     sortItems();
                     /* invoke recycler view*/
@@ -206,10 +273,6 @@ public class ShoppingFragment extends Fragment {
                 }
             }
         });
-    }
-
-    public void showActivityList(){
-
     }
 
     public void sortItems(){

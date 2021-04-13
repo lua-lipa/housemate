@@ -4,6 +4,8 @@ public class ShoppingItem {
     private String item;
     private String date;
     private String shoppingListId;
+    private boolean isBought;
+    //add is bought
 
     public String getItem() {
         return item;
@@ -29,11 +31,21 @@ public class ShoppingItem {
         this.shoppingListId = shoppingListId;
     }
 
+    public boolean getIsBought() {
+        return isBought;
+    }
+
+    public void setIsBought(boolean bought) {
+        isBought = bought;
+    }
+
     @Override
     public String toString() {
         return "ShoppingItem{" +
                 "item='" + item + '\'' +
                 ", date='" + date + '\'' +
+                ", shoppingListId='" + shoppingListId + '\'' +
+                ", isBought=" + isBought +
                 '}';
     }
 }
