@@ -53,8 +53,8 @@
 
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/billsMoreInfoFAB"
-        android:layout_width="33dp"
-        android:layout_height="43dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_gravity="end|bottom"
         android:contentDescription="@string/fab"
         app:fab_colorNormal="@color/orange"
@@ -98,5 +98,16 @@
             android:layout_height="wrap_content"
             android:text="h" />
     </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/bills_nothing_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Nothing to display"
+        app:layout_constraintBottom_toBottomOf="@+id/bills_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
