@@ -47,6 +47,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
+    //items from xml file for fragment_bottom_sheet
     EditText enterItem;
     ImageButton calendarButton;
     ImageButton saveItemButton;
@@ -54,11 +55,14 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     String date;
     Group calendarGroup;
 
+    //firebase info variables
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    //firebase entry point
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public BottomSheetFragment() {
+        //required empty constructor
     }
 
     @Override
@@ -69,16 +73,17 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
 
-        // All values in fragment
+        // references to all values in fragment_bottom_sheet
         calendarGroup = view.findViewById(R.id.calendar_group);
         calendarView = view.findViewById(R.id.calendar_view);
         calendarButton = view.findViewById(R.id.today_calendar_button);
         enterItem = (EditText) view.findViewById(R.id.enter_item);
         saveItemButton = view.findViewById(R.id.save_item_button);
 
+        //entry point to firebase
         mAuth = FirebaseAuth.getInstance();
 
         return view;
@@ -89,18 +94,22 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         //fetching info from views is ideal here, once onCreateView is done, this will run right after (when the view is already created)
-
+        //save item button in the fragment
         saveItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //setting the text in the enter item text view to a string
                 String item = enterItem.getText().toString();
+                //getting the date and time
                 Date c = Calendar.getInstance().getTime();
+                //setting the format we want for the date
                 SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
                 date = df.format(c);
 
                 if (!TextUtils.isEmpty(item)) {
-
+                    //getting the userid
                     String userId = mAuth.getUid();
+                    //referencing the user so we can get info from the specific user
                     DocumentReference userRef = db.collection("users").document(userId);
 
                     userRef.get()
@@ -111,21 +120,25 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     //create sub collection in that family doc using the id
                                     //after collection, add data
                                     //save data with this button
+
                                     String familyId = documentSnapshot.getString("familyId");
                                     DocumentReference familyRef = db.collection("families").document(familyId);
                                     String shoppingListId = familyRef.collection("shoppingList").document().getId();
                                     DocumentReference shoppingListRef = familyRef.collection("shoppingList").document(shoppingListId);
 
+                                    //mapping the tags to our data fields
                                     Map<String, Object> shoppingListObj = new HashMap();
                                     shoppingListObj.put("shoppingListId", shoppingListId);
                                     shoppingListObj.put("item", item);
                                     shoppingListObj.put("date", date);
                                     shoppingListObj.put("isBought", false);
 
+                                    //setting the shopping list reference ot the shopping list object hashmap to populate the array with the new item
                                     shoppingListRef.set(shoppingListObj)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
+                                                    //set the text view to empty
                                                     enterItem.setText("");
                                                     Toast.makeText(getActivity(), "Item Added!", Toast.LENGTH_LONG).show();
                                                 }
@@ -146,6 +159,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                             });
 
                 } else {
+                    //a check to ensure that we are typing something into the text field before we press the save button
                     if(item.length() == 0){
                         enterItem.requestFocus();
                         enterItem.setError("Enter Text");
@@ -155,6 +169,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
+        //calendar button to click and view it for convenience of the user to see what date it is today
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
