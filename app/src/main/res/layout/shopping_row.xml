@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp">
 
+    <!--simple card view to hold all of the information about a particular item-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -20,10 +21,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!--constraint layout in the card-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!--text which labels the item-->
             <TextView
                 android:id="@+id/shopping_row_item"
                 android:layout_width="wrap_content"
@@ -43,6 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <!--text which labels the date the item was added-->
             <TextView
                 android:id="@+id/shopping_row_date"
                 android:layout_width="149dp"
@@ -62,6 +66,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.571" />
 
+            <!--checkbox which shows if the item has been bought or not-->
             <CheckBox
                 android:id="@+id/shopping_row_checkbox"
                 android:layout_width="wrap_content"
