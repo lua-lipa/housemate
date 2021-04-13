@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.example.housemate.Chores.Chore;
 import com.example.housemate.R;
 import com.example.housemate.adapter.ShoppingRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
@@ -75,7 +77,7 @@ public class ShoppingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_shopping, container, false);
 
         //activity so we dont have to keep calling getActivity()
@@ -128,12 +130,11 @@ public class ShoppingFragment extends Fragment {
                 //allows us to delete document references from DB
                 WriteBatch batch = db.batch();
 
-                for(int i = 0; i < itemsToDelete.size(); i++) {
                 //going through items that we have selected
                 for (int i = 0; i < itemsToDelete.size(); i++) {
                     //setting the selected items to bought in the DB
                     DocumentReference shoppingItemRef = shoppingListRef.document(itemsToDelete.get(i).getShoppingListId());
-                    batch.delete(shoppingItemRef);
+                    batch.update(shoppingItemRef, "isBought", true);
                 }
 
                 //committing the batch changes
@@ -144,11 +145,6 @@ public class ShoppingFragment extends Fragment {
                                 Toast.makeText(getContext(), "Deleted Successfully", Toast.LENGTH_LONG).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        });
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
@@ -169,23 +165,16 @@ public class ShoppingFragment extends Fragment {
             }
         });
 
-        View activityRecycler;
-        View shoppingRecycler;
-        activityRecycler = view.findViewById(R.id.activity_recycler_view);
-        shoppingRecycler = view.findViewById(R.id.shopping_recycler_view);
-
         //Shopping List Chip where all of our items will be placed
         listChip = view.findViewById(R.id.shopping_list_chip);
         listChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //set acitivty list invisible
-                shoppingRecycler.setVisibility(View.VISIBLE);
                 //Setting the buttons to visible so we can edit our shopping list
                 fab.setVisibility(View.VISIBLE);
                 fabDelete.setVisibility(View.VISIBLE);
                 fabMoreInfo.setVisibility(View.VISIBLE);
-                showShoppingList();
+                onStart();
             }
         });
 
@@ -194,11 +183,6 @@ public class ShoppingFragment extends Fragment {
         activityChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shoppingRecycler.setVisibility(View.GONE);
-                fab.setVisibility(View.GONE);
-                fabDelete.setVisibility(View.GONE);
-                fabMoreInfo.setVisibility(View.GONE);
-                showActivityList();
                 //We want to set all of the buttons to invisible so we can simply swipe away the items we no longer need
                 fab.setVisibility(View.GONE);
                 fabDelete.setVisibility(View.GONE);
@@ -240,8 +224,6 @@ public class ShoppingFragment extends Fragment {
         return view;
     }
 
-    public void onStart() {
-        super.onStart();
     ItemTouchHelper.SimpleCallback itemTouchHelperCallbackLeft = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -283,14 +265,13 @@ public class ShoppingFragment extends Fragment {
                 }
             });
 
-    }
+            shoppingRecyclerViewAdapter.notifyDataSetChanged();
+        }
 
-    public void showShoppingList(){
-        //get family id
-        //create sub collection in that family doc using the id
-        //after collection, add data
-        //save data with this button
+    };
 
+    public void onStart() {
+        super.onStart();
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getFamilyId();
         DocumentReference familyRef = db.collection("families").document(familyId);
@@ -308,7 +289,9 @@ public class ShoppingFragment extends Fragment {
                     shoppingList.clear();
                     for (QueryDocumentSnapshot shoppingItems : queryDocumentSnapshots) {
                         ShoppingItem shoppingItem = shoppingItems.toObject(ShoppingItem.class);
-                        shoppingList.add(shoppingItem);
+                        if(!shoppingItem.getIsBought()) {
+                            shoppingList.add(shoppingItem);
+                        }
                     }
                     sortItems();
 
@@ -319,10 +302,6 @@ public class ShoppingFragment extends Fragment {
                 }
             }
         });
-    }
-
-    public void showActivityList(){
-
     }
 
     public void sortItems(){
