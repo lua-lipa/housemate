@@ -53,6 +53,8 @@ public class ViewChoresFragment extends Fragment {
     private Chip myChores;
     private Chip houseChores;
     private Chip completedChores;
+    private boolean swipeLeft;
+    private boolean swipeRight;
     //private TextView textView;
     //private TextView noChoreText; /* displaying when no chores have been created */
 
@@ -89,6 +91,8 @@ public class ViewChoresFragment extends Fragment {
 
         user = mAuth.getCurrentUser();
 
+        swipeLeft = true;
+        swipeRight = false;
 
         choresList = new ArrayList<>();
         //noChoreText = v.findViewById(R.id.no_chore_text);
@@ -100,7 +104,6 @@ public class ViewChoresFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
         new ItemTouchHelper(itemTouchHelperCallbackLeft).attachToRecyclerView(recyclerView);
         new ItemTouchHelper(itemTouchHelperCallbackRight).attachToRecyclerView(recyclerView);
-
         myChores = v.findViewById(R.id.ChoresMyChoresChip);
         houseChores = v.findViewById(R.id.ChoresHouseChoresChip);
         completedChores = v.findViewById(R.id.ChoresCompletedChoresChip);
@@ -108,6 +111,8 @@ public class ViewChoresFragment extends Fragment {
         myChores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                swipeLeft = true;
+                swipeRight = false;
                 String userId = mAuth.getUid();
                 HousemateAPI api = HousemateAPI.getInstance();
                 String familyId = api.getFamilyId();
@@ -150,6 +155,8 @@ public class ViewChoresFragment extends Fragment {
         houseChores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                swipeLeft = false;
+                swipeRight = false;
                 String userId = mAuth.getUid();
                 HousemateAPI api = HousemateAPI.getInstance();
                 String familyId = api.getFamilyId();
@@ -188,6 +195,8 @@ public class ViewChoresFragment extends Fragment {
         completedChores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                swipeLeft = false;
+                swipeRight = true;
                 String userId = mAuth.getUid();
                 HousemateAPI api = HousemateAPI.getInstance();
                 String familyId = api.getFamilyId();
@@ -229,6 +238,12 @@ public class ViewChoresFragment extends Fragment {
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallbackLeft = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
+        public boolean isItemViewSwipeEnabled()
+        {
+            return swipeLeft;
+        }
+
+        @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
@@ -241,7 +256,7 @@ public class ViewChoresFragment extends Fragment {
             String userId = mAuth.getUid();
             DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
             DocumentReference choresRef = familyRef.collection("chores").document(choreSwiped.getChoresId());
-            if(choreSwiped.getAssignee().equals(userId)) {
+            if(choreSwiped.getAssignee().equals(userId) || api.isAdmin()) {
                 choresRef.update("isDone", true);
                 choresList.remove(viewHolder.getAdapterPosition());
             }
@@ -252,6 +267,12 @@ public class ViewChoresFragment extends Fragment {
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallbackRight = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
         @Override
+        public boolean isItemViewSwipeEnabled()
+        {
+            return swipeRight;
+        }
+
+        @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
@@ -264,7 +285,7 @@ public class ViewChoresFragment extends Fragment {
             String userId = mAuth.getUid();
             DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
             DocumentReference choresRef = familyRef.collection("chores").document(choreSwiped.getChoresId());
-            if(choreSwiped.getCreator().equals(userId)) {
+            if(choreSwiped.getCreator().equals(userId) || api.isAdmin()) {
                 choresRef.delete();
                 choresList.remove(viewHolder.getAdapterPosition());
             }
