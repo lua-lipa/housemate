@@ -57,6 +57,8 @@ public class BillsActivityRecyclerViewAdapter extends RecyclerView.Adapter<Bills
     }
 
     String displayTimeAgo(String date) {
+        /* the date gets formatted to display correctly in the activity view */
+
         SimpleDateFormat sdf = new SimpleDateFormat(("dd-MM-yyyy hh:mm:ss"));
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
         try {

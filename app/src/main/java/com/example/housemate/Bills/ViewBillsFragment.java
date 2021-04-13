@@ -173,6 +173,7 @@ public class ViewBillsFragment extends Fragment {
             Map<String, Object> billsActivityObj = new HashMap<>();
             String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
             Date currentTime = Calendar.getInstance().getTime();
+            /* the date gets formatted to display correctly in the activity view */
             String message = assignerUserName + " paid the " + billSwiped.getTitle() + " bill.";
             billsActivityObj.put("billActivityId", billActivityId);
             billsActivityObj.put("message", message) ;

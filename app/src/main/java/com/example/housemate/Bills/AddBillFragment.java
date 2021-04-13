@@ -248,6 +248,7 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
         String assigneeUserName = assignee.substring(0, assignee.indexOf(" "));
         String message = assignerUserName + " assigned a bill to " + assigneeUserName;
 
+        /* the date gets formatted to display correctly in the activity view */
         SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
 
