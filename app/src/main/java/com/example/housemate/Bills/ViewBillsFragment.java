@@ -54,12 +54,17 @@ public class ViewBillsFragment extends Fragment {
     private BillRecyclerViewAdapter myBillsRecyclerViewAdapter;
     private RecyclerView billsActivityRecyclerView;
     private BillsActivityRecyclerViewAdapter billsActivityRecyclerViewAdapter;
+
     private List<Bill> billsList;
     private List<BillActivity> billsActivityList;
     private FloatingActionButton addBillButton;
     private FloatingActionButton billsMoreInfoButton;
     private Chip myBillsChip;
     private Chip activityChip;
+    private Chip paidBillsChip;
+    private Chip houseBillsChip;
+    private boolean paidRequirement = false;
+    private boolean userBillsOnly = true;
 
     public ViewBillsFragment() {
         // Required empty public constructor
@@ -114,12 +119,16 @@ public class ViewBillsFragment extends Fragment {
         billsActivityRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
         billsActivityRecyclerView.setVisibility(View.INVISIBLE);
 
+
         myBillsChip = v.findViewById(R.id.bills_mybills_chip);
         activityChip = v.findViewById(R.id.bills_activity_chip);
+        paidBillsChip = v.findViewById(R.id.bills_paidbills_chip);
+        houseBillsChip = v.findViewById(R.id.bills_housebills_chip);
 
         myBillsChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadBills("unpaid");
                 myBillsRecyclerView.setVisibility(View.VISIBLE);
                 billsActivityRecyclerView.setVisibility(View.INVISIBLE);
                 Log.d("bills", "mybills");
@@ -135,11 +144,142 @@ public class ViewBillsFragment extends Fragment {
             }
         });
 
+        paidBillsChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("bills", "paid bills");
+                //loadBills(false);
+                loadBills("paid");
+                billsActivityRecyclerView.setVisibility(View.INVISIBLE);
+                myBillsRecyclerView.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        houseBillsChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("bills", "paid bills");
+                //loadBills(false);
+                loadBills("house");
+                billsActivityRecyclerView.setVisibility(View.INVISIBLE);
+                myBillsRecyclerView.setVisibility(View.VISIBLE);
+
+            }
+        });
+
 
 
 
         return v;
 
+    }
+
+
+
+    private void loadBills(String type) {
+        /* type = {house || paid || unpaid} */
+
+        paidRequirement = false;
+        userBillsOnly = true;
+
+        if (type.equals("paid")) paidRequirement = true;
+
+        if (type.equals("house")) userBillsOnly = false;
+
+        if(paidRequirement) {
+            Log.d("paid", "true");
+        } else {
+            Log.d("paid", "false");
+        }
+
+
+
+        HousemateAPI api = HousemateAPI.getInstance();
+        String userId = mAuth.getUid();
+        DocumentReference userRef = db.collection("users").document(userId);
+
+
+        String familyId = api.getFamilyId();
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        CollectionReference billsRef = familyRef.collection("bills");
+        billsRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("view bills", "Listen failed.", error);
+                    return;
+                }
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    billsList.clear();
+                    for (QueryDocumentSnapshot bills : queryDocumentSnapshots) {
+                        /* making only the bills belonging to current user are being viewed */
+                        Bill bill = bills.toObject(Bill.class);
+                        String billId = bill.getBillsId();
+                        String billUserId = bill.getUserId();
+                        if (userBillsOnly) {
+                            if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == paidRequirement) {
+                                billsList.add(bill);
+                                Log.d("bills", "added"  + bill.getTitle());
+                            }
+                        } else {
+                            if (bill.getIsPaid() == paidRequirement) {
+                                billsList.add(bill);
+                                Log.d("bills", "added"  + bill.getTitle());
+
+                            }
+                        }
+                    }
+                    /* invoke recycler view */
+                    billsList = sortByDate(billsList);
+                    myBillsRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
+                    myBillsRecyclerView.setAdapter(myBillsRecyclerViewAdapter);
+                    myBillsRecyclerViewAdapter.notifyDataSetChanged();
+                } else {
+                    /* display "no bills" text view */
+                }
+            }
+        });
+    }
+
+    private void loadPaidBills() {
+        HousemateAPI api = HousemateAPI.getInstance();
+        String userId = mAuth.getUid();
+        DocumentReference userRef = db.collection("users").document(userId);
+
+
+        String familyId = api.getFamilyId();
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        CollectionReference billsRef = familyRef.collection("bills");
+        billsRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("view bills", "Listen failed.", error);
+                    return;
+                }
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    billsList.clear();
+                    for (QueryDocumentSnapshot bills : queryDocumentSnapshots) {
+                        /* making only the bills belonging to current user are being viewed */
+                        Bill bill = bills.toObject(Bill.class);
+                        String billId = bill.getBillsId();
+                        String billUserId = bill.getUserId();
+                        if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == true) {
+                            billsList.add(bill);
+                            Log.d("paid bill" ,bill.getTitle());
+                        }
+                    }
+                    /* invoke recycler view */
+                    billsList = sortByDate(billsList);
+                    myBillsRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
+                    myBillsRecyclerView.setAdapter(myBillsRecyclerViewAdapter);
+                    myBillsRecyclerViewAdapter.notifyDataSetChanged();
+                } else {
+                    /* display "no bills" text view */
+                }
+            }
+        });
     }
 
 
@@ -162,35 +302,42 @@ public class ViewBillsFragment extends Fragment {
 
             DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
             DocumentReference billRef = familyRef.collection("bills").document(billSwiped.getBillsId());
-            billRef.update("isPaid", true);
 
-            billsList.remove(viewHolder.getAdapterPosition());
-            myBillsRecyclerViewAdapter.notifyDataSetChanged();
+            if (billSwiped.getIsPaid() == false) {
+                billRef.update("isPaid", true);
+                billsList.remove(viewHolder.getAdapterPosition());
+                myBillsRecyclerViewAdapter.notifyDataSetChanged();
+                /* adding the bill paid activity into the bill activity database */
+                String billActivityId = familyRef.collection("billsActivity").document().getId();
+                DocumentReference billsActivityRef = familyRef.collection("billsActivity").document(billActivityId);
+                Map<String, Object> billsActivityObj = new HashMap<>();
+                String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
+                Date currentTime = Calendar.getInstance().getTime();
+                /* the date gets formatted to display correctly in the activity view */
+                String message = assignerUserName + " paid the " + billSwiped.getTitle() + " bill.";
+                billsActivityObj.put("billActivityId", billActivityId);
+                billsActivityObj.put("message", message) ;
+                billsActivityObj.put("date", currentTime.toString());
 
-            /* adding the bill paid activity into the bill activity database */
-            String billActivityId = familyRef.collection("billsActivity").document().getId();
-            DocumentReference billsActivityRef = familyRef.collection("billsActivity").document(billActivityId);
-            Map<String, Object> billsActivityObj = new HashMap<>();
-            String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
-            Date currentTime = Calendar.getInstance().getTime();
-            /* the date gets formatted to display correctly in the activity view */
-            String message = assignerUserName + " paid the " + billSwiped.getTitle() + " bill.";
-            billsActivityObj.put("billActivityId", billActivityId);
-            billsActivityObj.put("message", message) ;
-            billsActivityObj.put("date", currentTime.toString());
+                billsActivityRef.set(billsActivityObj)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getActivity(), "bill activity success", Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } else {
+                //billRef.update("isPaid", true);
+                billRef.delete();
+                billsList.remove(viewHolder.getAdapterPosition());
+                myBillsRecyclerViewAdapter.notifyDataSetChanged();
+            }
 
-            billsActivityRef.set(billsActivityObj)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(getActivity(), "bill activity success", Toast.LENGTH_LONG).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
-                }
-            });
         }
 
 
@@ -219,7 +366,6 @@ public class ViewBillsFragment extends Fragment {
                     billsActivityList.clear();
                     for (QueryDocumentSnapshot billsActivity : queryDocumentSnapshots) {
                         /* making only the bills belonging to current user are being viewed */
-
                         BillActivity billActivity = billsActivity.toObject(BillActivity.class);
                         String billActivityId = billActivity.getBillActivityId();
                         billsActivityList.add(billActivity);
@@ -236,36 +382,10 @@ public class ViewBillsFragment extends Fragment {
         });
 
 
-
-        CollectionReference billsRef = familyRef.collection("bills");
-
-        billsRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                if (error != null) {
-                    Log.w("view bills", "Listen failed.", error);
-                    return;
-                }
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    billsList.clear();
-                    for (QueryDocumentSnapshot bills : queryDocumentSnapshots) {
-                        /* making only the bills belonging to current user are being viewed */
-                        Bill bill = bills.toObject(Bill.class);
-                        String billId = bill.getBillsId();
-                        String billUserId = bill.getUserId();
-                        if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == false)
-                            billsList.add(bill);
-                    }
-                    /* invoke recycler view*/
-                    billsList = sortByDate(billsList);
-                    myBillsRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
-                    myBillsRecyclerView.setAdapter(myBillsRecyclerViewAdapter);
-                    myBillsRecyclerViewAdapter.notifyDataSetChanged();
-                } else {
-                    /* display "no bills" text view */
-                }
-            }
-        });
+        loadBills("unpaid");
+        loadBills("paid");
+        loadBills("house");
+        //loadPaidBills();
     }
 
     /* sort the bills list so it displays the earliest due date -> latest due date */

@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.housemate.Bills.BillActivity;
 import com.example.housemate.R;
 
-import org.ocpsoft.prettytime.PrettyTime;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -68,7 +66,7 @@ public class BillsActivityRecyclerViewAdapter extends RecyclerView.Adapter<Bills
                     DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
                     return ago + "";
         } catch (ParseException e) {
-            e.printStackTrace();
+
         }
         return "";
     }

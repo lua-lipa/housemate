@@ -250,8 +250,6 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
 
         /* the date gets formatted to display correctly in the activity view */
         SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-
-
         Date d = new Date();
         String cur_time = formatter.format(d);
 
