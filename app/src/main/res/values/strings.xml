@@ -75,5 +75,6 @@
     <string name="activity">Activity</string>
     <string name="username">username</string>
     <string name="name">name</string>
+    <string name="chat">Chat</string>
 
 </resources>

@@ -97,7 +97,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/homeBillsButton"
         app:layout_constraintTop_toBottomOf="@+id/homeTitleText"
-        app:srcCompat="@drawable/ic_baseline_notifications_24">
+        app:srcCompat="@drawable/ic_baseline_chat_24">
 
     </ImageButton>
 
@@ -140,7 +140,7 @@
         android:layout_height="19dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Reminders"
+        android:text="@string/chat"
         app:layout_constraintEnd_toEndOf="@+id/homeRemindersButton"
         app:layout_constraintStart_toStartOf="@+id/homeRemindersButton"
         app:layout_constraintTop_toBottomOf="@+id/homeRemindersButton" />

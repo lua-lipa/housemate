@@ -122,6 +122,39 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                 public void onSuccess(Void aVoid) {
                                     dismiss();
                                     Toast.makeText(getActivity(), "Item Added!", Toast.LENGTH_LONG).show();
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    //get family id
+                                    //create sub collection in that family doc using the id
+                                    //after collection, add data
+                                    //save data with this button
+
+                                    String familyId = documentSnapshot.getString("familyId");
+                                    DocumentReference familyRef = db.collection("families").document(familyId);
+                                    String shoppingListId = familyRef.collection("shoppingList").document().getId();
+                                    DocumentReference shoppingListRef = familyRef.collection("shoppingList").document(shoppingListId);
+
+                                    //mapping the tags to our data fields
+                                    Map<String, Object> shoppingListObj = new HashMap();
+                                    shoppingListObj.put("shoppingListId", shoppingListId);
+                                    shoppingListObj.put("item", item);
+                                    shoppingListObj.put("date", date);
+
+                                    //setting the shopping list reference ot the shopping list object hashmap to populate the array with the new item
+                                    shoppingListRef.set(shoppingListObj)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    //set the text view to empty
+                                                    enterItem.setText("");
+                                                    Toast.makeText(getActivity(), "Item Added!", Toast.LENGTH_LONG).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+                                                }
+                                            });
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -130,8 +163,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
                                 }
                             });
-
-
                 } else {
                     //a check to ensure that we are typing something into the text field before we press the save button
                     if (item.length() == 0) {

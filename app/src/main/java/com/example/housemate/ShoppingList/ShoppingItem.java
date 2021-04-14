@@ -10,6 +10,7 @@ public class ShoppingItem {
     private String date;
     //shopping list id in reference in the database so we can delete it and manipulate it
     private String shoppingListId;
+
     //isBought check in order to see if the item has been purchased or not
     private boolean isBought;
     //getting the user from the db
@@ -18,6 +19,7 @@ public class ShoppingItem {
     private String user;
 
     //getters and setters for all
+
 
     public String getItem() {
         return item;

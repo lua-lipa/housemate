@@ -23,7 +23,6 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 
-    <!--FAB selected to display the bottom sheet fragment-->
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/addItemFAB"
         android:layout_width="33dp"
@@ -74,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:checkedChip="@id/chip6"
+
         app:chipSpacingHorizontal="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
