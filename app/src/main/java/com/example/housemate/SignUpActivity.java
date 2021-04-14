@@ -28,11 +28,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
+    //firebase variables
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    //UI
+    //activity_signup.xml variables
     private Button signUpButton;
     private EditText nameInput;
     private EditText emailInput;
@@ -45,20 +46,25 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        //activity_signup.xml references
         signUpButton = findViewById(R.id.signUpButton);
         nameInput = findViewById(R.id.signUpNameInput);
         emailInput = findViewById(R.id.signUpEmailInput);
         passwordInput = findViewById(R.id.signUpPasswordInput);
 
+        //firebase entry point entry point
         mAuth = FirebaseAuth.getInstance();
 
+        //once we click the sign up button
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //reference all of the textviews required
                 String fullName = nameInput.getText().toString().trim();
                 String email = emailInput.getText().toString().trim();
                 String password = passwordInput.getText().toString().trim();
 
+                //create a user with email and password in firebase
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnSuccessListener(authResult -> {
                             //Get userId and set reference

@@ -50,6 +50,7 @@ public class ShoppingFragment extends Fragment {
     private FloatingActionButton fabDelete;
     private Chip listChip;
     private Chip activityChip;
+    private CheckBox checkBox;
 
     //firebase initialisation
     private FirebaseAuth mAuth;
@@ -250,7 +251,6 @@ public class ShoppingFragment extends Fragment {
                     batch.delete(shoppingItemRef);
                 }
             }
-
             //committing the batch
             batch.commit()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -294,7 +294,6 @@ public class ShoppingFragment extends Fragment {
                         }
                     }
                     sortItems();
-
                     //invoke recycler view
                     shoppingRecyclerViewAdapter = new ShoppingRecyclerViewAdapter(shoppingList, getActivity());
                     recyclerView.setAdapter(shoppingRecyclerViewAdapter);
@@ -309,6 +308,7 @@ public class ShoppingFragment extends Fragment {
         Collections.sort(shoppingList, new Comparator<ShoppingItem>() {
             @Override
             public int compare(ShoppingItem o1, ShoppingItem o2) {
+                    return o1.getDate().compareTo(o2.getDate());
                 return o1.getItem().compareTo(o2.getItem());
             }
         });
