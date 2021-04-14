@@ -74,5 +74,6 @@
     <string name="list">List</string>
     <string name="activity">Activity</string>
     <string name="username">username</string>
+    <string name="name">name</string>
 
 </resources>

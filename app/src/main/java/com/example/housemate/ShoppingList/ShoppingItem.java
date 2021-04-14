@@ -12,6 +12,10 @@ public class ShoppingItem {
     private String shoppingListId;
     //isBought check in order to see if the item has been purchased or not
     private boolean isBought;
+    //getting the user from the db
+    private String userId;
+    //getting username from db
+    private String user;
 
     //getters and setters for all
 
@@ -39,15 +43,22 @@ public class ShoppingItem {
         this.shoppingListId = shoppingListId;
     }
 
-    public boolean getIsBought() {
-        return isBought;
-    }
+    public boolean getIsBought() { return isBought; }
 
     public void setIsBought(boolean bought) {
         isBought = bought;
     }
 
+    public String getUserId() { return userId; }
+
+    public void setUserId(String userId) { this.userId = userId; }
+
+    public String getUser() { return user; }
+
+    public void setUser(String user) { this.user = user; }
+
     //toString method to help with testing
+
     @Override
     public String toString() {
         return "ShoppingItem{" +
@@ -55,6 +66,8 @@ public class ShoppingItem {
                 ", date='" + date + '\'' +
                 ", shoppingListId='" + shoppingListId + '\'' +
                 ", isBought=" + isBought +
+                ", userId='" + userId + '\'' +
+                ", user='" + user + '\'' +
                 '}';
     }
 }

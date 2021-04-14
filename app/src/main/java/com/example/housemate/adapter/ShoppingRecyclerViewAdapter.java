@@ -17,6 +17,8 @@ import com.example.housemate.ShoppingList.ShoppingItem;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -60,6 +62,8 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
         ShoppingItem shoppingItem = Objects.requireNonNull(shoppingList).get(position);
         holder.name.setText(shoppingItem.getItem());
         holder.date.setText(shoppingItem.getDate());
+        holder.user.setText(shoppingItem.getUser());
+        holder.checkBox.setVisibility(View.VISIBLE);
 
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -88,6 +92,7 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
         public TextView date;
         public CheckBox checkBox;
         public FloatingActionButton deleteFAB;
+        public TextView user;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +102,7 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
             date = itemView.findViewById(R.id.shopping_row_date);
             checkBox = itemView.findViewById(R.id.shopping_row_checkbox);
             deleteFAB = itemView.findViewById(R.id.deleteItemFAB);
+            user = itemView.findViewById(R.id.shopping_row_name_display);
             checkBox.setChecked(false);
         }
     }

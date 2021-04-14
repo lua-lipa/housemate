@@ -47,34 +47,52 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <!--text which labels the date the item was added-->
+
+            <!--checkbox which shows if the item has been bought or not-->
             <TextView
                 android:id="@+id/shopping_row_date"
-                android:layout_width="149dp"
-                android:layout_height="50dp"
+                android:layout_width="159dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal|fill_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="@string/shopping_item"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/shopping_row_checkbox"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--checkbox which shows if the item has been bought or not-->
             <CheckBox
                 android:id="@+id/shopping_row_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
+                android:visibility="gone"
                 app:buttonTint="@color/orange"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/shopping_row_name_display"
+                android:layout_width="159dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|fill_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/shopping_row_checkbox"
+                app:layout_constraintHorizontal_bias="0.844"
+                app:layout_constraintStart_toEndOf="@+id/shopping_row_item"
+                app:layout_constraintTop_toBottomOf="@+id/shopping_row_date"
+                app:layout_constraintVertical_bias="0.0" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
