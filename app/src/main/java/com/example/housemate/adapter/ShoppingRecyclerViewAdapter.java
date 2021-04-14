@@ -25,13 +25,16 @@ import java.util.Objects;
 
 /* what allows us to bind views to our rows & the actual data we will be getting from firebase */
 public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRecyclerViewAdapter.ViewHolder> {
+    //necessary shopping lists in order to reload the recycler view and display them accordingly
     private List<ShoppingItem> shoppingList;
     private List<ShoppingItem> checkedShoppingList;
     private List<ShoppingItem> shoppingListItemsToDelete;
     private Context context;
     HousemateAPI housemateAPI = HousemateAPI.getInstance();
 
-    public ShoppingRecyclerViewAdapter(){}
+    public ShoppingRecyclerViewAdapter(){
+        //required empty constructor
+    }
 
     public ShoppingRecyclerViewAdapter(List<ShoppingItem> shoppingList, Context context) {
         this.shoppingList = shoppingList;
@@ -80,6 +83,7 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        //setting the vairiables to the shopping_row.xml
         public TextView name;
         public TextView date;
         public CheckBox checkBox;
@@ -87,12 +91,13 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            //references to everything in the shopping_row.xml
             name = itemView.findViewById(R.id.shopping_row_item);
             date = itemView.findViewById(R.id.shopping_row_date);
             checkBox = itemView.findViewById(R.id.shopping_row_checkbox);
             deleteFAB = itemView.findViewById(R.id.deleteItemFAB);
             checkBox.setChecked(false);
-
         }
     }
 }

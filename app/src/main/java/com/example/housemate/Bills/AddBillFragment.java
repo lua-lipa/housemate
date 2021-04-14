@@ -5,9 +5,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +24,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,8 +72,20 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
         /* getting family member names from the db, and adding it to spinner along with "all members" option */
         String[] family_members = api.getMemberNames();
         String[] spinner_members = new String[family_members.length + 1];
-        for(int i = 0; i < family_members.length; i++)  spinner_members[i] = family_members[i];
-        spinner_members[spinner_members.length-1] = "All members";
+        if(api.isAdmin()) {
+            for (int i = 0; i < family_members.length; i++) spinner_members[i] = family_members[i];
+            spinner_members[spinner_members.length - 1] = "All members";
+        } else { /* if you are an admin you can only assign a bill to yourself */
+            spinner_members = new String[1];
+            spinner_members[0] = api.getUserName();
+            for(int i = 0; i < family_members.length; i++) {
+                if (family_members[i].equals(api.getUserName())) {
+                    assigneeIndex = i;
+                    break;
+                }
+            }
+
+        }
 
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, spinner_members);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -234,13 +245,27 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
             }
         });
 
+        /* adding the activity to the bills activity database */
+
+
         String billActivityId = familyRef.collection("billsActivity").document().getId();
         DocumentReference billsActivityRef = familyRef.collection("billsActivity").document(billActivityId);
 
         Map<String, Object> billsActivityObj = new HashMap<>();
+        String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
+        String assigneeUserName = assignee.substring(0, assignee.indexOf(" "));
+        String message = assignerUserName + " assigned a bill to " + assigneeUserName;
+
+        /* the date gets formatted to display correctly in the activity view */
+        SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date d = new Date();
+        String cur_time = formatter.format(d);
+
+
+        Date currentTime = Calendar.getInstance().getTime();
         billsActivityObj.put("billActivityId", billActivityId);
-        billsActivityObj.put("message", title) ;
-        billsActivityObj.put("date", "now");
+        billsActivityObj.put("message", message) ;
+        billsActivityObj.put("date", cur_time);
 
         billsActivityRef.set(billsActivityObj)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
