@@ -25,7 +25,7 @@ public class HousemateAPI extends Application {
 
     private List<ShoppingItem> checkedShoppingList;
     private List<ShoppingItem> shoppingListItemsToDelete;
-
+    private List<ShoppingItem> finalShoppingListItemsToDelete;
 
     private static HousemateAPI instance;
 
@@ -113,6 +113,14 @@ public class HousemateAPI extends Application {
 
     public void setCheckedShoppingList(List<ShoppingItem> checkedShoppingList) {
         this.checkedShoppingList = checkedShoppingList;
+    }
+
+    public List<ShoppingItem> getFinalShoppingListItemsToDelete() {
+        return finalShoppingListItemsToDelete;
+    }
+
+    public void setFinalShoppingListItemsToDelete(List<ShoppingItem> finalShoppingListItemsToDelete) {
+        this.finalShoppingListItemsToDelete = finalShoppingListItemsToDelete;
     }
 
     public List<ShoppingItem> getShoppingListItemsToDelete() {
