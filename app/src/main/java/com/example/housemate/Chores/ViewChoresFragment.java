@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,45 +39,46 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ViewChoresFragment extends Fragment {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    //declaring variables
+    //connect to firestore
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    /* */
+    //recycler view for viewing the chores
     private RecyclerView recyclerView;
     private ChoresRecyclerViewAdapter choresRecyclerViewAdapter;
     private List<Chore> choresList;
-    private ViewModelProvider choresViewModel;
+    //get user family information
     private CollectionReference collectionReference = db.collection("familyId");
     private FirebaseUser user;
+    //button for adding a chore
     FloatingActionButton addChore;
+    //chips for changing between chores
     private Chip myChores;
     private Chip houseChores;
     private Chip completedChores;
+    //booleans for enabling/disabling swipe on the different lists
     private boolean swipeLeft;
     private boolean swipeRight;
-    //private TextView textView;
-    //private TextView noChoreText; /* displaying when no chores have been created */
+    //booleans for displaying the toasts
+    private boolean completeFirst;
+    private boolean mineFirst;
 
-
-
+    // Required empty public constructor
     public ViewChoresFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /* Inflate the layout for this fragment */
+        //Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_chores, container, false);
 
+        //connect to the add chore button and set an on click listener to bring up the bottom sheet fragment
         addChore = v.findViewById(R.id.choresFloatingActionButton);
         addChore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,39 +88,51 @@ public class ViewChoresFragment extends Fragment {
             }
         });
 
+        //connect to database to get information relevant to the user
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
-
         user = mAuth.getCurrentUser();
 
+        //initiate swiping left to true and swiping right to false as the user lands on my chores first
         swipeLeft = true;
         swipeRight = false;
 
+        //initiate complete first and mine first to true as its the first time the user is looking at this pages
+        completeFirst = true;
+        mineFirst = true;
+
+        //initiate the chore list as an array list
         choresList = new ArrayList<>();
-        //noChoreText = v.findViewById(R.id.no_chore_text);
 
 
-        /* set up the recycler view */
+        //set up the recycler view
         recyclerView = v.findViewById(R.id.ChoresRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
+
+        //initiate the item touch helpers for swiping left and right
         new ItemTouchHelper(itemTouchHelperCallbackLeft).attachToRecyclerView(recyclerView);
         new ItemTouchHelper(itemTouchHelperCallbackRight).attachToRecyclerView(recyclerView);
+
+        //initiate the chips
         myChores = v.findViewById(R.id.ChoresMyChoresChip);
         houseChores = v.findViewById(R.id.ChoresHouseChoresChip);
         completedChores = v.findViewById(R.id.ChoresCompletedChoresChip);
 
+        //on click listener for when "mine" is clicked
         myChores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swipeLeft = true;
-                swipeRight = false;
-                String userId = mAuth.getUid();
+                swipeLeft = true; //true because user should be able to swipe left to complete
+                swipeRight = false; //false because user shouldn't be able to swipe right to delete
+                //get the housemate api to get the family id and users name
                 HousemateAPI api = HousemateAPI.getInstance();
                 String familyId = api.getFamilyId();
                 String userName = api.getUserName();
+                //get the chores document under the family with familyId's document
                 DocumentReference familyRef = db.collection("families").document(familyId);
                 CollectionReference choresRef = familyRef.collection("chores");
+                //add snapshot listener to the chores collection to get real time database updates
                 choresRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
@@ -126,38 +140,35 @@ public class ViewChoresFragment extends Fragment {
                             Log.w("view chores", "Listen failed.", error);
                             return;
                         }
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            //noChoreText.setText("not empty");
-                            choresList.clear();
+                        if (!queryDocumentSnapshots.isEmpty()) { //if there is chore documents in the chores document
+                            choresList.clear(); //clear list to not duplicate chores
+                            //begin adding the chores to the chores list
                             for (QueryDocumentSnapshot chores : queryDocumentSnapshots) {
-
                                 Chore chore = chores.toObject(Chore.class);
-                                //Log.d("Chore", chore.getName());
+                                //only add the chore is it hasn't been done yet and its assigned to the user
                                 if(chore.getIsDone() == false && chore.getAssignee().equals(userName)){
-                                    chore.setAssignee(" ");
+                                    chore.setAssignee(" "); //set assignee to blank so that it doesn't display their name
                                     choresList.add(chore);
                                 }
                             }
-                            sortItems();
-//                    Log.d("LOL", choresList.toString());
-                            /* invoke recycler view*/
+                            sortItems(); //sort the list
+                            //invoke the recycler view
                             choresRecyclerViewAdapter = new ChoresRecyclerViewAdapter(choresList, getActivity());
                             recyclerView.setAdapter(choresRecyclerViewAdapter);
                             choresRecyclerViewAdapter.notifyDataSetChanged();
-                        } else {
-                            //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
                         }
                     }
                 });
             }
         });
 
+        //on click listener for when "house" is clicked
         houseChores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //set both swipe left and right to false as the user shouldn't able to swipe on house list
                 swipeLeft = false;
                 swipeRight = false;
-                String userId = mAuth.getUid();
                 HousemateAPI api = HousemateAPI.getInstance();
                 String familyId = api.getFamilyId();
                 DocumentReference familyRef = db.collection("families").document(familyId);
@@ -170,34 +181,28 @@ public class ViewChoresFragment extends Fragment {
                             return;
                         }
                         if (!queryDocumentSnapshots.isEmpty()) {
-                            //noChoreText.setText("not empty");
                             choresList.clear();
                             for (QueryDocumentSnapshot chores : queryDocumentSnapshots) {
-
                                 Chore chore = chores.toObject(Chore.class);
-                                //Log.d("Chore", chore.getName());
+                                //only add the chore if it hasn't been done yet
                                 if(chore.getIsDone() == false) choresList.add(chore);
                             }
                             sortItems();
-//                    Log.d("LOL", choresList.toString());
-                            /* invoke recycler view*/
                             choresRecyclerViewAdapter = new ChoresRecyclerViewAdapter(choresList, getActivity());
                             recyclerView.setAdapter(choresRecyclerViewAdapter);
                             choresRecyclerViewAdapter.notifyDataSetChanged();
-                        } else {
-                            //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
                         }
                     }
                 });
             }
         });
 
+        //on click listener for when "complete" is clicked
         completedChores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swipeLeft = false;
-                swipeRight = true;
-                String userId = mAuth.getUid();
+                swipeLeft = false; //false because user shouldn't be able to swipe left
+                swipeRight = true; //true because user should be able to swipe right
                 HousemateAPI api = HousemateAPI.getInstance();
                 String familyId = api.getFamilyId();
                 DocumentReference familyRef = db.collection("families").document(familyId);
@@ -210,38 +215,35 @@ public class ViewChoresFragment extends Fragment {
                             return;
                         }
                         if (!queryDocumentSnapshots.isEmpty()) {
-                            //noChoreText.setText("not empty");
                             choresList.clear();
                             for (QueryDocumentSnapshot chores : queryDocumentSnapshots) {
-
                                 Chore chore = chores.toObject(Chore.class);
-                                //Log.d("Chore", chore.getName());
+                                //only add chore to list if its already been done
                                 if(chore.getIsDone() == true) choresList.add(chore);
                             }
                             sortItems();
-//                    Log.d("LOL", choresList.toString());
-                            /* invoke recycler view*/
                             choresRecyclerViewAdapter = new ChoresRecyclerViewAdapter(choresList, getActivity());
                             recyclerView.setAdapter(choresRecyclerViewAdapter);
                             choresRecyclerViewAdapter.notifyDataSetChanged();
-                        } else {
-                            //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
+                            if(completeFirst) {
+                                Toast.makeText(activity, "Swipe Right to Delete a Chore.", Toast.LENGTH_LONG).show();
+                                completeFirst = false;
+                            }
                         }
                     }
                 });
             }
         });
-
         return v;
-
     }
 
+    //item touch helper for when chore is swiped left
     ItemTouchHelper.SimpleCallback itemTouchHelperCallbackLeft = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean isItemViewSwipeEnabled()
         {
             return swipeLeft;
-        }
+        } //check whether we should allow the swipe or not
 
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -249,28 +251,34 @@ public class ViewChoresFragment extends Fragment {
         }
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            /* remove the card object from the view */
+            //remove the card object from the view
+            Activity activity = getActivity();
             Chore choreSwiped = choresList.get(viewHolder.getAdapterPosition());
-            /* update the status of this bill being paid inside firestore */
+            //update the status of this chore being done inside firestore
             HousemateAPI api = HousemateAPI.getInstance();
             String userId = mAuth.getUid();
             DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
             DocumentReference choresRef = familyRef.collection("chores").document(choreSwiped.getChoresId());
+            //only allow an admin or the user the chore is assigned to to set its as done
             if(choreSwiped.getAssignee().equals(userId) || api.isAdmin()) {
                 choresRef.update("isDone", true);
                 choresList.remove(viewHolder.getAdapterPosition());
+                Toast.makeText(activity, "Chore completed.", Toast.LENGTH_LONG).show();
+            } else{
+                Toast.makeText(activity, "Only the chore assignee or an admin can complete a chore.", Toast.LENGTH_LONG).show();
             }
             choresRecyclerViewAdapter.notifyDataSetChanged();
         }
 
     };
 
+    //item touch helper for when chore is swiped right
     ItemTouchHelper.SimpleCallback itemTouchHelperCallbackRight = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
         @Override
         public boolean isItemViewSwipeEnabled()
         {
             return swipeRight;
-        }
+        } //check whether we should allow the swipe or not
 
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -278,16 +286,21 @@ public class ViewChoresFragment extends Fragment {
         }
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            /* remove the card object from the view */
+            //remove the card object from the view
+            Activity activity = getActivity();
             Chore choreSwiped = choresList.get(viewHolder.getAdapterPosition());
-            /* update the status of this bill being paid inside firestore */
+            //Remove this chore from firestore
             HousemateAPI api = HousemateAPI.getInstance();
             String userId = mAuth.getUid();
             DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
             DocumentReference choresRef = familyRef.collection("chores").document(choreSwiped.getChoresId());
+            //only allow the user that created the chore or an admin to delete it
             if(choreSwiped.getCreator().equals(userId) || api.isAdmin()) {
                 choresRef.delete();
                 choresList.remove(viewHolder.getAdapterPosition());
+                Toast.makeText(activity, "Chore deleted.", Toast.LENGTH_LONG).show();
+            } else{
+                Toast.makeText(activity, "Only the chore creator or an admin can delete a chore.", Toast.LENGTH_LONG).show();
             }
             choresRecyclerViewAdapter.notifyDataSetChanged();
         }
@@ -297,7 +310,7 @@ public class ViewChoresFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        String userId = mAuth.getUid();
+        Activity activity = getActivity();
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getFamilyId();
         String userName = api.getUserName();
@@ -311,12 +324,9 @@ public class ViewChoresFragment extends Fragment {
                     return;
                 }
                 if (!queryDocumentSnapshots.isEmpty()) {
-                    //noChoreText.setText("not empty");
                     choresList.clear();
                     for (QueryDocumentSnapshot chores : queryDocumentSnapshots) {
-
                         Chore chore = chores.toObject(Chore.class);
-                        //Log.d("Chore", chore.getName());
                         Log.d("Chore", chore.getAssignee());
                         if(chore.getIsDone() == false && chore.getAssignee().equals(userName)){
                             chore.setAssignee(" ");
@@ -324,24 +334,23 @@ public class ViewChoresFragment extends Fragment {
                         }
                     }
                     sortItems();
-//                    Log.d("LOL", choresList.toString());
-                    /* invoke recycler view*/
                     choresRecyclerViewAdapter = new ChoresRecyclerViewAdapter(choresList, getActivity());
                     recyclerView.setAdapter(choresRecyclerViewAdapter);
                     choresRecyclerViewAdapter.notifyDataSetChanged();
-                } else {
-                    //noChoreText.setText("No Chores, enjoy a break :)"); /* display no data text view */
+                    if(mineFirst) {
+                        Toast.makeText(activity, "Swipe Left to Complete a Chore.", Toast.LENGTH_LONG).show();
+                        mineFirst = false;
+                    }
                 }
             }
         });
     }
 
     public void sortItems(){
-        //SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         Collections.sort(choresList, new Comparator<Chore>() {
             @Override
             public int compare(Chore c1, Chore c2) {
-                return c1.getDate().compareTo(c2.getDate());
+                return c1.getDate().compareTo(c2.getDate()); //sort according to date
             }
         });
     }
