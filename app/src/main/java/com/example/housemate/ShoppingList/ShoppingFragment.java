@@ -309,7 +309,6 @@ public class ShoppingFragment extends Fragment {
             @Override
             public int compare(ShoppingItem o1, ShoppingItem o2) {
                     return o1.getDate().compareTo(o2.getDate());
-                return o1.getItem().compareTo(o2.getItem());
             }
         });
     }
