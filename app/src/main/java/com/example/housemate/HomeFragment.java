@@ -14,6 +14,7 @@ import com.example.housemate.Bills.AddBillFragment;
 import com.example.housemate.Bills.ViewBillsFragment;
 import com.example.housemate.ShoppingList.ShoppingFragment;
 import com.example.housemate.Chores.ViewChoresFragment;
+import com.example.housemate.chat.ChatFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
     private ImageButton choresButton;
@@ -74,7 +75,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             fragment = new ViewBillsFragment();
             selectedButton = billsButton;
         } else if (id == R.id.homeRemindersButton) {
-            fragment = new RemindersFragment();
+            fragment = new ChatFragment();
             selectedButton = remindersButton;
         }
         if (lastSelectedButton != selectedButton) {

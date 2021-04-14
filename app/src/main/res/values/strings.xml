@@ -73,5 +73,6 @@
     <string name="adding_an_item">Adding an item</string>
     <string name="list">List</string>
     <string name="activity">Activity</string>
+    <string name="chat">Chat</string>
 
 </resources>
