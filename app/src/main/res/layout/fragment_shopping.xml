@@ -60,20 +60,40 @@
         android:layout_marginRight="248dp"
         android:contentDescription="@string/fab"
         app:fab_colorNormal="@color/orange"
-        app:fab_icon="@drawable/ic_baseline_delete_24"
+        app:fab_icon="@drawable/ic_baseline_check__white24"
         app:fab_title="add item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addItemFAB"
         app:layout_constraintHorizontal_bias="0.917"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <!--Chip group (easier to handle if we have multiple chips)-->
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/finalDeleteItemFAB"
+        android:layout_width="33dp"
+        android:layout_height="43dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginStart="400dp"
+        android:layout_marginLeft="400dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginRight="105dp"
+        android:contentDescription="@string/fab"
+        android:visibility="gone"
+        app:fab_colorNormal="@color/orange"
+        app:fab_icon="@drawable/ic_baseline_delete_24"
+        app:fab_title="add item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addItemFAB"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-
         app:chipSpacingHorizontal="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

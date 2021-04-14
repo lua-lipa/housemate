@@ -16,6 +16,10 @@ import com.example.housemate.R;
 import com.example.housemate.ShoppingList.ShoppingItem;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.WriteBatch;
 
 import org.w3c.dom.Text;
 
@@ -31,6 +35,7 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
     private List<ShoppingItem> shoppingList;
     private List<ShoppingItem> checkedShoppingList;
     private List<ShoppingItem> shoppingListItemsToDelete;
+    private List<ShoppingItem> finalShoppingListItemsToDelete;
     private Context context;
     HousemateAPI housemateAPI = HousemateAPI.getInstance();
 
@@ -63,22 +68,29 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
         holder.name.setText(shoppingItem.getItem());
         holder.date.setText(shoppingItem.getDate());
         holder.user.setText(shoppingItem.getUser());
-        holder.checkBox.setVisibility(View.VISIBLE);
 
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if(isChecked){
                     checkedShoppingList.remove(shoppingItem);
                     shoppingListItemsToDelete.add(shoppingItem);
-                }else{
+                }else if(!isChecked){
                     checkedShoppingList.add(shoppingItem);
                     shoppingListItemsToDelete.remove(shoppingItem);
+                }else if(isChecked && shoppingItem.getIsBought()){
+                    checkedShoppingList.remove(shoppingItem);
+                    finalShoppingListItemsToDelete.add(shoppingItem);
+                    Log.d("items to delete final ", finalShoppingListItemsToDelete.toString());
                 }
                 housemateAPI.setCheckedShoppingList(checkedShoppingList);
                 housemateAPI.setShoppingListItemsToDelete(shoppingListItemsToDelete);
+                housemateAPI.setFinalShoppingListItemsToDelete(finalShoppingListItemsToDelete);
             }
         });
+
+
     }
 
     @Override
