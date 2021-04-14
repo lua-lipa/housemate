@@ -103,7 +103,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 //getting the date and time
                 Date c = Calendar.getInstance().getTime();
                 //setting the format we want for the date
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 date = df.format(c);
 
                 if (!TextUtils.isEmpty(item)) {
@@ -138,8 +138,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    //set the text view to empty
-                                                    enterItem.setText("");
+                                                    dismiss();
                                                     Toast.makeText(getActivity(), "Item Added!", Toast.LENGTH_LONG).show();
                                                 }
                                             })
