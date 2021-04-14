@@ -16,10 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.housemate.R;
 import com.example.housemate.adapter.BillRecyclerViewAdapter;
-import com.example.housemate.adapter.BillsActivityRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,7 +35,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -53,15 +50,11 @@ public class ViewBillsFragment extends Fragment {
     /* */
     private RecyclerView myBillsRecyclerView;
     private BillRecyclerViewAdapter myBillsRecyclerViewAdapter;
-    private RecyclerView billsActivityRecyclerView;
-    private BillsActivityRecyclerViewAdapter billsActivityRecyclerViewAdapter;
 
     private List<Bill> billsList;
-    private List<BillActivity> billsActivityList;
     private FloatingActionButton addBillButton;
     private FloatingActionButton billsMoreInfoButton;
     private Chip myBillsChip;
-    private Chip activityChip;
     private Chip paidBillsChip;
     private Chip houseBillsChip;
     private boolean paidRequirement = false;
@@ -99,7 +92,7 @@ public class ViewBillsFragment extends Fragment {
                 moreInfoFragment.show(getChildFragmentManager(), "billsMoreInfoBottomSheet");
             }
         });
-
+        /* setting up the button */
         addBillButton = v.findViewById(R.id.billsAddBillFAB);
         addBillButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +103,6 @@ public class ViewBillsFragment extends Fragment {
         });
 
         billsList = new ArrayList<>();
-        billsActivityList = new ArrayList<>();
 
         /* set up my bills recycler view */
         myBillsRecyclerView = v.findViewById(R.id.bills_recycler_view);
@@ -118,15 +110,10 @@ public class ViewBillsFragment extends Fragment {
         myBillsRecyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(myBillsRecyclerView);
 
-        /* set up  bills  activity recycler view */
-        billsActivityRecyclerView = v.findViewById(R.id.bills_activity_recycler_view);
-        billsActivityRecyclerView.setHasFixedSize(true);
-        billsActivityRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        billsActivityRecyclerView.setVisibility(View.INVISIBLE);
+
 
 
         myBillsChip = v.findViewById(R.id.bills_mybills_chip);
-        activityChip = v.findViewById(R.id.bills_activity_chip);
         paidBillsChip = v.findViewById(R.id.bills_paidbills_chip);
         houseBillsChip = v.findViewById(R.id.bills_housebills_chip);
 
@@ -138,21 +125,11 @@ public class ViewBillsFragment extends Fragment {
                 nothingToDisplayLabel.setVisibility(View.INVISIBLE);
                 loadBills("unpaid");
                 myBillsRecyclerView.setVisibility(View.VISIBLE);
-                billsActivityRecyclerView.setVisibility(View.INVISIBLE);
                 Log.d("bills", "mybills");
             }
         });
 
-        activityChip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nothingToDisplayLabel.setVisibility(View.INVISIBLE);
 
-                Log.d("bills", "act");
-                myBillsRecyclerView.setVisibility(View.INVISIBLE);
-                billsActivityRecyclerView.setVisibility(View.VISIBLE);
-            }
-        });
 
         paidBillsChip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +139,6 @@ public class ViewBillsFragment extends Fragment {
                 Log.d("bills", "paid bills");
                 //loadBills(false);
                 loadBills("paid");
-                billsActivityRecyclerView.setVisibility(View.INVISIBLE);
                 myBillsRecyclerView.setVisibility(View.VISIBLE);
 
             }
@@ -177,7 +153,6 @@ public class ViewBillsFragment extends Fragment {
                     Log.d("bills", "paid bills");
                     //loadBills(false);
                     loadBills("house");
-                    billsActivityRecyclerView.setVisibility(View.INVISIBLE);
                     myBillsRecyclerView.setVisibility(View.VISIBLE);
 
                 }
@@ -288,20 +263,21 @@ public class ViewBillsFragment extends Fragment {
                 billsList.remove(viewHolder.getAdapterPosition());
                 myBillsRecyclerViewAdapter.notifyDataSetChanged();
                 /* adding the bill paid activity into the bill activity database */
-                String billActivityId = familyRef.collection("billsActivity").document().getId();
-                DocumentReference billsActivityRef = familyRef.collection("billsActivity").document(billActivityId);
-                Map<String, Object> billsActivityObj = new HashMap<>();
+                String houseActivityId = familyRef.collection("houseActivity").document().getId();
+                DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(houseActivityId);
+                Map<String, Object> houseActivityObj = new HashMap<>();
                 String assigneeUserName = billSwiped.getAssignee().substring(0, billSwiped.getAssignee().indexOf(" "));
                 SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 Date d = new Date();
                 String cur_time = formatter.format(d);
                 /* the date gets formatted to display correctly in the activity view */
                 String message = assigneeUserName + " paid the " + billSwiped.getTitle() + " bill.";
-                billsActivityObj.put("billActivityId", billActivityId);
-                billsActivityObj.put("message", message) ;
-                billsActivityObj.put("date", cur_time);
+                houseActivityObj.put("houseActivityId", houseActivityId);
+                houseActivityObj.put("message", message) ;
+                houseActivityObj.put("date", cur_time);
+                houseActivityObj.put("type", "bill");
 
-                billsActivityRef.set(billsActivityObj)
+                houseActivityRef.set(houseActivityObj)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -328,69 +304,13 @@ public class ViewBillsFragment extends Fragment {
     public void onStart() {
 
         super.onStart();
-        HousemateAPI api = HousemateAPI.getInstance();
-        String userId = mAuth.getUid();
-        DocumentReference userRef = db.collection("users").document(userId);
-
-
-        String familyId = api.getFamilyId();
-        DocumentReference familyRef = db.collection("families").document(familyId);
-        CollectionReference billsActivityRef = familyRef.collection("billsActivity");
-        billsActivityRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                if (error != null) {
-                    Log.w("view bills activity", "Listen failed.", error);
-                    return;
-                }
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    billsActivityList.clear();
-                    for (QueryDocumentSnapshot billsActivity : queryDocumentSnapshots) {
-                        /* making only the bills belonging to current user are being viewed */
-                        BillActivity billActivity = billsActivity.toObject(BillActivity.class);
-                        String billActivityId = billActivity.getBillActivityId();
-                        billsActivityList.add(billActivity);
-                    }
-                    /* invoke recycler view*/
-                    if(billsActivityList.size() == 0) nothingToDisplayLabel.setVisibility(View.VISIBLE);
-                    billsActivityList = sortByTime(billsActivityList);
-                    billsActivityRecyclerViewAdapter = new BillsActivityRecyclerViewAdapter(billsActivityList, getActivity());
-                    billsActivityRecyclerView.setAdapter(billsActivityRecyclerViewAdapter);
-                    billsActivityRecyclerViewAdapter.notifyDataSetChanged();
-                } else {
-                    /* display "no bills" text view */
-                }
-            }
-        });
-
 
         loadBills("unpaid");
         loadBills("paid");
         loadBills("house");
-        //loadPaidBills();
     }
 
-    private List<BillActivity> sortByTime(List<BillActivity> billsList) {
-        SimpleDateFormat formatter1= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Collections.sort(billsList, new Comparator() {
-            public int compare(Object o1, Object o2) {
-                BillActivity bill1 = (BillActivity) o1;
-                BillActivity bill2 = (BillActivity) o2;
-                Date date1 = null, date2 = null;
-                try {
-                    date1=formatter1.parse(bill1.getDate());
-                    date2=formatter1.parse(bill2.getDate());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
 
-                return date2.compareTo(date1);
-            }
-        });
-
-        return billsList;
-
-    }
 
     /* sort the bills list so it displays the earliest due date -> latest due date */
     private List<Bill> sortByDate(List<Bill> billsList) {

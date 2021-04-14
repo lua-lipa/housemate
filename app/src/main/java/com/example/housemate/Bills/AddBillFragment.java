@@ -249,12 +249,12 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
 
 
         String billActivityId = familyRef.collection("billsActivity").document().getId();
-        DocumentReference billsActivityRef = familyRef.collection("billsActivity").document(billActivityId);
+        DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
 
-        Map<String, Object> billsActivityObj = new HashMap<>();
+        Map<String, Object> houseActivityObj = new HashMap<>();
         String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
         String assigneeUserName = assignee.substring(0, assignee.indexOf(" "));
-        String message = assignerUserName + " assigned a bill to " + assigneeUserName;
+        String message = assignerUserName + " assigned the " + title + " bill to " + assigneeUserName + ".";
 
         /* the date gets formatted to display correctly in the activity view */
         SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -263,11 +263,11 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
 
 
         Date currentTime = Calendar.getInstance().getTime();
-        billsActivityObj.put("billActivityId", billActivityId);
-        billsActivityObj.put("message", message) ;
-        billsActivityObj.put("date", cur_time);
-
-        billsActivityRef.set(billsActivityObj)
+        houseActivityObj.put("billActivityId", billActivityId);
+        houseActivityObj.put("message", message) ;
+        houseActivityObj.put("date", cur_time);
+        houseActivityObj.put("type", "bill");
+        houseActivityRef.set(houseActivityObj)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
