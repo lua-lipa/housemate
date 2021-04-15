@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,12 +40,14 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    private HousemateAPI api;
     private EditText dateText;
-    EditText titleEditText;
-    EditText amountEditText;
-    Spinner assigneeSpinner;
+    private EditText titleEditText;
+    private EditText amountEditText;
+    private Spinner assigneeSpinner;
     private int assigneeIndex;
+    private Button addBillButton;
+
     public AddBillFragment() {
         // Required empty public constructor
     }
@@ -57,52 +60,43 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /* setting up database globals */
         View v =  inflater.inflate(R.layout.fragment_bills, container, false);
-//        v.setContentView(R.layout.activity_addbill);
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
-        HousemateAPI api = HousemateAPI.getInstance();
+        api = HousemateAPI.getInstance();
 
+        /* setting up layout elements*/
         dateText = (EditText) v.findViewById(R.id.billsBillDateInput);
         titleEditText = (EditText) v.findViewById(R.id.billsBillNameInput);
         amountEditText = (EditText) v.findViewById(R.id.billsBillAmountInput);
         assigneeSpinner = (Spinner) v.findViewById(R.id.billsBillAssignInput);
+        addBillButton = (Button) v.findViewById(R.id.billsAddBillButton);
 
-        /* getting family member names from the db, and adding it to spinner along with "all members" option */
-        String[] family_members = api.getMemberNames();
-        String[] spinner_members = new String[family_members.length + 1];
-        if(api.isAdmin()) {
-            for (int i = 0; i < family_members.length; i++) spinner_members[i] = family_members[i];
-            spinner_members[spinner_members.length - 1] = "All members";
-        } else { /* if you are an admin you can only assign a bill to yourself */
-            spinner_members = new String[1];
-            spinner_members[0] = api.getUserName();
-            for(int i = 0; i < family_members.length; i++) {
-                if (family_members[i].equals(api.getUserName())) {
-                    assigneeIndex = i;
-                    break;
-                }
-            }
 
-        }
+        /* setting up the spinner: getting family member names from the db, and adding it to spinner along with "all members" option */
+        setUpSpinner();
 
-        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, spinner_members);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        assigneeSpinner.setAdapter(aa);
+        /* setting the listeners to the layout elements */
+        setUpListeners(v, activity);
 
+        return v;
+    }
+
+    private void setUpListeners(View v, Activity activity) {
+        /* date input */
         v.findViewById(R.id.billsBillDateInput).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog();
+                showDatePickerDialog(); /* displaying date picker */
             }
         });
 
+        /* assignee menu */
         assigneeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                assigneeIndex = position;
+                assigneeIndex = position; /* keeping track of the assignee index */
             }
 
             @Override
@@ -111,15 +105,13 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
             }
         });
 
-        Button addBillButton = (Button) v.findViewById(R.id.billsAddBillButton);
+        /* when add bill clicked, check all fields are filled correctly, add the new bill into the database */
         addBillButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
 
+                /* set up elements */
                 TextView selectedView = (TextView) assigneeSpinner.getSelectedView();
-
-
                 String title = titleEditText.getText().toString();
                 String amount = amountEditText.getText().toString();
                 String assignee = selectedView.getText().toString();
@@ -129,10 +121,6 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
                     dismiss(); /* minimize the pop up fragment*/
                     /* fields are not empty so we add the bill */
 
-
-                    /* get family id from the database */
-
-
                     String userId = mAuth.getUid();
                     DocumentReference userRef = db.collection("users").document(userId);
 
@@ -140,7 +128,8 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-
+                                    /* if assigning to all members, the amount gets divided evenly between them and a bill gets added for each
+                                    * of the members into the database */
                                     if (assignee.equals("All members")) {
                                         HousemateAPI api = new HousemateAPI().getInstance(); /* need to make this global*/
 
@@ -150,7 +139,7 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
                                             assigneeIndex = i;
                                             addBill(title, members[i], date, divided_amount + "", activity, documentSnapshot);
                                         }
-                                    } else {
+                                    } else { /* otherwise add individual bill */
                                         addBill(title, assignee, date, amount, activity, documentSnapshot);
                                     }
 
@@ -184,10 +173,37 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
                 }
             }
         });
-    return v;
     }
 
-    private void showDatePickerDialog() {
+    /* setting up the spinners to display all family members if the user is an admin
+    * if the user is not an admin, they are only able to assign a bill to themselves
+    * and the spinner only shows their name */
+
+    private void setUpSpinner() {
+        String[] family_members = api.getMemberNames();
+        String[] spinner_members = new String[family_members.length + 1];
+        if(api.isAdmin()) {
+            for (int i = 0; i < family_members.length; i++) spinner_members[i] = family_members[i];
+            spinner_members[spinner_members.length - 1] = "All members"; /* option to assign bill to all members */
+        } else { /* if you are an admin you can only assign a bill to yourself */
+            spinner_members = new String[1];
+            spinner_members[0] = api.getUserName();
+            for(int i = 0; i < family_members.length; i++) {
+                if (family_members[i].equals(api.getUserName())) {
+                    assigneeIndex = i;
+                    break;
+                }
+            }
+
+        }
+
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, spinner_members);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        assigneeSpinner.setAdapter(aa);
+    }
+
+    private void showDatePickerDialog() { /* displays the date picker */
 
         DatePickerDialog dialog = new DatePickerDialog(
                 getActivity(),
@@ -217,8 +233,8 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
         DocumentReference billsRef = familyRef.collection("bills").document(billsId);
 
 
-        /* getting the user id of the assignee*/
-        HousemateAPI api = HousemateAPI.getInstance();
+        /* adding the new bill into the database */
+        api = HousemateAPI.getInstance();
         List<Map<String, Object>> membersInfo = api.getMembersList();
         Map<String, Object> userInfo = membersInfo.get(assigneeIndex);
         Object userId = userInfo.get("userId");
@@ -236,7 +252,7 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(activity, "add bill success", Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "New bill added", Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -245,13 +261,11 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
             }
         });
 
-        /* adding the activity to the bills activity database */
-
+        /* adding the "someone assigned the bill to someone else" activity to the activity database */
 
         String billActivityId = familyRef.collection("billsActivity").document().getId();
         DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
 
-        Map<String, Object> houseActivityObj = new HashMap<>();
         String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
         String assigneeUserName = assignee.substring(0, assignee.indexOf(" "));
         String message = assignerUserName + " assigned the " + title + " bill to " + assigneeUserName + ".";
@@ -261,8 +275,7 @@ public class AddBillFragment extends BottomSheetDialogFragment implements DatePi
         Date d = new Date();
         String cur_time = formatter.format(d);
 
-
-        Date currentTime = Calendar.getInstance().getTime();
+        Map<String, Object> houseActivityObj = new HashMap<>();
         houseActivityObj.put("billActivityId", billActivityId);
         houseActivityObj.put("message", message) ;
         houseActivityObj.put("date", cur_time);
