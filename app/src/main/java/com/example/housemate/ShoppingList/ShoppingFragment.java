@@ -135,27 +135,31 @@ public class ShoppingFragment extends Fragment {
                 WriteBatch batch = db.batch();
 
                 //going through items that we have selected
-                for (int i = 0; i < itemsToDelete.size(); i++) {
-                    //setting the selected items to bought in the DB
-                    DocumentReference shoppingItemRef = shoppingListRef.document(itemsToDelete.get(i).getShoppingListId());
-                    batch.update(shoppingItemRef, "isBought", true);
-                }
-
-                addItemBoughtActivity(itemsToDelete);
-
-                //committing the batch changes
-                batch.commit()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(), "Deleted Successfully", Toast.LENGTH_LONG).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                if(itemsToDelete!=null) {
+                    for (int i = 0; i < itemsToDelete.size(); i++) {
+                        //setting the selected items to bought in the DB
+                        DocumentReference shoppingItemRef = shoppingListRef.document(itemsToDelete.get(i).getShoppingListId());
+                        batch.update(shoppingItemRef, "isBought", true);
                     }
-                });
+
+                    addItemBoughtActivity(itemsToDelete);
+
+                    //committing the batch changes
+                    batch.commit()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "Added to Activity List!", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else{
+                    Toast.makeText(getContext(), "Nothing Selected!", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -180,7 +184,7 @@ public class ShoppingFragment extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(), "Deleted Successfully", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Item Deleted!", Toast.LENGTH_LONG).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -259,7 +263,6 @@ public class ShoppingFragment extends Fragment {
                 });
             }
         });
-
         return view;
     }
 
@@ -335,7 +338,7 @@ public class ShoppingFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(getActivity(), "add activity success", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Added to Activity Home!", Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
