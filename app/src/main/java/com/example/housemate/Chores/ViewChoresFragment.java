@@ -22,6 +22,8 @@ import com.example.housemate.ShoppingList.ShoppingItem;
 import com.example.housemate.adapter.ChoresRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,10 +35,15 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ViewChoresFragment extends Fragment {
     //declaring variables
@@ -262,6 +269,7 @@ public class ViewChoresFragment extends Fragment {
             //only allow an admin or the user the chore is assigned to to set its as done
             if(choreSwiped.getAssignee().equals(userId) || api.isAdmin()) {
                 choresRef.update("isDone", true);
+                addChoreFinishedActivity(choreSwiped);
                 choresList.remove(viewHolder.getAdapterPosition());
                 Toast.makeText(activity, "Chore completed.", Toast.LENGTH_LONG).show();
             } else{
@@ -306,6 +314,39 @@ public class ViewChoresFragment extends Fragment {
         }
 
     };
+
+    private void addChoreFinishedActivity(Chore chore) {
+        HousemateAPI api = HousemateAPI.getInstance();
+        String familyId = api.getFamilyId();
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        String billActivityId = familyRef.collection("houseActivity").document().getId();
+        DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
+        String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
+        String assigneeUserName = chore.getAssignee().substring(0, chore.getAssignee().indexOf(" "));
+        Map<String, Object> houseActivityObj = new HashMap<>();
+        String message = assignerUserName + " finished the " + chore.getName() + " chore.";
+        /* the date gets formatted to display correctly in the activity view */
+        SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date d = new Date();
+        String cur_time = formatter.format(d);
+        Date currentTime = Calendar.getInstance().getTime();
+        houseActivityObj.put("billActivityId", billActivityId);
+        houseActivityObj.put("message", message) ;
+        houseActivityObj.put("date", cur_time);
+        houseActivityObj.put("type", "chore");
+        houseActivityRef.set(houseActivityObj)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getActivity(), "add bill activity success", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
     @Override
     public void onStart() {
