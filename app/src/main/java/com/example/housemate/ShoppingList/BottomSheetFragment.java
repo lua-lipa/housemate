@@ -25,6 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -99,8 +100,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 if (!TextUtils.isEmpty(item)) {
                     //getting the userid
                     String userId = mAuth.getUid();
-                    //referencing the user so we can get info from the specific user
-                    DocumentReference userRef = db.collection("users").document(userId);
+                    DocumentSnapshot documentSnapshot = null;
 
                     String familyId = HousemateAPI.getInstance().getFamilyId();
                     DocumentReference familyRef = db.collection("families").document(familyId);
@@ -114,6 +114,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     shoppingListObj.put("date", date);
                     shoppingListObj.put("isBought", false);
                     shoppingListObj.put("user", user);
+
+                    addItemAddedActivity(shoppingListObj.get("item").toString(), documentSnapshot);
 
                     //setting the shopping list reference ot the shopping list object hashmap to populate the array with the new item
                     shoppingListRef.set(shoppingListObj)
@@ -130,8 +132,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
                                 }
                             });
-
-
                 } else {
                     //a check to ensure that we are typing something into the text field before we press the save button
                     if (item.length() == 0) {
@@ -140,6 +140,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         Toast.makeText(getActivity(), "Enter Text", Toast.LENGTH_SHORT).show();
                     }
                 }
+
+
+
             }
         });
 
@@ -148,6 +151,39 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 calendarGroup.setVisibility(calendarGroup.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            }
+        });
+    }
+
+    private void addItemAddedActivity(String item, DocumentSnapshot documentSnapshot) {
+        HousemateAPI api = HousemateAPI.getInstance();
+        String userName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
+        String message = userName + " added " + item + " to the shopping list.";
+        String familyId = documentSnapshot.getString("familyId");
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        String shoppingActivityId = familyRef.collection("houseActivity").document().getId();
+        DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(shoppingActivityId);
+        Map<String, Object> houseActivityObj = new HashMap<>();
+
+        //date gets formatted to display correctly in the activity view
+        SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date d = new Date();
+        String cur_time = formatter.format(d);
+
+        houseActivityObj.put("shoppingActivityId", shoppingActivityId);
+        houseActivityObj.put("message", message) ;
+        houseActivityObj.put("date", cur_time);
+        houseActivityObj.put("type", "shopping");
+        houseActivityRef.set(houseActivityObj)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getActivity(), "add activity success", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
