@@ -9,10 +9,8 @@
     android:orientation="vertical"
     tools:context=".Bills.AddBillFragment">
 
-
-
-
-
+<!--bills get added using this fragment -->
+<!-- multiple fields & add bill button setup -->
 
     <!--Input Field-->
     <AutoCompleteTextView

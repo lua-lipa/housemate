@@ -12,6 +12,7 @@ public class Bill {
 
     private Bill() {}
 
+    /* this is the bill constructor, setting up the bill fields to correctly store to and retrieve from firestore */
     private Bill(String title, String amount, String date, String assignee, String userId, String billsId) {
         this.title = title;
         this.amount = amount;

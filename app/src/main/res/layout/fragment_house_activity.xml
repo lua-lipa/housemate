@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!--displaying the house activity recycler view
+gets populated with the house activity rows -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/house_activity_recycler_view"
         android:layout_width="match_parent"

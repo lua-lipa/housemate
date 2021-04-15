@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.TimeZone;
 
+/* binds house activity data to the house activity row which gets placed into the house activity recycler */
 public class HouseActivityRecyclerViewAdapter extends RecyclerView.Adapter<HouseActivityRecyclerViewAdapter.ViewHolder> {
     private List<HouseActivity> houseActivityList;
     private Context context;
@@ -45,7 +46,6 @@ public class HouseActivityRecyclerViewAdapter extends RecyclerView.Adapter<House
 
     String displayTimeAgo(String date) {
         /* the date gets formatted to display correctly in the activity view */
-
         SimpleDateFormat sdf = new SimpleDateFormat(("dd-MM-yyyy HH:mm:ss"));
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
         try {
@@ -60,12 +60,12 @@ public class HouseActivityRecyclerViewAdapter extends RecyclerView.Adapter<House
         return "";
     }
 
-//recycler
     @Override
     public int getItemCount() { /* let the recycler know how much data it will be receiving */
         return Objects.requireNonNull(houseActivityList).size();
     }
 
+    /* setting up the view class for activities*/
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView message;
         public TextView date;
