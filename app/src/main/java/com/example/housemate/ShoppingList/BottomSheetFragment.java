@@ -115,7 +115,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     shoppingListObj.put("isBought", false);
                     shoppingListObj.put("user", user);
 
-                    addItemAddedActivity(shoppingListObj.get("item").toString(), documentSnapshot);
+                    addItemAddedActivity(shoppingListObj.get("item").toString());
 
                     //setting the shopping list reference ot the shopping list object hashmap to populate the array with the new item
                     shoppingListRef.set(shoppingListObj)
@@ -155,11 +155,12 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         });
     }
 
-    private void addItemAddedActivity(String item, DocumentSnapshot documentSnapshot) {
+    private void addItemAddedActivity(String item) {
         HousemateAPI api = HousemateAPI.getInstance();
+        String familyId = api.getInstance().getFamilyId();
         String userName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
         String message = userName + " added " + item + " to the shopping list.";
-        String familyId = documentSnapshot.getString("familyId");
+
         DocumentReference familyRef = db.collection("families").document(familyId);
         String shoppingActivityId = familyRef.collection("houseActivity").document().getId();
         DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(shoppingActivityId);
