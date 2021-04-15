@@ -13,7 +13,8 @@
         android:layout_marginTop="5dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
-<!--house activity -->
+<!--house activity for the house activity fragment
+ this row gets placed into the house activity recycler view -->
         <androidx.cardview.widget.CardView
             android:id="@+id/house_activity_row_card_view"
             android:layout_width="match_parent"

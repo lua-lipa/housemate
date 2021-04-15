@@ -86,5 +86,7 @@
     <string name="log_out">Log Out</string>
     <string name="enter_message">Enter message</string>
     <string name="type_here">Type here...</string>
+    <string name="deleting_items_info_text">To check items off the list, you can tick them off as you purchase them. Once the plus button has been selected, all of the checked items will have been set to be bought by that family member. These items will then be placed in the activity list for review and can be permanently deleted from here.</string>
+    <string name="bought_info_list">Once an item has been bought and added to the activity list, it will also appear in the Activity section and show who purchased each item(s).</string>
 
 </resources>

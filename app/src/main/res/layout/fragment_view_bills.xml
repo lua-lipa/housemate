@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!--displays the bills recycler view along with chips & FABs-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bills_recycler_view"

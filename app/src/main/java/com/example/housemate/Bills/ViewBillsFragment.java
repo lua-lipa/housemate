@@ -44,47 +44,72 @@ import java.util.Map;
 
 
 public class ViewBillsFragment extends Fragment {
+    /* database globals */
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    /* */
+    private HousemateAPI api;
+    /* layout element globals */
     private RecyclerView myBillsRecyclerView;
     private BillRecyclerViewAdapter myBillsRecyclerViewAdapter;
-
-    private List<Bill> billsList;
     private FloatingActionButton addBillButton;
     private FloatingActionButton billsMoreInfoButton;
     private Chip myBillsChip;
     private Chip paidBillsChip;
     private Chip houseBillsChip;
+    private TextView nothingToDisplayLabel;
+    /* class globals */
+    private List<Bill> billsList;
     private boolean paidRequirement = false;
     private boolean userBillsOnly = true;
-    private TextView nothingToDisplayLabel;
 
-    public ViewBillsFragment() {
-        // Required empty public constructor
+    public ViewBillsFragment() { // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /* Inflate the layout for this fragment */
-        HousemateAPI api = HousemateAPI.getInstance();
+        /* inflating the layout and setting up variables  */
+        api = HousemateAPI.getInstance();
         View v = inflater.inflate(R.layout.fragment_view_bills, container, false);
-
         mAuth = FirebaseAuth.getInstance();
         Activity activity = getActivity();
+        billsList = new ArrayList<>();
 
+        /* setting up layout elements */
         nothingToDisplayLabel = v.findViewById(R.id.bills_nothing_label);
         nothingToDisplayLabel.setVisibility(View.INVISIBLE);
         billsMoreInfoButton = v.findViewById(R.id.billsMoreInfoFAB);
+        addBillButton = v.findViewById(R.id.billsAddBillFAB);
+        myBillsChip = v.findViewById(R.id.bills_mybills_chip);
+        paidBillsChip = v.findViewById(R.id.bills_paidbills_chip);
+        houseBillsChip = v.findViewById(R.id.bills_housebills_chip);
+
+        /* non-admins are not able to view house bills, making the chip non-interactive for them */
+        if(!api.isAdmin()) houseBillsChip.setVisibility(View.INVISIBLE);
+
+
+        /* setting up the bills recycler view, connecting it to the item touch helper for swipe to delete functionality */
+        myBillsRecyclerView = v.findViewById(R.id.bills_recycler_view);
+        myBillsRecyclerView.setHasFixedSize(true);
+        myBillsRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(myBillsRecyclerView);
+
+        /* setting up the listeners for chips and buttons on the bottom right */
+
+        setUpListeners();
+
+        return v;
+
+    }
+
+    private void setUpListeners() {
+        /* setting up listeners for chips & buttons on the bottom,
+        clicks between chips change their visibility, FABs display their own fragments */
         billsMoreInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,8 +117,6 @@ public class ViewBillsFragment extends Fragment {
                 moreInfoFragment.show(getChildFragmentManager(), "billsMoreInfoBottomSheet");
             }
         });
-        /* setting up the button */
-        addBillButton = v.findViewById(R.id.billsAddBillFAB);
         addBillButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,22 +125,6 @@ public class ViewBillsFragment extends Fragment {
             }
         });
 
-        billsList = new ArrayList<>();
-
-        /* set up my bills recycler view */
-        myBillsRecyclerView = v.findViewById(R.id.bills_recycler_view);
-        myBillsRecyclerView.setHasFixedSize(true);
-        myBillsRecyclerView.setLayoutManager(new LinearLayoutManager(activity)); /* activity meant to be .this */
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(myBillsRecyclerView);
-
-
-
-
-        myBillsChip = v.findViewById(R.id.bills_mybills_chip);
-        paidBillsChip = v.findViewById(R.id.bills_paidbills_chip);
-        houseBillsChip = v.findViewById(R.id.bills_housebills_chip);
-
-        if(!api.isAdmin()) houseBillsChip.setVisibility(View.INVISIBLE);
 
         myBillsChip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,19 +132,13 @@ public class ViewBillsFragment extends Fragment {
                 nothingToDisplayLabel.setVisibility(View.INVISIBLE);
                 loadBills("unpaid");
                 myBillsRecyclerView.setVisibility(View.VISIBLE);
-                Log.d("bills", "mybills");
             }
         });
-
-
 
         paidBillsChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nothingToDisplayLabel.setVisibility(View.INVISIBLE);
-
-                Log.d("bills", "paid bills");
-                //loadBills(false);
                 loadBills("paid");
                 myBillsRecyclerView.setVisibility(View.VISIBLE);
 
@@ -149,9 +150,6 @@ public class ViewBillsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     nothingToDisplayLabel.setVisibility(View.INVISIBLE);
-
-                    Log.d("bills", "paid bills");
-                    //loadBills(false);
                     loadBills("house");
                     myBillsRecyclerView.setVisibility(View.VISIBLE);
 
@@ -159,36 +157,22 @@ public class ViewBillsFragment extends Fragment {
             });
         }
 
-
-
-
-        return v;
-
     }
 
 
-
+    /* loads bills into the recycler view */
     private void loadBills(String type) {
-        /* type = {house || paid || unpaid} */
+        /* type = {house || paid || unpaid}
+        * "house" passed in sets up the recycler view to show all house bills
+        *  "paid" passed in sets up the recycler view to show only paid bills
+        *  "unpaid" passed in sets up the recycler view to show unpaid bills
+        *  These lists get loaded into the billsRecyclerView. */
 
         paidRequirement = false;
         userBillsOnly = true;
 
         if (type.equals("paid")) paidRequirement = true;
-
         if (type.equals("house")) userBillsOnly = false;
-
-        if(paidRequirement) {
-            Log.d("paid", "true");
-        } else {
-            Log.d("paid", "false");
-        }
-
-
-
-        HousemateAPI api = HousemateAPI.getInstance();
-        String userId = mAuth.getUid();
-        DocumentReference userRef = db.collection("users").document(userId);
 
 
         String familyId = api.getFamilyId();
@@ -198,38 +182,28 @@ public class ViewBillsFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
-                    Log.w("view bills", "Listen failed.", error);
+                    Log.d("bills view", "error in load bills");
                     return;
                 }
                 if (!queryDocumentSnapshots.isEmpty()) {
                     billsList.clear();
                     for (QueryDocumentSnapshot bills : queryDocumentSnapshots) {
-                        /* making only the bills belonging to current user are being viewed */
+                        /* getting correct bills according to the value passed in */
                         Bill bill = bills.toObject(Bill.class);
-                        String billId = bill.getBillsId();
                         String billUserId = bill.getUserId();
                         if (userBillsOnly) {
-                            if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == paidRequirement) {
-                                billsList.add(bill);
-                                Log.d("bills", "added"  + bill.getTitle());
-                            }
+                            if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == paidRequirement) billsList.add(bill);
                         } else {
-                            if (bill.getIsPaid() == paidRequirement) {
-                                billsList.add(bill);
-                                Log.d("bills", "added"  + bill.getTitle());
-
-                            }
+                            if (bill.getIsPaid() == paidRequirement) billsList.add(bill);
                         }
                     }
                     /* invoke recycler view */
                     billsList = sortByDate(billsList);
-                    if(billsList.size() == 0) nothingToDisplayLabel.setVisibility(View.VISIBLE);
+                    if(billsList.size() == 0) nothingToDisplayLabel.setVisibility(View.VISIBLE); /* when list is empty, we display "nothing to display" text view */
 
                     myBillsRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
                     myBillsRecyclerView.setAdapter(myBillsRecyclerViewAdapter);
                     myBillsRecyclerViewAdapter.notifyDataSetChanged();
-                } else {
-                    /* display "no bills" text view */
                 }
             }
         });
@@ -252,26 +226,29 @@ public class ViewBillsFragment extends Fragment {
 
             /* update the status of this bill being paid inside firestore */
 
-
-            HousemateAPI api = HousemateAPI.getInstance();
-
             DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
             DocumentReference billRef = familyRef.collection("bills").document(billSwiped.getBillsId());
 
             if (billSwiped.getIsPaid() == false ) {
+                /* updating the bill to paid */
                 billRef.update("isPaid", true);
                 billsList.remove(viewHolder.getAdapterPosition());
                 myBillsRecyclerViewAdapter.notifyDataSetChanged();
+
                 /* adding the bill paid activity into the bill activity database */
+
                 String houseActivityId = familyRef.collection("houseActivity").document().getId();
                 DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(houseActivityId);
-                Map<String, Object> houseActivityObj = new HashMap<>();
+
+                /* setting up the message & date which gets added to the database for the house activity database */
                 String assigneeUserName = billSwiped.getAssignee().substring(0, billSwiped.getAssignee().indexOf(" "));
+                String message = assigneeUserName + " paid the " + billSwiped.getTitle() + " bill.";
                 SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 Date d = new Date();
                 String cur_time = formatter.format(d);
+
                 /* the date gets formatted to display correctly in the activity view */
-                String message = assigneeUserName + " paid the " + billSwiped.getTitle() + " bill.";
+                Map<String, Object> houseActivityObj = new HashMap<>();
                 houseActivityObj.put("houseActivityId", houseActivityId);
                 houseActivityObj.put("message", message) ;
                 houseActivityObj.put("date", cur_time);
@@ -290,6 +267,7 @@ public class ViewBillsFragment extends Fragment {
                     }
                 });
             } else {
+                /* if the bill is paid already, we are in "paid bills" view, therefore the bill gets deleted from the database entirely */
                 billRef.delete();
                 billsList.remove(viewHolder.getAdapterPosition());
                 myBillsRecyclerViewAdapter.notifyDataSetChanged();
@@ -302,12 +280,11 @@ public class ViewBillsFragment extends Fragment {
 
     @Override
     public void onStart() {
-
         super.onStart();
-
-        loadBills("unpaid");
+        /* loading the bills recycler view */
         loadBills("paid");
         loadBills("house");
+        loadBills("unpaid");
     }
 
 

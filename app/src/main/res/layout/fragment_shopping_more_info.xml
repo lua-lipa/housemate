@@ -97,7 +97,18 @@
             android:layout_marginEnd="25dp"
             android:layout_marginRight="25dp"
             android:gravity="center_horizontal"
-            android:text="@string/delete_items_info" />
+            android:text="@string/deleting_items_info_text" />
+        <TextView
+            android:id="@+id/info_text_view4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center_horizontal"
+            android:text="@string/bought_info_list" />
 
         <Button
             android:id="@+id/shopping_more_info_got_it_button"

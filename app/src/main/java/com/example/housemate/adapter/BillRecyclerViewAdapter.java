@@ -49,7 +49,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         Bill bill = Objects.requireNonNull(billsList).get(position);
         holder.title.setText(bill.getTitle());
         holder.amount.setText(bill.getAmount() + "€");
-//        holder.assignee.setText(bill.getAssignee());
+        holder.assignee.setText(bill.getAssignee().substring(0, bill.getAssignee().indexOf(" ")));
         holder.date.setText(bill.getDate());
     }
 
@@ -66,6 +66,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
         public TextView title;
         public TextView amount;
         public TextView date;
+        public TextView assignee;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,7 +74,7 @@ public class BillRecyclerViewAdapter extends RecyclerView.Adapter<BillRecyclerVi
             amount = itemView.findViewById(R.id.bills_row_amount);
             date = itemView.findViewById(R.id.bills_row_date);
             billCard = itemView.findViewById(R.id.bills_row_card_view);
-
+            assignee = itemView.findViewById(R.id.bills_row_assignee);
         }
     }
 }
