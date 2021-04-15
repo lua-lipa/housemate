@@ -2,6 +2,7 @@ package com.example.housemate.chat;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class ChatFragment extends Fragment {
     private RecyclerView recyclerView;
     private ChatRecyclerViewAdapter chatRecyclerViewAdapter;
 
-    private List<Chat> chatList;
+    private List<Chat> chatList = new ArrayList<>();
     private EditText chatInputEditText;
     private Button chatSendButton;
     private Boolean firstLoad = true;
@@ -60,6 +61,39 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String userId = housemateAPI.getUserId();
+        DocumentReference userRef = db.collection("users").document(userId);
+
+        String familyId = housemateAPI.getFamilyId();
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        CollectionReference chatRef = familyRef.collection("chat");
+        chatRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    //error message
+                    return;
+                }
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    chatList.clear();
+                    for (QueryDocumentSnapshot chatObj : queryDocumentSnapshots) {
+                        /* making only the bills belonging to current user are being viewed */
+                        Chat newChat = chatObj.toObject(Chat.class);
+                        chatList.add(newChat);
+                    }
+
+                    sortItems();
+
+                    chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(chatList, getActivity());
+                    recyclerView.setAdapter(chatRecyclerViewAdapter);
+
+                    recyclerView.scrollToPosition(chatList.size() - 1);
+                } else {
+                    /* display "no bills" text view */
+                }
+            }
+        });
     }
 
     @Override
@@ -69,8 +103,6 @@ public class ChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         mAuth = FirebaseAuth.getInstance();
-
-        chatList = new ArrayList<>();
 
         chatInputEditText = view.findViewById(R.id.chatTextInput);
         chatSendButton = view.findViewById(R.id.chatSendButton);
@@ -122,7 +154,7 @@ public class ChatFragment extends Fragment {
         return view;
     }
 
-    public void sortItems(){
+    public void sortItems() {
         //SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         Collections.sort(chatList, new Comparator<Chat>() {
             @Override
@@ -136,41 +168,41 @@ public class ChatFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        String userId = housemateAPI.getUserId();
-        DocumentReference userRef = db.collection("users").document(userId);
-
-        String familyId = housemateAPI.getFamilyId();
-        DocumentReference familyRef = db.collection("families").document(familyId);
-        CollectionReference chatRef = familyRef.collection("chat");
-        chatRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
-                if (error != null) {
-                    //error message
-                    return;
-                }
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    chatList.clear();
-                    for (QueryDocumentSnapshot chatObj : queryDocumentSnapshots) {
-                        /* making only the bills belonging to current user are being viewed */
-                        Chat newChat = chatObj.toObject(Chat.class);
-                        chatList.add(newChat);
-                    }
-
-                    sortItems();
-
-                    if (firstLoad == true) {
-                        chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(chatList, getActivity());
-                        recyclerView.setAdapter(chatRecyclerViewAdapter);
-                        firstLoad = false;
-                    }
-
-                    chatRecyclerViewAdapter.notifyDataSetChanged();
-                    recyclerView.scrollToPosition(chatList.size() - 1);
-                } else {
-                    /* display "no bills" text view */
-                }
-            }
-        });
+//        String userId = housemateAPI.getUserId();
+//        DocumentReference userRef = db.collection("users").document(userId);
+//
+//        String familyId = housemateAPI.getFamilyId();
+//        DocumentReference familyRef = db.collection("families").document(familyId);
+//        CollectionReference chatRef = familyRef.collection("chat");
+//        chatRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+//                if (error != null) {
+//                    //error message
+//                    return;
+//                }
+//                if (!queryDocumentSnapshots.isEmpty()) {
+//                    chatList.clear();
+//                    for (QueryDocumentSnapshot chatObj : queryDocumentSnapshots) {
+//                        /* making only the bills belonging to current user are being viewed */
+//                        Chat newChat = chatObj.toObject(Chat.class);
+//                        chatList.add(newChat);
+//                    }
+//
+//                    sortItems();
+//
+//                    if (firstLoad == true) {
+//                        chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(chatList, getActivity());
+//                        recyclerView.setAdapter(chatRecyclerViewAdapter);
+//                        firstLoad = false;
+//                    }
+//
+//                    chatRecyclerViewAdapter.notifyDataSetChanged();
+//                    recyclerView.scrollToPosition(chatList.size() - 1);
+//                } else {
+//                    /* display "no bills" text view */
+//                }
+//            }
+//        });
     }
 }
