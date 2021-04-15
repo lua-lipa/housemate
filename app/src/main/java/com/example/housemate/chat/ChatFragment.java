@@ -2,7 +2,6 @@ package com.example.housemate.chat;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.housemate.Bills.BillActivity;
-import com.example.housemate.FamilyActivity;
 import com.example.housemate.R;
-import com.example.housemate.ShoppingList.ShoppingItem;
-import com.example.housemate.adapter.BillsActivityRecyclerViewAdapter;
-import com.example.housemate.family.FamilyRecyclerViewAdapter;
 import com.example.housemate.util.HousemateAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

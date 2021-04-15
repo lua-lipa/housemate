@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F5F4F4">
+    android:layout_height="match_parent">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -78,25 +77,27 @@
             android:id="@+id/bills_mybills_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My bills" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/bills_activity_chip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Activity" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/bills_paidbills_chip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Paid bills" />
+            android:text="My bills"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#FF8A00" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/bills_housebills_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="h" />
+            android:text="House"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#FF8A00" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/bills_paidbills_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paid bills"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#FF8A00" />
+
+<!--view bills-->
     </com.google.android.material.chip.ChipGroup>
 
     <TextView
