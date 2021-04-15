@@ -33,7 +33,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -113,6 +115,7 @@ public class AddChoreBottomFragment extends BottomSheetDialogFragment implements
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     assignChore(name, assignee, date, activity, documentSnapshot);
+                                    addChoreAddedActivity(name, assignee);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -160,6 +163,40 @@ public class AddChoreBottomFragment extends BottomSheetDialogFragment implements
         month += 1;
         String date = dayOfMonth + "/" + month + "/" + year;
         dateText.setText(date);
+    }
+
+    private void addChoreAddedActivity(String name, String assignee) {
+        HousemateAPI api = HousemateAPI.getInstance();
+        String userId = mAuth.getUid();
+        DocumentReference userRef = db.collection("users").document(userId);
+        String familyId = api.getFamilyId();
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        String billActivityId = familyRef.collection("houseActivity").document().getId();
+        DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
+        Map<String, Object> houseActivityObj = new HashMap<>();
+        String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
+        String assigneeUserName = assignee.substring(0, assignee.indexOf(" "));
+        String message = assignerUserName + " assigned the " + name + " chore to " + assigneeUserName + ".";
+        /* the date gets formatted to display correctly in the activity view */
+        SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date d = new Date();
+        String cur_time = formatter.format(d);
+        houseActivityObj.put("billActivityId", billActivityId);
+        houseActivityObj.put("message", message) ;
+        houseActivityObj.put("date", cur_time);
+        houseActivityObj.put("type", "chore");
+        houseActivityRef.set(houseActivityObj)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Toast.makeText(getActivity(), "add bill activity success", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void assignChore(String name, String assignee, String date, Activity activity, DocumentSnapshot documentSnapshot) {
