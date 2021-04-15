@@ -37,10 +37,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingFragment extends Fragment {
 
@@ -135,6 +140,8 @@ public class ShoppingFragment extends Fragment {
                     DocumentReference shoppingItemRef = shoppingListRef.document(itemsToDelete.get(i).getShoppingListId());
                     batch.update(shoppingItemRef, "isBought", true);
                 }
+
+                addItemBoughtActivity(itemsToDelete);
 
                 //committing the batch changes
                 batch.commit()
@@ -295,6 +302,45 @@ public class ShoppingFragment extends Fragment {
             @Override
             public int compare(ShoppingItem o1, ShoppingItem o2) {
                     return o1.getDate().compareTo(o2.getDate());
+            }
+        });
+    }
+
+    private void addItemBoughtActivity(List<ShoppingItem> items) {
+        String item_name = "";
+        if (items.size() == 1) {
+            item_name = items.get(0).getItem();
+        } else {
+            item_name = items.size() + " items";
+        }
+        HousemateAPI api = HousemateAPI.getInstance();
+        String familyId = api.getFamilyId();
+        DocumentReference familyRef = db.collection("families").document(familyId);
+        String billActivityId = familyRef.collection("houseActivity").document().getId();
+        DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
+        String buyer = api.getUserName().substring(0, api.getUserName().indexOf(" "));
+
+        Map<String, Object> houseActivityObj = new HashMap<>();
+        String message = buyer + " bought " + item_name + " from the shopping list.";
+        /* the date gets formatted to display correctly in the activity view */
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date d = new Date();
+        String cur_time = formatter.format(d);
+        Date currentTime = Calendar.getInstance().getTime();
+        houseActivityObj.put("billActivityId", billActivityId);
+        houseActivityObj.put("message", message);
+        houseActivityObj.put("date", cur_time);
+        houseActivityObj.put("type", "shopping");
+        houseActivityRef.set(houseActivityObj)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getActivity(), "add activity success", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
