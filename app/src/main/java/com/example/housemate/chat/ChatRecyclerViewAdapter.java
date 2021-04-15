@@ -52,6 +52,11 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         holder.chatMessageText.setText(chat.getMessage());
         holder.chatMessageName.setText(chat.getSender());
 
+        if (chat.getUserId().equals(housemateAPI.getUserId())) {
+            holder.chatMessageCardView.setCardBackgroundColor(Color.parseColor("#FF8A00"));
+            holder.chatMessageText.setTextColor(Color.parseColor("#FFFFFFFF"));
+            holder.chatMessageName.setTextColor(Color.parseColor("#FF8A00"));
+        }
 
         /*
         ViewGroup.LayoutParams lp = holder.chatLayout.getLayoutParams();

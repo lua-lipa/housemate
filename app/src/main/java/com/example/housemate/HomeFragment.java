@@ -20,7 +20,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ImageButton choresButton;
     private ImageButton shoppingButton;
     private ImageButton billsButton;
-    private ImageButton remindersButton;
+    private ImageButton activityButton;
     private ImageButton selectedButton;
 
     FragmentManager fragmentManager;
@@ -44,11 +44,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         choresButton = view.findViewById(R.id.homeChoresButton);
         shoppingButton = view.findViewById(R.id.homeShoppingButton);
         billsButton = view.findViewById(R.id.homeBillsButton);
-        remindersButton = view.findViewById(R.id.homeRemindersButton);
+        activityButton = view.findViewById(R.id.homeActivityButton);
         choresButton.setOnClickListener(this);
         shoppingButton.setOnClickListener(this);
         billsButton.setOnClickListener(this);
-        remindersButton.setOnClickListener(this);
+        activityButton.setOnClickListener(this);
 
         selectedButton = choresButton;
         selectedButton.setBackgroundResource(R.drawable.rounded_button_highlighted_3dp);
@@ -68,24 +68,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if (id == R.id.homeChoresButton) {
             fragment = new ViewChoresFragment();
             selectedButton = choresButton;
-        } else
-            //if we select the shopping button, we create a new shopping fragment
-            if (id == R.id.homeShoppingButton) {
+        } else if (id == R.id.homeShoppingButton) {
             fragment = new ShoppingFragment();
             selectedButton = shoppingButton;
-        } else
-            //if we select the bills button, we create a new bills fragment
-            if (id == R.id.homeBillsButton) {
+        } else if (id == R.id.homeBillsButton) {
             fragment = new ViewBillsFragment();
             selectedButton = billsButton;
-        } else
-            //if we select the reminders button, we create a new reminders fragment
-            if (id == R.id.homeRemindersButton) {
+        } else if (id == R.id.homeActivityButton) {
             fragment = new RemindersFragment();
-        } else if (id == R.id.homeRemindersButton) {
-            fragment = new ChatFragment();
-            selectedButton = remindersButton;
+            selectedButton = activityButton;
         }
+
         if (lastSelectedButton != selectedButton) {
             lastSelectedButton.setBackgroundResource(R.drawable.rounded_button_black);
             selectedButton.setBackgroundResource(R.drawable.rounded_button_highlighted_3dp);

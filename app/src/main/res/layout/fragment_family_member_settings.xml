@@ -35,7 +35,7 @@
         android:fontFamily="@font/roboto_bold"
         android:text="@string/remove_member"
         android:textAllCaps="false"
-        app:backgroundTint="#CA1C0F"
+        app:backgroundTint="#DF3C30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
