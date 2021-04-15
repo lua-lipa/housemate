@@ -140,9 +140,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         Toast.makeText(getActivity(), "Enter Text", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
-
             }
         });
 
