@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F5F4F4">
+    android:layout_height="match_parent">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -53,8 +52,8 @@
 
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/billsMoreInfoFAB"
-        android:layout_width="33dp"
-        android:layout_height="43dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_gravity="end|bottom"
         android:contentDescription="@string/fab"
         app:fab_colorNormal="@color/orange"
@@ -78,13 +77,38 @@
             android:id="@+id/bills_mybills_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My bills" />
+            android:text="My bills"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#FF8A00" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/bills_activity_chip"
+            android:id="@+id/bills_housebills_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Activity" />
+            android:text="House"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#FF8A00" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/bills_paidbills_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paid bills"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#FF8A00" />
+
+<!--view bills-->
     </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/bills_nothing_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Nothing to display"
+        app:layout_constraintBottom_toBottomOf="@+id/bills_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

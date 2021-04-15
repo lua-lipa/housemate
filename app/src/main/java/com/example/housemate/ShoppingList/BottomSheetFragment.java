@@ -1,14 +1,10 @@
 package com.example.housemate.ShoppingList;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.Group;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,37 +12,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.housemate.Bills.Bill;
 import com.example.housemate.R;
-import com.example.housemate.adapter.BillRecyclerViewAdapter;
-import com.example.housemate.adapter.ShoppingRecyclerViewAdapter;
+import com.example.housemate.util.HousemateAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.chip.Chip;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
+    //items from xml file for fragment_bottom_sheet
     EditText enterItem;
     ImageButton calendarButton;
     ImageButton saveItemButton;
@@ -54,11 +43,13 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     String date;
     Group calendarGroup;
 
+    //firebase info variables
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+    //firebase entry point
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public BottomSheetFragment() {
+        //required empty constructor
     }
 
     @Override
@@ -69,16 +60,17 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
 
-        // All values in fragment
+        // references to all values in fragment_bottom_sheet
         calendarGroup = view.findViewById(R.id.calendar_group);
         calendarView = view.findViewById(R.id.calendar_view);
         calendarButton = view.findViewById(R.id.today_calendar_button);
         enterItem = (EditText) view.findViewById(R.id.enter_item);
         saveItemButton = view.findViewById(R.id.save_item_button);
 
+        //entry point to firebase
         mAuth = FirebaseAuth.getInstance();
 
         return view;
@@ -89,51 +81,47 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         //fetching info from views is ideal here, once onCreateView is done, this will run right after (when the view is already created)
-
+        //save item button in the fragment
         saveItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //setting the text in the enter item text view to a string
                 String item = enterItem.getText().toString();
+                //getting the username so we can store it in the shopping list
+                String user = HousemateAPI.getInstance().getUserName();
+                //getting the date and time
                 Date c = Calendar.getInstance().getTime();
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+
+                //setting the format we want for the date
+                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 date = df.format(c);
 
                 if (!TextUtils.isEmpty(item)) {
-
+                    //getting the userid
                     String userId = mAuth.getUid();
+                    //referencing the user so we can get info from the specific user
                     DocumentReference userRef = db.collection("users").document(userId);
 
-                    userRef.get()
-                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    String familyId = HousemateAPI.getInstance().getFamilyId();
+                    DocumentReference familyRef = db.collection("families").document(familyId);
+                    String shoppingListId = familyRef.collection("shoppingList").document().getId();
+                    DocumentReference shoppingListRef = familyRef.collection("shoppingList").document(shoppingListId);
+
+                    //mapping the tags to our data fields
+                    Map<String, Object> shoppingListObj = new HashMap();
+                    shoppingListObj.put("shoppingListId", shoppingListId);
+                    shoppingListObj.put("item", item);
+                    shoppingListObj.put("date", date);
+                    shoppingListObj.put("isBought", false);
+                    shoppingListObj.put("user", user);
+
+                    //setting the shopping list reference ot the shopping list object hashmap to populate the array with the new item
+                    shoppingListRef.set(shoppingListObj)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    //get family id
-                                    //create sub collection in that family doc using the id
-                                    //after collection, add data
-                                    //save data with this button
-                                    String familyId = documentSnapshot.getString("familyId");
-                                    DocumentReference familyRef = db.collection("families").document(familyId);
-                                    String shoppingListId = familyRef.collection("shoppingList").document().getId();
-                                    DocumentReference shoppingListRef = familyRef.collection("shoppingList").document(shoppingListId);
-
-                                    Map<String, Object> shoppingListObj = new HashMap();
-                                    shoppingListObj.put("shoppingListId", shoppingListId);
-                                    shoppingListObj.put("item", item);
-                                    shoppingListObj.put("date", date);
-
-                                    shoppingListRef.set(shoppingListObj)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(getActivity(), "Item Added!", Toast.LENGTH_LONG).show();
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
-                                                }
-                                            });
+                                public void onSuccess(Void aVoid) {
+                                    dismiss();
+                                    Toast.makeText(getActivity(), "Item Added!", Toast.LENGTH_LONG).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -142,8 +130,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                                     Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
                                 }
                             });
+
+
                 } else {
-                    if(item.length() == 0){
+                    //a check to ensure that we are typing something into the text field before we press the save button
+                    if (item.length() == 0) {
                         enterItem.requestFocus();
                         enterItem.setError("Enter Text");
                         Toast.makeText(getActivity(), "Enter Text", Toast.LENGTH_SHORT).show();
@@ -152,6 +143,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
+        //calendar button to click and view it for convenience of the user to see what date it is today
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

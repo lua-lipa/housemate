@@ -16,6 +16,12 @@ import com.example.housemate.R;
 import com.example.housemate.ShoppingList.ShoppingItem;
 import com.example.housemate.util.HousemateAPI;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.WriteBatch;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,13 +31,17 @@ import java.util.Objects;
 
 /* what allows us to bind views to our rows & the actual data we will be getting from firebase */
 public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRecyclerViewAdapter.ViewHolder> {
+    //necessary shopping lists in order to reload the recycler view and display them accordingly
     private List<ShoppingItem> shoppingList;
     private List<ShoppingItem> checkedShoppingList;
     private List<ShoppingItem> shoppingListItemsToDelete;
+    private List<ShoppingItem> finalShoppingListItemsToDelete;
     private Context context;
     HousemateAPI housemateAPI = HousemateAPI.getInstance();
 
-    public ShoppingRecyclerViewAdapter(){}
+    public ShoppingRecyclerViewAdapter(){
+        //required empty constructor
+    }
 
     public ShoppingRecyclerViewAdapter(List<ShoppingItem> shoppingList, Context context) {
         this.shoppingList = shoppingList;
@@ -57,21 +67,30 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
         ShoppingItem shoppingItem = Objects.requireNonNull(shoppingList).get(position);
         holder.name.setText(shoppingItem.getItem());
         holder.date.setText(shoppingItem.getDate());
+        holder.user.setText(shoppingItem.getUser());
 
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if(isChecked){
                     checkedShoppingList.remove(shoppingItem);
                     shoppingListItemsToDelete.add(shoppingItem);
-                }else{
+                }else if(!isChecked){
                     checkedShoppingList.add(shoppingItem);
                     shoppingListItemsToDelete.remove(shoppingItem);
+                }else if(isChecked && shoppingItem.getIsBought()){
+                    checkedShoppingList.remove(shoppingItem);
+                    finalShoppingListItemsToDelete.add(shoppingItem);
+                    Log.d("items to delete final ", finalShoppingListItemsToDelete.toString());
                 }
                 housemateAPI.setCheckedShoppingList(checkedShoppingList);
                 housemateAPI.setShoppingListItemsToDelete(shoppingListItemsToDelete);
+                housemateAPI.setFinalShoppingListItemsToDelete(finalShoppingListItemsToDelete);
             }
         });
+
+
     }
 
     @Override
@@ -80,19 +99,23 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        //setting the vairiables to the shopping_row.xml
         public TextView name;
         public TextView date;
         public CheckBox checkBox;
         public FloatingActionButton deleteFAB;
+        public TextView user;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            //references to everything in the shopping_row.xml
             name = itemView.findViewById(R.id.shopping_row_item);
             date = itemView.findViewById(R.id.shopping_row_date);
             checkBox = itemView.findViewById(R.id.shopping_row_checkbox);
             deleteFAB = itemView.findViewById(R.id.deleteItemFAB);
+            user = itemView.findViewById(R.id.shopping_row_name_display);
             checkBox.setChecked(false);
-
         }
     }
 }

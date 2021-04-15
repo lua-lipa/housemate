@@ -14,6 +14,7 @@ import com.example.housemate.Bills.AddBillFragment;
 import com.example.housemate.Bills.ViewBillsFragment;
 import com.example.housemate.ShoppingList.ShoppingFragment;
 import com.example.housemate.Chores.ViewChoresFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
     private ImageButton choresButton;
@@ -21,6 +22,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ImageButton billsButton;
     private ImageButton remindersButton;
     private ImageButton selectedButton;
+    private BottomNavigationItemView homeButton;
 
     FragmentManager fragmentManager;
 
@@ -44,16 +46,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         shoppingButton = view.findViewById(R.id.homeShoppingButton);
         billsButton = view.findViewById(R.id.homeBillsButton);
         remindersButton = view.findViewById(R.id.homeRemindersButton);
+
         choresButton.setOnClickListener(this);
         shoppingButton.setOnClickListener(this);
         billsButton.setOnClickListener(this);
         remindersButton.setOnClickListener(this);
 
-
-        selectedButton = choresButton;
-        selectedButton.setBackgroundResource(R.drawable.rounded_button_highlighted_3dp);
+        selectedButton = remindersButton;
+        if (selectedButton != null) selectedButton.setBackgroundResource(R.drawable.rounded_button_highlighted_3dp);
         fragmentManager.beginTransaction()
-                .add(R.id.homeFrameLayout, new ViewChoresFragment())
+                .add(R.id.homeFrameLayout, new HouseActivityFragment())
                 .commit();
 
         return view;
@@ -74,11 +76,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             fragment = new ViewBillsFragment();
             selectedButton = billsButton;
         } else if (id == R.id.homeRemindersButton) {
-            fragment = new RemindersFragment();
+            fragment = new HouseActivityFragment();
             selectedButton = remindersButton;
+
+        } else {
+            fragment = new HouseActivityFragment();
+            selectedButton = null;
         }
-        if (lastSelectedButton != selectedButton) {
-            lastSelectedButton.setBackgroundResource(R.drawable.rounded_button_black);
+
+        if (lastSelectedButton != selectedButton && selectedButton != null)  {
+            if (lastSelectedButton != null) lastSelectedButton.setBackgroundResource(R.drawable.rounded_button_black);
             selectedButton.setBackgroundResource(R.drawable.rounded_button_highlighted_3dp);
         }
         if (fragment != null) {
@@ -88,4 +95,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     .commit();
         }
     }
+
 }
