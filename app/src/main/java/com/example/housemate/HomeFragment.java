@@ -50,10 +50,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         billsButton.setOnClickListener(this);
         activityButton.setOnClickListener(this);
 
-        selectedButton = choresButton;
+        selectedButton = activityButton;
         selectedButton.setBackgroundResource(R.drawable.rounded_button_highlighted_3dp);
         fragmentManager.beginTransaction()
-                .add(R.id.homeFrameLayout, new ViewChoresFragment())
+                .add(R.id.homeFrameLayout, new HouseActivityFragment())
                 .commit();
 
         return view;
@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         ImageButton lastSelectedButton = selectedButton;
-        Fragment fragment = new ViewChoresFragment();
+        Fragment fragment = new HouseActivityFragment();
         int id = v.getId();
         //if we select the chores button, we create a new chores fragment
         if (id == R.id.homeChoresButton) {
@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             fragment = new ViewBillsFragment();
             selectedButton = billsButton;
         } else if (id == R.id.homeActivityButton) {
-            fragment = new RemindersFragment();
+            fragment = new HouseActivityFragment();
             selectedButton = activityButton;
         }
 
