@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                                             List<Map<String, Object>> membersList = (List<Map<String, Object>>) documentSnapshot.get("members");
                                             String familyOwnerId = documentSnapshot.getString("familyOwnerId");
                                             String familyId = documentSnapshot.getString("familyId");
-                                            String familyName = documentSnapshot.getString("name");
+                                            String familyName = documentSnapshot.getString("familyName");
 
                                             housemateAPI.setFamilyId(familyId);
                                             housemateAPI.setFamilyName(familyName);

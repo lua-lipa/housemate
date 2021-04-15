@@ -32,7 +32,6 @@ public class SettingsFragment extends Fragment {
 
     private Button changeNameButton;
     private Button changePasswordButton;
-    private Button deleteAccountButton;
     private Button logOutButton;
 
     public SettingsFragment() {
@@ -54,7 +53,6 @@ public class SettingsFragment extends Fragment {
 
         changeNameButton = view.findViewById(R.id.settingsChangeNameButton);
         changePasswordButton = view.findViewById(R.id.settingsChangePasswordButton);
-        deleteAccountButton = view.findViewById(R.id.settingsDeleteAccountButton);
         logOutButton = view.findViewById(R.id.settingsLogOutButton);
 
         changeNameButton.setOnClickListener(v -> {
