@@ -104,6 +104,8 @@
             android:id="@+id/shopping_list_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/orange"
             android:text="@string/list" />
 
         <!--Chip that allows us to reload the recycler view and show the activity list-->
@@ -111,6 +113,8 @@
             android:id="@+id/shopping_activity_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/orange"
             android:text="@string/activity" />
     </com.google.android.material.chip.ChipGroup>
 
