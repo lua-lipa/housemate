@@ -175,23 +175,28 @@ public class ShoppingFragment extends Fragment {
                 DocumentReference familyRef = db.collection("families").document(housemateAPI.getFamilyId());
                 CollectionReference shoppingListRef = familyRef.collection("shoppingList");
                 WriteBatch batch = db.batch();
-                for (int i = 0; i < finalShoppingListItemsToDelete.size(); i++) {
-                    DocumentReference shoppingItemRef = shoppingListRef.document(finalShoppingListItemsToDelete.get(i).getShoppingListId());
-                    batch.delete(shoppingItemRef);
-                }
 
-                batch.commit()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(), "Item Deleted!", Toast.LENGTH_LONG).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                if(finalShoppingListItemsToDelete != null) {
+                    for (int i = 0; i < finalShoppingListItemsToDelete.size(); i++) {
+                        DocumentReference shoppingItemRef = shoppingListRef.document(finalShoppingListItemsToDelete.get(i).getShoppingListId());
+                        batch.delete(shoppingItemRef);
                     }
-                });
+
+                    batch.commit()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "Item Deleted!", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else{
+                    Toast.makeText(getContext(), "Nothing Selected!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
