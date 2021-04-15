@@ -76,5 +76,15 @@
     <string name="username">username</string>
     <string name="name">name</string>
     <string name="chat">Chat</string>
+    <string name="change_name">Change Name</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="change_password">Change Password</string>
+    <string name="enter_your_new_name">Enter your new name</string>
+    <string name="update">Update</string>
+    <string name="enter_your_old_password">Enter your old password</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="log_out">Log Out</string>
+    <string name="enter_message">Enter message</string>
+    <string name="type_here">Type here...</string>
 
 </resources>

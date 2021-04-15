@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.housemate.chat.ChatFragment;
 import com.example.housemate.family.FamilyFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment homeFragment = new HomeFragment();
         Fragment familyFragment = new FamilyFragment();
         Fragment settingsFragment = new SettingsFragment();
+        Fragment chatFragment = new ChatFragment();
 
         BottomNavigationView navigationView = findViewById(R.id.navbarBottomNavigation);
         setCurrentFragment(homeFragment);
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (id == R.id.navHome) {
                     setCurrentFragment(homeFragment);
+                } else if (id == R.id.navChat) {
+                    setCurrentFragment(chatFragment);
                 } else if (id == R.id.navFamily) {
                     setCurrentFragment(familyFragment);
                 } else if (id == R.id.navSettings) {

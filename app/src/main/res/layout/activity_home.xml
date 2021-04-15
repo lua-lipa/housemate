@@ -75,7 +75,7 @@
         android:background="@drawable/rounded_button_black"
         android:contentDescription="@string/create_icon"
         android:tint="#323232"
-        app:layout_constraintEnd_toStartOf="@+id/homeRemindersButton"
+        app:layout_constraintEnd_toStartOf="@+id/homeActivityButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/homeShoppingButton"
         app:layout_constraintTop_toBottomOf="@+id/homeTitleText"
@@ -84,7 +84,7 @@
     </ImageButton>
 
     <ImageButton
-        android:id="@+id/homeRemindersButton"
+        android:id="@+id/homeActivityButton"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_marginTop="16dp"
@@ -97,7 +97,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/homeBillsButton"
         app:layout_constraintTop_toBottomOf="@+id/homeTitleText"
-        app:srcCompat="@drawable/ic_baseline_chat_24">
+        app:srcCompat="@drawable/ic_baseline_format_list_bulleted_24">
 
     </ImageButton>
 
@@ -140,10 +140,10 @@
         android:layout_height="19dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="@string/chat"
-        app:layout_constraintEnd_toEndOf="@+id/homeRemindersButton"
-        app:layout_constraintStart_toStartOf="@+id/homeRemindersButton"
-        app:layout_constraintTop_toBottomOf="@+id/homeRemindersButton" />
+        android:text="@string/activity"
+        app:layout_constraintEnd_toEndOf="@+id/homeActivityButton"
+        app:layout_constraintStart_toStartOf="@+id/homeActivityButton"
+        app:layout_constraintTop_toBottomOf="@+id/homeActivityButton" />
 
     <FrameLayout
         android:id="@+id/homeFrameLayout"
