@@ -35,7 +35,9 @@ public class ShoppingMoreInfoFragment extends BottomSheetDialogFragment {
         return view;
     }
 
-    //this is just a design aspect, allows us to override the style from the theme.xml of the Bottom Sheet Dialog 
+    //this is just a design aspect, allows us to override the style from the theme.xml of the Bottom Sheet Dialog
+    //rounded edges
+    //can be found in themes.xml
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
