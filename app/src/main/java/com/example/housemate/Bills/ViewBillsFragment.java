@@ -191,14 +191,21 @@ public class ViewBillsFragment extends Fragment {
                         /* getting correct bills according to the value passed in */
                         Bill bill = bills.toObject(Bill.class);
                         String billUserId = bill.getUserId();
-                        if (userBillsOnly) {
-                            if (bill.getAssignee().equals(api.getUserName()) && bill.getIsPaid() == paidRequirement) {
-                                billsList.add(bill);
-                                Log.d("hi", "yo");
-                            }
-                        } else {
-                            if (bill.getIsPaid() == paidRequirement) billsList.add(bill);
+                        if (type.equals("unpaid")) {
+                            if (bill.getAssignee().equals(api.getUserName()) && bill.getIsPaid() == false) billsList.add(bill);
+                        } else if (type.equals("paid")) {
+                            if (bill.getIsPaid() == true) billsList.add(bill);
+                        } else if (type.equals("house")) {
+                            if (bill.getIsPaid() == false) billsList.add(bill);
                         }
+//                        if (userBillsOnly) {
+//                            if (bill.getAssignee().equals(api.getUserName()) && bill.getIsPaid() == paidRequirement) {
+//                                billsList.add(bill);
+//                                Log.d("hi", "yo");
+//                            }
+//                        } else {
+//                            if (bill.getIsPaid() == paidRequirement) billsList.add(bill);
+//                        }
                     }
                     /* invoke recycler view */
                     billsList = sortByDate(billsList);
