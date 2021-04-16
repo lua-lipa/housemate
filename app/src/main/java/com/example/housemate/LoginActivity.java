@@ -66,33 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordInput.getText().toString().trim();
 
                 mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                //Check if they have family
-                                //If they do then bring them to do home page
-                                //Else bring them to join/create family page
-
-                                String userId = mAuth.getUid();
-                                DocumentReference userRef = db.collection("users").document(userId);
-
-                                userRef.get()
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                signIn();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                                            }
-                                        });
-
-
-                            }
-                        })
+                        .addOnSuccessListener(authResult -> signIn())
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
