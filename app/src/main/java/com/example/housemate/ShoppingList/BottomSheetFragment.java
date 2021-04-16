@@ -153,14 +153,17 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void addItemAddedActivity(String item) {
+        //housemate api
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getInstance().getFamilyId();
         String userName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
         String message = userName + " added " + item + " to the shopping list.";
 
+        //references to database that are needed
         DocumentReference familyRef = db.collection("families").document(familyId);
         String shoppingActivityId = familyRef.collection("houseActivity").document().getId();
         DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(shoppingActivityId);
+        //house activity map
         Map<String, Object> houseActivityObj = new HashMap<>();
 
         //date gets formatted to display correctly in the activity view

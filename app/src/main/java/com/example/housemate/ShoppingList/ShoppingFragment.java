@@ -275,6 +275,7 @@ public class ShoppingFragment extends Fragment {
         super.onStart();
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getFamilyId();
+        //references to database that are needed
         DocumentReference familyRef = db.collection("families").document(familyId);
         CollectionReference shoppingListRef = familyRef.collection("shoppingList");
 
@@ -321,8 +322,10 @@ public class ShoppingFragment extends Fragment {
         } else {
             item_name = items.size() + " items";
         }
+        //housemate api
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getFamilyId();
+        //references to database that are needed
         DocumentReference familyRef = db.collection("families").document(familyId);
         String billActivityId = familyRef.collection("houseActivity").document().getId();
         DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
