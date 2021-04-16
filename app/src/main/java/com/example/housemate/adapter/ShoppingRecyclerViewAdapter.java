@@ -74,16 +74,19 @@ public class ShoppingRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingRe
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked){
+                    //if we have checked the item, we will add it to items to delete
                     checkedShoppingList.remove(shoppingItem);
                     shoppingListItemsToDelete.add(shoppingItem);
-                }else if(!isChecked){
+                }else if(!isChecked){ //if its not checked then we leave it in the shopping list
                     checkedShoppingList.add(shoppingItem);
                     shoppingListItemsToDelete.remove(shoppingItem);
                 }else if(isChecked && shoppingItem.getIsBought()){
+                    //if its checked and the item has been bought, we can delete it permanently from the final list
                     checkedShoppingList.remove(shoppingItem);
                     finalShoppingListItemsToDelete.add(shoppingItem);
                     Log.d("items to delete final ", finalShoppingListItemsToDelete.toString());
                 }
+                //setting all of the required lists
                 housemateAPI.setCheckedShoppingList(checkedShoppingList);
                 housemateAPI.setShoppingListItemsToDelete(shoppingListItemsToDelete);
                 housemateAPI.setFinalShoppingListItemsToDelete(finalShoppingListItemsToDelete);
