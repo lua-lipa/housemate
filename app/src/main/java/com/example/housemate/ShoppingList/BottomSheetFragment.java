@@ -168,6 +168,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         Date d = new Date();
         String cur_time = formatter.format(d);
 
+        //activity view section
         houseActivityObj.put("shoppingActivityId", shoppingActivityId);
         houseActivityObj.put("message", message) ;
         houseActivityObj.put("date", cur_time);

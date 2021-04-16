@@ -328,6 +328,7 @@ public class ShoppingFragment extends Fragment {
         DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
         String buyer = api.getUserName().substring(0, api.getUserName().indexOf(" "));
 
+        //buying items from the list, how its viewed in activity section of the app
         Map<String, Object> houseActivityObj = new HashMap<>();
         String message = buyer + " bought " + item_name + " from the shopping list.";
         /* the date gets formatted to display correctly in the activity view */
@@ -335,6 +336,8 @@ public class ShoppingFragment extends Fragment {
         Date d = new Date();
         String cur_time = formatter.format(d);
         Date currentTime = Calendar.getInstance().getTime();
+
+        //adding the items that have been bought
         houseActivityObj.put("billActivityId", billActivityId);
         houseActivityObj.put("message", message);
         houseActivityObj.put("date", cur_time);
