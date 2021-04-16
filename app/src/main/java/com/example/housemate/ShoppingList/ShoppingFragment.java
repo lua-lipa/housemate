@@ -175,23 +175,28 @@ public class ShoppingFragment extends Fragment {
                 DocumentReference familyRef = db.collection("families").document(housemateAPI.getFamilyId());
                 CollectionReference shoppingListRef = familyRef.collection("shoppingList");
                 WriteBatch batch = db.batch();
-                for (int i = 0; i < finalShoppingListItemsToDelete.size(); i++) {
-                    DocumentReference shoppingItemRef = shoppingListRef.document(finalShoppingListItemsToDelete.get(i).getShoppingListId());
-                    batch.delete(shoppingItemRef);
-                }
 
-                batch.commit()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(), "Item Deleted!", Toast.LENGTH_LONG).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                if(finalShoppingListItemsToDelete != null) {
+                    for (int i = 0; i < finalShoppingListItemsToDelete.size(); i++) {
+                        DocumentReference shoppingItemRef = shoppingListRef.document(finalShoppingListItemsToDelete.get(i).getShoppingListId());
+                        batch.delete(shoppingItemRef);
                     }
-                });
+
+                    batch.commit()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "Item Deleted!", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else{
+                    Toast.makeText(getContext(), "Nothing Selected!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -270,6 +275,7 @@ public class ShoppingFragment extends Fragment {
         super.onStart();
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getFamilyId();
+        //references to database that are needed
         DocumentReference familyRef = db.collection("families").document(familyId);
         CollectionReference shoppingListRef = familyRef.collection("shoppingList");
 
@@ -316,13 +322,16 @@ public class ShoppingFragment extends Fragment {
         } else {
             item_name = items.size() + " items";
         }
+        //housemate api
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getFamilyId();
+        //references to database that are needed
         DocumentReference familyRef = db.collection("families").document(familyId);
         String billActivityId = familyRef.collection("houseActivity").document().getId();
         DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
         String buyer = api.getUserName().substring(0, api.getUserName().indexOf(" "));
 
+        //buying items from the list, how its viewed in activity section of the app
         Map<String, Object> houseActivityObj = new HashMap<>();
         String message = buyer + " bought " + item_name + " from the shopping list.";
         /* the date gets formatted to display correctly in the activity view */
@@ -330,6 +339,8 @@ public class ShoppingFragment extends Fragment {
         Date d = new Date();
         String cur_time = formatter.format(d);
         Date currentTime = Calendar.getInstance().getTime();
+
+        //adding the items that have been bought
         houseActivityObj.put("billActivityId", billActivityId);
         houseActivityObj.put("message", message);
         houseActivityObj.put("date", cur_time);

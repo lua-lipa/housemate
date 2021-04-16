@@ -20,7 +20,6 @@ public class ShoppingItem {
 
     //getters and setters for all
 
-
     public String getItem() {
         return item;
     }
@@ -60,7 +59,6 @@ public class ShoppingItem {
     public void setUser(String user) { this.user = user; }
 
     //toString method to help with testing
-
     @Override
     public String toString() {
         return "ShoppingItem{" +
