@@ -115,7 +115,7 @@ public class AddChoreBottomFragment extends BottomSheetDialogFragment implements
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     assignChore(name, assignee, date, activity, documentSnapshot);
-                                    addChoreAddedActivity(name, assignee);
+                                    addChoreAddedActivity(name, assignee); //update house activity
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -166,22 +166,28 @@ public class AddChoreBottomFragment extends BottomSheetDialogFragment implements
     }
 
     private void addChoreAddedActivity(String name, String assignee) {
+        //connect to firestore and the families house activity document
         HousemateAPI api = HousemateAPI.getInstance();
         String userId = mAuth.getUid();
         DocumentReference userRef = db.collection("users").document(userId);
         String familyId = api.getFamilyId();
         DocumentReference familyRef = db.collection("families").document(familyId);
-        String billActivityId = familyRef.collection("houseActivity").document().getId();
-        DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
+        String houseActivityId = familyRef.collection("houseActivity").document().getId();
+        DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(houseActivityId);
+        //make a house activity object to add to firestore
         Map<String, Object> houseActivityObj = new HashMap<>();
+        //get the user that added the chores name
         String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
+        //get the user that the chores for name
         String assigneeUserName = assignee.substring(0, assignee.indexOf(" "));
+        //create the message to output in the recyclerView
         String message = assignerUserName + " assigned the " + name + " chore to " + assigneeUserName + ".";
         /* the date gets formatted to display correctly in the activity view */
         SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date d = new Date();
+        //get the current time to display when the chore was added
         String cur_time = formatter.format(d);
-        houseActivityObj.put("billActivityId", billActivityId);
+        houseActivityObj.put("houseActivityId", houseActivityId);
         houseActivityObj.put("message", message) ;
         houseActivityObj.put("date", cur_time);
         houseActivityObj.put("type", "chore");
@@ -189,7 +195,7 @@ public class AddChoreBottomFragment extends BottomSheetDialogFragment implements
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        //Toast.makeText(getActivity(), "add bill activity success", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "add chore activity success", Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -110,7 +111,6 @@ public class ViewChoresFragment extends Fragment {
 
         //initiate the chore list as an array list
         choresList = new ArrayList<>();
-
 
         //set up the recycler view
         recyclerView = v.findViewById(R.id.ChoresRecyclerView);
@@ -267,14 +267,10 @@ public class ViewChoresFragment extends Fragment {
             DocumentReference familyRef = db.collection("families").document(api.getFamilyId());
             DocumentReference choresRef = familyRef.collection("chores").document(choreSwiped.getChoresId());
             //only allow an admin or the user the chore is assigned to to set its as done
-            if(choreSwiped.getAssignee().equals(userId) || api.isAdmin()) {
-                choresRef.update("isDone", true);
-                addChoreFinishedActivity(choreSwiped);
-                choresList.remove(viewHolder.getAdapterPosition());
-                Toast.makeText(activity, "Chore completed.", Toast.LENGTH_LONG).show();
-            } else{
-                Toast.makeText(activity, "Only the chore assignee or an admin can complete a chore.", Toast.LENGTH_LONG).show();
-            }
+            choresRef.update("isDone", true);
+            addChoreFinishedActivity(choreSwiped); //update house activity
+            choresList.remove(viewHolder.getAdapterPosition());
+            Toast.makeText(activity, "Chore completed.", Toast.LENGTH_LONG).show();
             choresRecyclerViewAdapter.notifyDataSetChanged();
         }
 
@@ -316,21 +312,25 @@ public class ViewChoresFragment extends Fragment {
     };
 
     private void addChoreFinishedActivity(Chore chore) {
+        //connect to firestore and the families house activity document
         HousemateAPI api = HousemateAPI.getInstance();
         String familyId = api.getFamilyId();
         DocumentReference familyRef = db.collection("families").document(familyId);
-        String billActivityId = familyRef.collection("houseActivity").document().getId();
-        DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(billActivityId);
+        String houseActivityId = familyRef.collection("houseActivity").document().getId();
+        DocumentReference houseActivityRef = familyRef.collection("houseActivity").document(houseActivityId);
+        //get the name of the user that completed the chore, it will be the same as the user that it was assigned to
         String assignerUserName = api.getUserName().substring(0, api.getUserName().indexOf(" "));
-        String assigneeUserName = chore.getAssignee().substring(0, chore.getAssignee().indexOf(" "));
+        //create a house activity object to add to firestore
         Map<String, Object> houseActivityObj = new HashMap<>();
+        //create the message to display in the recyclerView
         String message = assignerUserName + " finished the " + chore.getName() + " chore.";
-        /* the date gets formatted to display correctly in the activity view */
+        //the date gets formatted to display correctly in the activity view
         SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date d = new Date();
+        //get the current time to display when the chore was finished
         String cur_time = formatter.format(d);
         Date currentTime = Calendar.getInstance().getTime();
-        houseActivityObj.put("billActivityId", billActivityId);
+        houseActivityObj.put("houseActivityId", houseActivityId);
         houseActivityObj.put("message", message) ;
         houseActivityObj.put("date", cur_time);
         houseActivityObj.put("type", "chore");
@@ -338,7 +338,7 @@ public class ViewChoresFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(getActivity(), "add bill activity success", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "add chore activity success", Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
