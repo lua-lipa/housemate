@@ -209,7 +209,12 @@ public class ViewBillsFragment extends Fragment {
                     }
                     /* invoke recycler view */
                     billsList = sortByDate(billsList);
-                    if(billsList.size() == 0) nothingToDisplayLabel.setVisibility(View.VISIBLE); /* when list is empty, we display "nothing to display" text view */
+                    if(billsList.size() == 0) {
+                        nothingToDisplayLabel.setVisibility(View.VISIBLE); /* when list is empty, we display "nothing to display" text view */
+                    } else {
+                        nothingToDisplayLabel.setVisibility(View.INVISIBLE);
+
+                    }
 
                     myBillsRecyclerViewAdapter = new BillRecyclerViewAdapter(billsList, getActivity());
                     myBillsRecyclerView.setAdapter(myBillsRecyclerViewAdapter);
