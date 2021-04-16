@@ -2,6 +2,7 @@ package com.example.housemate;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class SettingsFragment extends Fragment {
 
     private Button changeNameButton;
     private Button changePasswordButton;
-    private Button deleteAccountButton;
+    private Button logOutButton;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -52,7 +53,7 @@ public class SettingsFragment extends Fragment {
 
         changeNameButton = view.findViewById(R.id.settingsChangeNameButton);
         changePasswordButton = view.findViewById(R.id.settingsChangePasswordButton);
-        deleteAccountButton = view.findViewById(R.id.settingsDeleteAccountButton);
+        logOutButton = view.findViewById(R.id.settingsLogOutButton);
 
         changeNameButton.setOnClickListener(v -> {
             showChangeNameDialog();
@@ -60,6 +61,15 @@ public class SettingsFragment extends Fragment {
 
         changePasswordButton.setOnClickListener(v -> {
             showChangePasswordDialog();
+        });
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent loginActivityIntent = new Intent(getContext(), LoginActivity.class);
+                startActivity(loginActivityIntent);
+            }
         });
 
         return view;

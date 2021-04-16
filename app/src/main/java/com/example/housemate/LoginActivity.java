@@ -80,48 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                //getting references to the family and user id along with the username
-                                                String familyId = documentSnapshot.getString("familyId");
-                                                String userId = documentSnapshot.getString("userId");
-                                                String userName = documentSnapshot.getString("name");
-
-                                                HousemateAPI housemateAPI = HousemateAPI.getInstance();
-                                                housemateAPI.setUserId(userId);
-                                                housemateAPI.setUserName(userName);
-                                                housemateAPI.setFamilyId(familyId);
-
-                                                if (familyId != null) {
-                                                    DocumentReference familyRef= db.collection("families").document(familyId);
-                                                    familyRef.get()
-                                                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                                @Override
-                                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                                    /* get the member map from firebase */
-                                                                    List<Map<String, Object>> membersList = (List<Map<String, Object>>) documentSnapshot.get("members");
-                                                                    String familyOwnerId = documentSnapshot.getString("familyOwnerId");
-                                                                    String familyId = documentSnapshot.getString("familyId");
-                                                                    String familyName = documentSnapshot.getString("name");
-
-                                                                    housemateAPI.setFamilyId(familyId);
-                                                                    housemateAPI.setFamilyName(familyName);
-                                                                    housemateAPI.setMembersList(membersList);
-                                                                    housemateAPI.setFamilyOwnerId(familyOwnerId);
-                                                                    housemateAPI.setIsAdmin((Boolean) housemateAPI.getMemberFromUserId(userId).get("isAdmin"));
-                                                                }
-                                                            })
-                                                            .addOnFailureListener(new OnFailureListener() {
-                                                                @Override
-                                                                public void onFailure(@NonNull Exception e) {
-
-                                                                }
-                                                            });
-
-                                                    Intent homeActivityIntent = new Intent(LoginActivity.this, MainActivity.class);
-                                                    startActivity(homeActivityIntent);
-                                                } else {
-                                                    Intent familyActivityIntent = new Intent(LoginActivity.this, FamilyActivity.class);
-                                                    startActivity(familyActivityIntent);
-                                                }
+                                                signIn();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -145,24 +104,79 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void signIn() {
+        String userId = mAuth.getUid();
+        DocumentReference userRef = db.collection("users").document(userId);
 
+        userRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        //getting references to the family and user id along with the username
+                        String familyId = documentSnapshot.getString("familyId");
+                        String userId = documentSnapshot.getString("userId");
+                        String userName = documentSnapshot.getString("name");
 
-    private void signIn(String email, String password) {
-        // [START sign_in_with_email]
+                        HousemateAPI housemateAPI = HousemateAPI.getInstance();
+                        housemateAPI.setUserId(userId);
+                        housemateAPI.setUserName(userName);
+                        housemateAPI.setFamilyId(familyId);
 
+                        if (familyId != null) {
+                            DocumentReference familyRef= db.collection("families").document(familyId);
+                            familyRef.get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            /* get the member map from firebase */
+                                            List<Map<String, Object>> membersList = (List<Map<String, Object>>) documentSnapshot.get("members");
+                                            String familyOwnerId = documentSnapshot.getString("familyOwnerId");
+                                            String familyId = documentSnapshot.getString("familyId");
+                                            String familyName = documentSnapshot.getString("familyName");
+
+                                            housemateAPI.setFamilyId(familyId);
+                                            housemateAPI.setFamilyName(familyName);
+                                            housemateAPI.setMembersList(membersList);
+                                            housemateAPI.setFamilyOwnerId(familyOwnerId);
+                                            housemateAPI.setIsAdmin((Boolean) housemateAPI.getMemberFromUserId(userId).get("isAdmin"));
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                        }
+                                    });
+
+                            Intent homeActivityIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(homeActivityIntent);
+                        } else {
+                            Intent familyActivityIntent = new Intent(LoginActivity.this, FamilyActivity.class);
+                            startActivity(familyActivityIntent);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 
 
-    /*
+
+
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            reload();
+            signIn();
         }
     }
-    */
+
+
 }

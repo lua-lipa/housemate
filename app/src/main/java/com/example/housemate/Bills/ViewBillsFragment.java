@@ -2,6 +2,7 @@
 package com.example.housemate.Bills;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -138,10 +139,10 @@ public class ViewBillsFragment extends Fragment {
         paidBillsChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                paidBillsChip.setBackgroundColor(Color.BLACK);
                 nothingToDisplayLabel.setVisibility(View.INVISIBLE);
                 loadBills("paid");
                 myBillsRecyclerView.setVisibility(View.VISIBLE);
-
             }
         });
 
@@ -152,7 +153,6 @@ public class ViewBillsFragment extends Fragment {
                     nothingToDisplayLabel.setVisibility(View.INVISIBLE);
                     loadBills("house");
                     myBillsRecyclerView.setVisibility(View.VISIBLE);
-
                 }
             });
         }
@@ -192,7 +192,10 @@ public class ViewBillsFragment extends Fragment {
                         Bill bill = bills.toObject(Bill.class);
                         String billUserId = bill.getUserId();
                         if (userBillsOnly) {
-                            if (billUserId.equals(api.getUserId()) && bill.getIsPaid() == paidRequirement) billsList.add(bill);
+                            if (bill.getAssignee().equals(api.getUserName()) && bill.getIsPaid() == paidRequirement) {
+                                billsList.add(bill);
+                                Log.d("hi", "yo");
+                            }
                         } else {
                             if (bill.getIsPaid() == paidRequirement) billsList.add(bill);
                         }
